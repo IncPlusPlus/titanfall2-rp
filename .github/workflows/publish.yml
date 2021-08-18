@@ -1,0 +1,50 @@
+﻿name: Publish
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+
+      - name: Add dotnet-format problem matcher
+        uses: xt0rted/dotnet-format-problem-matcher@v1
+
+      - name: Restore dotnet tools
+        uses: xt0rted/dotnet-tool-restore@v1
+
+      - name: Run dotnet format
+        run: dotnet format
+      # https://github.com/xt0rted/dotnet-format/issues/174
+      #      - name: Run dotnet format
+      #        uses: xt0rted/dotnet-format@v1
+
+      - name: Set up .NET Core SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.x'
+
+      - name: Attempt to build project (using the publish command)
+        run: dotnet publish
+
+      - name: Upload EXE as run artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: exe
+          path: titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
+
+  release:
+    name: Add artifact to GH Release
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get APK from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: exe
