@@ -7,6 +7,7 @@
 		<PublishTrimmed>true</PublishTrimmed>
 		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
 		<PublishSingleFile>true</PublishSingleFile>
+        <!--https://docs.microsoft.com/en-us/answers/questions/296816/self-contained-single-file-does-not-produce-a-sing.html-->
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
 
