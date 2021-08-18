@@ -25,24 +25,5 @@ jobs:
           dotnet-version: '5.0.x'
         
       - name: Attempt to build project (using the publish command)
-        run: dotnet publish
+        run: dotnet build
         
-      - name: Upload EXE as run artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: exe
-          path: titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
-
-  release:
-    name: Add artifact to GH Release
-    runs-on: ubuntu-latest
-    needs: [ build ]
-    if: github.event == 'release.published'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Get APK from artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: exe
