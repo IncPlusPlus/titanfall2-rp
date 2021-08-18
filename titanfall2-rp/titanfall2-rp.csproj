@@ -4,6 +4,12 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>titanfall2_rp</RootNamespace>
+		<PublishTrimmed>true</PublishTrimmed>
+		<RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+        <!--https://docs.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-3-0#single-file-executables-->
+		<PublishSingleFile>true</PublishSingleFile>
+        <!--https://docs.microsoft.com/en-us/answers/questions/296816/self-contained-single-file-does-not-produce-a-sing.html-->
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
 
 </Project>
