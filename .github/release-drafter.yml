@@ -32,4 +32,4 @@ change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 template: |
   $CHANGES
   ***
-  For full changes, see the [comparison between $PREVIOUS_TAG and v$NEXT_PATCH_VERSION](https://github.com/IncPlusPlus/chemistry-catalyst/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
+  For full changes, see the [comparison between $PREVIOUS_TAG and v$NEXT_PATCH_VERSION](https://github.com/IncPlusPlus/titanfall2-rp/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
