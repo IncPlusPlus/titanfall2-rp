@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: exe
-          path: bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
+          path: titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
 
   release:
     name: Add artifact to GH Release
