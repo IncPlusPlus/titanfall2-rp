@@ -1,4 +1,4 @@
-﻿name: Build
+﻿name: Build and publish
 on: [push]
 jobs:
   build:
@@ -23,3 +23,25 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
+        
+      - name: Attempt to build project (using the publish command)
+        run: dotnet publish
+        
+      - name: Upload EXE as run artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: exe
+          path: bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
+
+  release:
+    name: Add artifact to GH Release
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get APK from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: exe
