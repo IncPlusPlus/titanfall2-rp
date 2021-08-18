@@ -12,9 +12,12 @@ jobs:
 
       - name: Restore dotnet tools
         uses: xt0rted/dotnet-tool-restore@v1
-
+      
       - name: Run dotnet format
-        uses: xt0rted/dotnet-format@v1
+        run: dotnet format 
+# https://github.com/xt0rted/dotnet-format/issues/174
+#      - name: Run dotnet format
+#        uses: xt0rted/dotnet-format@v1
 
       - name: Set up .NET Core SDK
         uses: actions/setup-dotnet@v1
