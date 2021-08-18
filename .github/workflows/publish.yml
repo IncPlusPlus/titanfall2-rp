@@ -44,7 +44,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Get APK from artifacts
+      - name: Get EXE from artifacts
         uses: actions/download-artifact@v2
         with:
           name: exe
+      - name: Add EXE to release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: false
+          files: |
+            titanfall2-rp.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
