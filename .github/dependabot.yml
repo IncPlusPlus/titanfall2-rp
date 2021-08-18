@@ -1,18 +1,23 @@
-﻿version: 2
+﻿
+version: 2
 updates:
-#  - package-ecosystem: nuget
-#    directory: "/"
-#    schedule:
-#      interval: weekly
-#    open-pull-requests-limit: 10
-#    target-branch: main
-#    assignees:
-#      - IncPlusPlus
+
+  # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: /
     schedule:
       interval: daily
     open-pull-requests-limit: 10
-    target-branch: main
     assignees:
       - IncPlusPlus
+    target-branch: main
+
+  # Maintain dependencies for nuget
+  - package-ecosystem: nuget
+    directory: /
+    schedule: 
+      interval: daily
+    open-pull-requests-limit: 10
+    assignees:
+      - IncPlusPlus
+    target-branch: main
