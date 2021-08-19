@@ -21,7 +21,7 @@ namespace titanfall2_rp
             }
             return addr;
         }
-        
+
         // https://stackoverflow.com/a/61842098/1687436
         public static IntPtr FindDMAAddy(IntPtr hProc, IntPtr ptr, int[] offsets)
         {

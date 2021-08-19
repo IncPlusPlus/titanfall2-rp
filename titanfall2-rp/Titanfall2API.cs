@@ -15,7 +15,7 @@ namespace titanfall2_rp
         public int GetPlayerHealth()
         {
             _ensureInit();
-            return  _sharp.Memory.Read<int>(_engineDllBaseAddress + 0x1122A8DC);
+            return _sharp.Memory.Read<int>(_engineDllBaseAddress + 0x1122A8DC);
         }
 
         public int GetPlayerVelocity()
@@ -51,7 +51,7 @@ namespace titanfall2_rp
         public string GetSinglePlayerMissionName()
         {
             _ensureInit();
-            return _sharp.Memory.Read(_engineDllBaseAddress + 0x1397AC5A, Encoding.UTF8,14);
+            return _sharp.Memory.Read(_engineDllBaseAddress + 0x1397AC5A, Encoding.UTF8, 14);
         }
 
         public string GetSinglePlayerDifficulty()
@@ -74,17 +74,17 @@ namespace titanfall2_rp
 
         class MultiPlayerGameStats
         {
-            class Attrition {}
-            class Skirmish {}
-            class AmpedHardpoint {}
-            class BountyHunt {}
-            class CaptureTheFlag {}
-            class LastTitanStanding {}
-            class PilotsVersusPilots {}
-            class LiveFire {}
-            class MarkedForDeath {}
-            class TitanBrawl {}
-            class FrontierDefense {}
+            class Attrition { }
+            class Skirmish { }
+            class AmpedHardpoint { }
+            class BountyHunt { }
+            class CaptureTheFlag { }
+            class LastTitanStanding { }
+            class PilotsVersusPilots { }
+            class LiveFire { }
+            class MarkedForDeath { }
+            class TitanBrawl { }
+            class FrontierDefense { }
         }
 
         private void _ensureInit()
