@@ -12,17 +12,6 @@ namespace titanfall2_rp
         private IntPtr _clientDllBaseAddress;
         private IntPtr _serverDllBaseAddress;
 
-        public Titanfall2Api()
-        {
-            var initResult = ProcessNetApi.Init();
-            if (!initResult)
-            {
-                throw new InvalidOperationException(
-                    "Couldn't initialize Titanfall2Api. Make sure the process is running!");
-            }
-            _populateFields(ProcessNetApi.GetProcess());
-        }
-
         public int GetPlayerHealth()
         {
             _ensureInit();
@@ -50,7 +39,7 @@ namespace titanfall2_rp
         public string GetMultiplayerMapName()
         {
             _ensureInit();
-            return _sharp.Memory.Read<string>(_engineDllBaseAddress + 0x23E0FA0);
+            return _sharp.Memory.Read(_clientDllBaseAddress + 0x23E0FA0, Encoding.UTF8, 50);
         }
 
         public string GetSinglePlayerMapName()
