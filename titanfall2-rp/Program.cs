@@ -11,16 +11,15 @@ namespace titanfall2_rp
         // For some reason, discord will show 4 hours as the starting time unless I add 4 hours here.
         // Seems the 
         private static readonly DateTime StartTimestamp = DateTime.Now.AddHours(4);
+        private static readonly int StatusRefreshTimeInSeconds = 5;
+
         static void Main(string[] args)
         {
-            
             var tf2Api = new Titanfall2Api();
-            var health = tf2Api.GetPlayerHealth();
-            Console.WriteLine("Health is " + health);
 
             DiscordRpcClient client = new DiscordRpcClient("877931149740089374");
             client.Logger = new ConsoleLogger() { Level = LogLevel.Warning };
-            
+
             //Subscribe to events
             client.OnReady += (sender, e) => { Console.WriteLine("Received Ready from user {0}", e.User.Username); };
 
@@ -30,18 +29,26 @@ namespace titanfall2_rp
             client.Initialize();
 
 
-            var i = 20;
-            while (i > 0)
+            while (true)
             {
-                setCurrentPresence(client, tf2Api);
-                Thread.Sleep(10000);
-                i--;
+                try
+                {
+                    SetCurrentPresence(client, tf2Api);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Failed to perform Titanfall 2 rich presence update. Waiting " +
+                                      StatusRefreshTimeInSeconds + " seconds and trying again.");
+                }
+
+                Thread.Sleep(StatusRefreshTimeInSeconds * 1000);
             }
 
             client.Dispose();
         }
 
-        public static void setCurrentPresence(DiscordRpcClient client, Titanfall2Api tf2Api)
+        public static void SetCurrentPresence(DiscordRpcClient client, Titanfall2Api tf2Api)
         {
             var (gameDetails, gameState, timestamps) = GetDetailsAndState(tf2Api);
             //Set the rich presence
@@ -62,7 +69,7 @@ namespace titanfall2_rp
 
         public static (string, string, Timestamps) GetDetailsAndState(Titanfall2Api tf2Api)
         {
-            string gameDetails="";
+            string gameDetails = "";
             string gameState = "";
             Timestamps timestamps = null;
 
@@ -72,8 +79,19 @@ namespace titanfall2_rp
                 gameState = tf2Api.GetSinglePlayerMissionName();
                 timestamps = new Timestamps(StartTimestamp);
             }
-            
-            return (gameDetails,gameState, timestamps);
+            else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
+            {
+                gameDetails = "In a lobby";
+                timestamps = new Timestamps(StartTimestamp);
+            }
+            // Could be main menu, might be some other random thing. This can be cleaned up later
+            else
+            {
+                gameDetails = tf2Api.GetGameModeName();
+                timestamps = new Timestamps(StartTimestamp);
+            }
+
+            return (gameDetails, gameState, timestamps);
         }
     }
 }
