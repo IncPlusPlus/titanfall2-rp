@@ -44,7 +44,7 @@ namespace titanfall2_rp
             _ensureInit();
             var m = gameModeAndMapRegex.Match(GetGameModeAndMapName());
             return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE";
-            
+
         }
 
         public string GetMultiplayerMapName()
@@ -52,7 +52,7 @@ namespace titanfall2_rp
             _ensureInit();
             return _sharp.Memory.Read(_clientDllBaseAddress + 0x23E0FA0, Encoding.UTF8, 50);
         }
-        
+
         public string GetSinglePlayerMapName()
         {
             _ensureInit();
