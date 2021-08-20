@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using Process.NET;
 using static titanfall2_rp.ProcessApi;
 
@@ -7,6 +8,7 @@ namespace titanfall2_rp
 {
     public class Titanfall2Api
     {
+        private static readonly Regex gameModeAndMapRegex = new Regex("Playing (.*) on (.*)");
         private ProcessSharp _sharp;
         private IntPtr _engineDllBaseAddress;
         private IntPtr _clientDllBaseAddress;
@@ -24,16 +26,25 @@ namespace titanfall2_rp
             return _sharp.Memory.Read<int>(_clientDllBaseAddress + 0x2A9F704);
         }
 
+        public string GetGameModeAndMapName()
+        {
+            _ensureInit();
+            return _sharp.Memory.Read(_engineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
+        }
+
         public string GetFriendlyMapName()
         {
             _ensureInit();
-            return _sharp.Memory.Read<string>(_engineDllBaseAddress + 0x1397AC5A);
+            var m = gameModeAndMapRegex.Match(GetGameModeAndMapName());
+            return m.Success ? m.Groups[2].Value : "UNKNOWN MAP NAME";
         }
 
         public string GetGameModeName()
         {
             _ensureInit();
-            return _sharp.Memory.Read(_engineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
+            var m = gameModeAndMapRegex.Match(GetGameModeAndMapName());
+            return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE";
+
         }
 
         public string GetMultiplayerMapName()
@@ -45,13 +56,7 @@ namespace titanfall2_rp
         public string GetSinglePlayerMapName()
         {
             _ensureInit();
-            return _sharp.Memory.Read<string>(_serverDllBaseAddress + 0xC9BE64);
-        }
-
-        public string GetSinglePlayerMissionName()
-        {
-            _ensureInit();
-            return _sharp.Memory.Read(_engineDllBaseAddress + 0x1397AC5A, Encoding.UTF8, 14);
+            return _sharp.Memory.Read(_serverDllBaseAddress + 0xC9BE64, Encoding.UTF8, 50);
         }
 
         public string GetSinglePlayerDifficulty()
@@ -72,6 +77,10 @@ namespace titanfall2_rp
             return "UNKNOWN DIFFICULTY";
         }
 
+        /// <summary>
+        /// Inside this class are multiplayer subclasses for each game mode (because the stats are different
+        /// based on the game type. They'll also be in different memory locations).
+        /// </summary>
         class MultiPlayerGameStats
         {
             class Attrition { }

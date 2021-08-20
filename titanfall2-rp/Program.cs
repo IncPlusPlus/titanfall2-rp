@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using DiscordRPC;
 using DiscordRPC.Logging;
@@ -50,7 +51,7 @@ namespace titanfall2_rp
 
         public static void SetCurrentPresence(DiscordRpcClient client, Titanfall2Api tf2Api)
         {
-            var (gameDetails, gameState, timestamps) = GetDetailsAndState(tf2Api);
+            var (gameDetails, gameState, timestamps, assets) = GetDetailsAndState(tf2Api);
             //Set the rich presence
             //Call this as many times as you want and anywhere in your code.
             client.SetPresence(new RichPresence()
@@ -58,31 +59,38 @@ namespace titanfall2_rp
                 Details = gameDetails,
                 State = gameState,
                 Timestamps = timestamps,
-                Assets = new Assets()
+                Assets = assets == null ? new Assets()
                 {
                     LargeImageKey = "icon-900x900",
                     LargeImageText = "Large Image Text",
                     // SmallImageKey = "image_small"
-                }
+                } : assets
             });
         }
 
-        public static (string, string, Timestamps) GetDetailsAndState(Titanfall2Api tf2Api)
+        public static (string, string, Timestamps, Assets assets) GetDetailsAndState(Titanfall2Api tf2Api)
         {
+            Regex rg = new Regex("");
             string gameDetails = "";
             string gameState = "";
             Timestamps timestamps = null;
+            Assets assets = null;
 
             if (tf2Api.GetGameModeName().Contains("Campaign"))
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
-                gameState = tf2Api.GetSinglePlayerMissionName();
+                gameState = tf2Api.GetFriendlyMapName();
                 timestamps = new Timestamps(StartTimestamp);
             }
             else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
             {
                 gameDetails = "In a lobby";
                 timestamps = new Timestamps(StartTimestamp);
+            }
+            else if (tf2Api.GetGameModeAndMapName().Contains("Attrition"))
+            {
+                gameDetails = tf2Api.GetGameModeName();
+                gameState = tf2Api.GetFriendlyMapName();
             }
             // Could be main menu, might be some other random thing. This can be cleaned up later
             else
@@ -91,7 +99,7 @@ namespace titanfall2_rp
                 timestamps = new Timestamps(StartTimestamp);
             }
 
-            return (gameDetails, gameState, timestamps);
+            return (gameDetails, gameState, timestamps, assets);
         }
     }
 }
