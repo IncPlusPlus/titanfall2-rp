@@ -43,6 +43,8 @@ namespace titanfall2_rp
     /// global const FD_INSANE = "fd_insane"
     /// global const PVE_SANDBOX = "pve_sandbox"
     /// global const TITAN_BRAWL = "ttdm"
+    ///
+    /// global const GAMEMODE_SP = "solo"
     /// </code>
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
@@ -118,6 +120,11 @@ namespace titanfall2_rp
         /// Frontier Defense (Insane)
         /// </summary>
         fd_insane,
+
+        /// <summary>
+        /// Single Player (Campaign)
+        /// </summary>
+        solo,
     }
 
     internal static class GameModeMethods
@@ -154,6 +161,7 @@ namespace titanfall2_rp
                 GameMode.fd_normal => "Frontier Defense (Regular)",
                 GameMode.fd_hard => "Frontier Defense (Hard)",
                 GameMode.fd_insane => "Frontier Defense (Insane)",
+                GameMode.solo => "Campaign",
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
             };
         }
