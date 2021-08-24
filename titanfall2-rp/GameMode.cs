@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 namespace titanfall2_rp
 {
     /// <summary>
@@ -46,11 +45,60 @@ namespace titanfall2_rp
     ///
     /// global const GAMEMODE_SP = "solo"
     /// </code>
+    ///
+    ///
+    /// In the same VPK, there is also scripts/vscripts/gamemodes/sh_gamemodes.gnut which contains a similar structure
+    /// shown below.
+    ///
+    /// <code>
+    ///
+    /// // Don't remove items from this list once the game is in production
+    /// // Durango online analytics needs the numbers for each mode to stay the same
+    /// // DO NOT CHANGE THESE VALUES AFTER THEY HAVE GONE LIVE
+    /// global enum eGameModes
+    /// {
+    ///     invalid =							-1,
+    ///     TEAM_DEATHMATCH_ID =				0,
+    ///     CAPTURE_POINT_ID =					1,
+    ///     ATTRITION_ID =						2,
+    ///     CAPTURE_THE_FLAG_ID =				3,
+    ///     MARKED_FOR_DEATH_ID =				4,
+    ///     LAST_TITAN_STANDING_ID =			5,
+    ///     WINGMAN_LAST_TITAN_STANDING_ID =	6,
+    ///     PILOT_SKIRMISH_ID =					7,
+    ///     MARKED_FOR_DEATH_PRO_ID =			8,
+    ///     COOPERATIVE_ID =					9,
+    ///     GAMEMODE_SP_ID =					10,
+    ///     TITAN_BRAWL_ID =					11,
+    ///     FFA_ID =							12,
+    ///     PROTOTYPE2 =						13,
+    ///     WINGMAN_PILOT_SKIRMISH_ID =			14,
+    ///     PROTOTYPE3 = 						15,
+    ///     PROTOTYPE4 = 						16,
+    ///     FREE_AGENCY_ID = 					17,
+    ///     PROTOTYPE6 =						18,
+    ///     COLISEUM_ID =						19,
+    ///     PROTOTYPE7 =						20,
+    ///     AI_TDM_ID =							21,
+    ///     PROTOTYPE8 =						22,
+    ///     PROTOTYPE9 = 						23,
+    ///     SPEEDBALL_ID =						24,
+    ///     PROTOTYPE10 = 						25,
+    ///     PROTOTYPE11 = 						26,
+    ///     PROTOTYPE12 = 						27,
+    ///     FD_ID = 							28,
+    ///     PROTOTYPE14 =						29,
+    /// }
+    /// </code>
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "IdentifierTypo")]
     public enum GameMode
     {
+        /// <summary>
+        /// Coliseum
+        /// </summary>
+        coliseum,
         /// <summary>
         /// Attrition
         /// </summary>
@@ -147,6 +195,7 @@ namespace titanfall2_rp
         {
             return gameMode switch
             {
+                GameMode.coliseum => "Coliseum",
                 GameMode.aitdm => "Attrition",
                 GameMode.tdm => "Skirmish",
                 GameMode.cp => "Amped Hardpoint",
