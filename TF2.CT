@@ -167,7 +167,7 @@
     </CheatEntry>
     <CheatEntry>
       <ID>27</ID>
-      <Description>"Full game mode and map name (engine.dll+1397AC4E)"</Description>
+      <Description>"Full game mode and map name (engine.dll+1397AC46)"</Description>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>String</VariableType>
       <Length>50</Length>
@@ -432,7 +432,6 @@
     <CheatEntry>
       <ID>82</ID>
       <Description>"A wack ass game mode string that sorta works"</Description>
-      <LastState RealAddress="7FF9DA2E4088"/>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>String</VariableType>
       <Length>10</Length>
@@ -440,6 +439,12 @@
       <CodePage>0</CodePage>
       <ZeroTerminate>1</ZeroTerminate>
       <Address>engine.dll+13984088</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>83</ID>
+      <Description>"eLobbyType (SOMETIMES)"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>engine.dll+111D3AB4</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
