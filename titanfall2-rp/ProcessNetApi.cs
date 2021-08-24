@@ -4,14 +4,10 @@ using Process.NET.Memory;
 
 namespace titanfall2_rp
 {
-    public class ProcessNetApi
+    public static class ProcessNetApi
     {
-        private static ProcessSharp _sharp;
-        private static readonly String ProcessName = "Titanfall2";
-
-        private ProcessNetApi()
-        {
-        }
+        private static ProcessSharp? _sharp;
+        private const string ProcessName = "Titanfall2";
 
         public static bool NeedsInit()
         {

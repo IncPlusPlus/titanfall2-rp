@@ -10,7 +10,7 @@ namespace titanfall2_rp
     class Program
     {
         // For some reason, discord will show 4 hours as the starting time unless I add 4 hours here.
-        // Seems the 
+        // Seems the only way to fix this is to offset it here. I'm not sure if this is a timezone issue or what.
         private static readonly DateTime StartTimestamp = DateTime.Now.AddHours(4);
         private static readonly int StatusRefreshTimeInSeconds = 5;
 
@@ -68,15 +68,19 @@ namespace titanfall2_rp
             });
         }
 
-        public static (string, string, Timestamps, Assets assets) GetDetailsAndState(Titanfall2Api tf2Api)
+        public static (string, string, Timestamps?, Assets? assets) GetDetailsAndState(Titanfall2Api tf2Api)
         {
-            Regex rg = new Regex("");
             string gameDetails = "";
             string gameState = "";
-            Timestamps timestamps = null;
-            Assets assets = null;
+            Timestamps? timestamps = null;
+            Assets? assets = null;
 
-            if (tf2Api.GetGameModeName().Contains("Campaign"))
+            if (tf2Api.GetGameModeAndMapName().Equals("Main Menu"))
+            {
+                gameDetails = "Main Menu";
+                timestamps = new Timestamps(StartTimestamp);
+            }
+            else if (tf2Api.GetGameModeName().Contains("Campaign"))
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
                 gameState = tf2Api.GetFriendlyMapName();
