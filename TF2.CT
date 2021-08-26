@@ -437,6 +437,36 @@
       <VariableType>Byte</VariableType>
       <Address>engine.dll+111D3AB4</Address>
     </CheatEntry>
+    <CheatEntry>
+      <ID>90</ID>
+      <Description>"Coliseum deaths or enemy score candidates (empty right now)"</Description>
+      <GroupHeader>1</GroupHeader>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>94</ID>
+      <Description>"Coliseum score candidates"</Description>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>91</ID>
+          <Description>"enemy score????"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>client.dll+C3428C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>92</ID>
+          <Description>"my score/kills???"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>client.dll+C3AA80</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>93</ID>
+          <Description>"my score/kills???"</Description>
+          <VariableType>Byte</VariableType>
+          <Address>client.dll+C3AA84</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
