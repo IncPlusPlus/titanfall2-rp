@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Text.RegularExpressions;
 using System.Threading;
 using DiscordRPC;
@@ -91,10 +92,10 @@ namespace titanfall2_rp
                 gameDetails = "In a lobby";
                 timestamps = new Timestamps(StartTimestamp);
             }
-            else if (tf2Api.GetGameModeAndMapName().Contains("Attrition"))
+            // Besides mp_lobby, any mp map will be prefixed with mp_. Grab the specific details then!
+            else if (tf2Api.GetMultiplayerMapName().StartsWith("mp_"))
             {
-                gameDetails = tf2Api.GetGameModeName();
-                gameState = tf2Api.GetFriendlyMapName();
+                return GameDetailsProvider.GetMultiplayerDetails(tf2Api, StartTimestamp);
             }
             // Could be main menu, might be some other random thing. This can be cleaned up later
             else
