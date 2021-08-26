@@ -7,11 +7,11 @@ namespace titanfall2_rp
     {
         public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api, DateTime gameOpenTimestamp)
         {
-            string gameDetails = "";
+            var currentGameMode = tf2Api.GetGameMode();
+            string gameDetails = tf2Api.GetGameMode().ToFriendlyString();
             string gameState = "";
             var timestamps = new Timestamps(gameOpenTimestamp);
             var assets = new Assets() { LargeImageKey = tf2Api.GetMultiplayerMapName(), LargeImageText = tf2Api.GetFriendlyMapName(), };
-            var currentGameMode = tf2Api.GetGameMode();
             switch (currentGameMode)
             {
                 case GameMode.coliseum:
