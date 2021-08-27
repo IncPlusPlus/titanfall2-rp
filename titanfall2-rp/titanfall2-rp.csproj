@@ -19,7 +19,14 @@
 
     <ItemGroup>
       <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
+      <PackageReference Include="log4net" Version="2.0.12" />
       <PackageReference Include="Process.NET" Version="1.0.8" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="log4net.config">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
