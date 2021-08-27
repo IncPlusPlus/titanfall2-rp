@@ -107,30 +107,30 @@ namespace titanfall2_rp
             if (tf2Api.GetGameModeAndMapName().Equals("Main Menu"))
             {
                 gameDetails = "Main Menu";
-                timestamps = new Timestamps(Program.StartTimestamp);
+                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
             else if (tf2Api.GetGameModeName().Contains("Campaign"))
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
                 gameState = tf2Api.GetFriendlyMapName();
-                timestamps = new Timestamps(Program.StartTimestamp);
+                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
                 assets = GameDetailsProvider.GetSinglePlayerAssets(tf2Api);
             }
             else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
             {
                 gameDetails = "In a lobby";
-                timestamps = new Timestamps(Program.StartTimestamp);
+                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
             // Besides mp_lobby, any mp map will be prefixed with mp_. Grab the specific details then!
             else if (tf2Api.GetMultiplayerMapName().StartsWith("mp_"))
             {
-                return GameDetailsProvider.GetMultiplayerDetails(tf2Api, Program.StartTimestamp);
+                return GameDetailsProvider.GetMultiplayerDetails(tf2Api, ProcessNetApi.StartTimestamp);
             }
             // Could be main menu, might be some other random thing. This can be cleaned up later
             else
             {
                 gameDetails = tf2Api.GetGameModeName();
-                timestamps = new Timestamps(Program.StartTimestamp);
+                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
 
             return (gameDetails, gameState, timestamps, assets);
