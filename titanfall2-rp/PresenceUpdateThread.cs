@@ -114,6 +114,7 @@ namespace titanfall2_rp
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
                 gameState = tf2Api.GetFriendlyMapName();
                 timestamps = new Timestamps(Program.StartTimestamp);
+                assets = GameDetailsProvider.GetSinglePlayerAssets(tf2Api);
             }
             else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
             {

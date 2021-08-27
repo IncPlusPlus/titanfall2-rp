@@ -21,27 +21,18 @@
       <Description>"Map name (multiplayer) (client.dll+23E0FA0)"</Description>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>String</VariableType>
-      <Length>16</Length>
+      <Length>50</Length>
       <Unicode>0</Unicode>
       <CodePage>0</CodePage>
       <ZeroTerminate>1</ZeroTerminate>
       <Address>client.dll+23E0FA0</Address>
     </CheatEntry>
     <CheatEntry>
-      <ID>4</ID>
-      <Description>"Map name (single player) (server.dll+C9BE64)"</Description>
-      <VariableType>String</VariableType>
-      <Length>10</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>server.dll+C9BE64</Address>
-    </CheatEntry>
-    <CheatEntry>
       <ID>5</ID>
-      <Description>"maybe correct map name (client.dll+B34522)"</Description>
+      <Description>"Also correct map name (client.dll+B34522)"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
       <VariableType>String</VariableType>
-      <Length>20</Length>
+      <Length>50</Length>
       <Unicode>0</Unicode>
       <CodePage>0</CodePage>
       <ZeroTerminate>1</ZeroTerminate>
