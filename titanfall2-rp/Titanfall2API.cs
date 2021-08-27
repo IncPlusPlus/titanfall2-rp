@@ -72,7 +72,7 @@ namespace titanfall2_rp
         public string GetSinglePlayerMapName()
         {
             _ensureInit();
-            return _sharp!.Memory.Read(_serverDllBaseAddress + 0xC9BE64, Encoding.UTF8, 50);
+            return _sharp!.Memory.Read(_clientDllBaseAddress + 0xB34522, Encoding.UTF8, 50);
         }
 
         public string GetSinglePlayerDifficulty()
