@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using log4net;
 using Process.NET;
 using Process.NET.Memory;
 
@@ -6,6 +8,7 @@ namespace titanfall2_rp
 {
     public static class ProcessNetApi
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static ProcessSharp? _sharp;
         private const string ProcessName = "Titanfall2";
 
@@ -16,21 +19,19 @@ namespace titanfall2_rp
 
         public static bool Init()
         {
-            Console.WriteLine("Initializing ProcessNetApi...");
-            Console.WriteLine("Searching for process '" + ProcessName + "'...");
+            Log.Debug("Initializing ProcessNetApi...");
+            Log.Debug("Searching for process '" + ProcessName + "'...");
             System.Diagnostics.Process[] processSearch = System.Diagnostics.Process.GetProcessesByName(ProcessName);
             if (processSearch.Length == 0)
             {
-                Console.WriteLine("'" + ProcessName + "'" + " isn't running!");
+                Log.Debug("'" + ProcessName + "'" + " isn't running!");
                 return false;
             }
-            else
-            {
-                Console.WriteLine("Found '" + ProcessName + "'" + "!");
-                var proc = processSearch[0];
-                _sharp = new ProcessSharp(proc, MemoryType.Remote);
-                return true;
-            }
+
+            Log.Debug("Found '" + ProcessName + "'" + "!");
+            var proc = processSearch[0];
+            _sharp = new ProcessSharp(proc, MemoryType.Remote);
+            return true;
         }
 
         public static ProcessSharp GetProcess()
@@ -40,14 +41,11 @@ namespace titanfall2_rp
                 throw new NullReferenceException(
                     "The Init() method was never called before attempting to access the process.");
             }
-            else if (_sharp.Native.HasExited)
+            if (_sharp.Native.HasExited)
             {
                 throw new AccessViolationException("Attempted to access a process that has already exited.");
             }
-            else
-            {
-                return _sharp;
-            }
+            return _sharp;
         }
     }
 }
