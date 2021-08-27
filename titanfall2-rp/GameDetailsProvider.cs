@@ -10,83 +10,12 @@ namespace titanfall2_rp
     {
         /// <summary>
         /// This string was created by listing all of the files in `assets/map previews/square` with `ls -1`
-        /// and then manually chopping off the file extensions. KEEP THIS CONSISTENT WITH THE ASSET NAMES!!!
+        /// and then manually chopping off the file extensions. Then I put it in a verbatim string and used the context
+        /// actions menu to turn it into a regular string. In verbatim string form, it had both carriage returns
+        /// and newlines. In the regular string form, it's just newlines.
+        /// KEEP THIS CONSISTENT WITH THE ASSET NAMES!!!
         /// </summary>
-        [SuppressMessage("ReSharper", "StringLiteralTypo")] private static readonly string[] AllMapAssetNames = @"mp_angel_city
-mp_black_water_canal
-mp_coliseum
-mp_coliseum_column
-mp_colony02
-mp_complex3
-mp_crashsite3
-mp_drydock
-mp_eden
-mp_forwardbase_kodai
-mp_glitch
-mp_grave
-mp_homestead
-mp_lf_deck
-mp_lf_meadow
-mp_lf_stacks
-mp_lf_township
-mp_lf_traffic
-mp_lf_uma
-mp_relic02
-mp_rise
-mp_thaw
-mp_wargames
-sp_beacon_1
-sp_beacon_2
-sp_beacon_3
-sp_beacon_4
-sp_beacon_5
-sp_beacon_spoke0_1
-sp_beacon_spoke0_2
-sp_beacon_spoke0_3
-sp_boomtown_1
-sp_boomtown_2
-sp_boomtown_3
-sp_boomtown_end_1
-sp_boomtown_end_2
-sp_boomtown_end_3
-sp_boomtown_end_4
-sp_boomtown_start_1
-sp_boomtown_start_2
-sp_crashsite_1
-sp_crashsite_2
-sp_hub_timeshift_1
-sp_hub_timeshift_2
-sp_hub_timeshift_3
-sp_s2s_1
-sp_s2s_2
-sp_s2s_3
-sp_s2s_4
-sp_s2s_5
-sp_sewers1_1
-sp_sewers1_2
-sp_sewers1_3
-sp_sewers1_4
-sp_sewers1_5
-sp_sewers1_6
-sp_sewers1_7
-sp_sewers1_8
-sp_skyway_v1_1
-sp_skyway_v1_2
-sp_skyway_v1_3
-sp_skyway_v1_4
-sp_skyway_v1_5
-sp_skyway_v1_6
-sp_tday_1
-sp_tday_2
-sp_tday_3
-sp_tday_4
-sp_tday_5
-sp_timeshift_spoke02_1
-sp_timeshift_spoke02_2
-sp_timeshift_spoke02_3
-sp_timeshift_spoke02_4
-sp_training_1
-sp_training_2".Split("\n");
+        [SuppressMessage("ReSharper", "StringLiteralTypo")] private static readonly string[] AllMapAssetNames = "mp_angel_city\nmp_black_water_canal\nmp_coliseum\nmp_coliseum_column\nmp_colony02\nmp_complex3\nmp_crashsite3\nmp_drydock\nmp_eden\nmp_forwardbase_kodai\nmp_glitch\nmp_grave\nmp_homestead\nmp_lf_deck\nmp_lf_meadow\nmp_lf_stacks\nmp_lf_township\nmp_lf_traffic\nmp_lf_uma\nmp_relic02\nmp_rise\nmp_thaw\nmp_wargames\nsp_beacon_1\nsp_beacon_2\nsp_beacon_3\nsp_beacon_4\nsp_beacon_5\nsp_beacon_spoke0_1\nsp_beacon_spoke0_2\nsp_beacon_spoke0_3\nsp_boomtown_1\nsp_boomtown_2\nsp_boomtown_3\nsp_boomtown_end_1\nsp_boomtown_end_2\nsp_boomtown_end_3\nsp_boomtown_end_4\nsp_boomtown_start_1\nsp_boomtown_start_2\nsp_crashsite_1\nsp_crashsite_2\nsp_hub_timeshift_1\nsp_hub_timeshift_2\nsp_hub_timeshift_3\nsp_s2s_1\nsp_s2s_2\nsp_s2s_3\nsp_s2s_4\nsp_s2s_5\nsp_sewers1_1\nsp_sewers1_2\nsp_sewers1_3\nsp_sewers1_4\nsp_sewers1_5\nsp_sewers1_6\nsp_sewers1_7\nsp_sewers1_8\nsp_skyway_v1_1\nsp_skyway_v1_2\nsp_skyway_v1_3\nsp_skyway_v1_4\nsp_skyway_v1_5\nsp_skyway_v1_6\nsp_tday_1\nsp_tday_2\nsp_tday_3\nsp_tday_4\nsp_tday_5\nsp_timeshift_spoke02_1\nsp_timeshift_spoke02_2\nsp_timeshift_spoke02_3\nsp_timeshift_spoke02_4\nsp_training_1\nsp_training_2".Split("\n");
 
         public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api, DateTime gameOpenTimestamp)
         {
@@ -141,6 +70,7 @@ sp_training_2".Split("\n");
             return new Assets()
             {
                 LargeImageKey = GetRandomImageNameForCurrentMap(tf2Api),
+                LargeImageText = tf2Api.GetSinglePlayerMapName(),
             };
         }
 
