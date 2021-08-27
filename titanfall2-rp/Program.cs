@@ -18,6 +18,7 @@ namespace titanfall2_rp
         // Seems the only way to fix this is to offset it here. I'm not sure if this is a timezone issue or what.
         public static readonly DateTime StartTimestamp = DateTime.Now.AddHours(4);
         public const int StatusRefreshTimeInSeconds = 5;
+        public const int StatusRefreshTimeInMs = StatusRefreshTimeInSeconds * 1000;
         private static AutoResetEvent _userRequestedExit = new AutoResetEvent(false);
         private static readonly DiscordRpcClient DiscordRpcClient = new DiscordRpcClient("877931149740089374");
         private static Thread? _presenceUpdatingThread;
