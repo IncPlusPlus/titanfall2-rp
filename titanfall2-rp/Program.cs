@@ -14,9 +14,6 @@ namespace titanfall2_rp
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string LoggerConfigFileName = "log4net.config";
-        // For some reason, discord will show 4 hours as the starting time unless I add 4 hours here.
-        // Seems the only way to fix this is to offset it here. I'm not sure if this is a timezone issue or what.
-        public static readonly DateTime StartTimestamp = DateTime.Now.AddHours(4);
         public const int StatusRefreshTimeInSeconds = 5;
         public const int StatusRefreshTimeInMs = StatusRefreshTimeInSeconds * 1000;
         private static AutoResetEvent _userRequestedExit = new AutoResetEvent(false);
