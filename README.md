@@ -2,7 +2,7 @@
 
 This project aims to allow for Discord's Rich Presence feature to work with Titanfall 2. This is accomplished in a very hacky way. Specifically, known memory addresses are directly read from by this program. Yes, you read that right. I had to mess around in Cheat Engine to find the right memory addresses to read various values from. It's incredibly hacky but at least the code is relatively elegant if I say so myself.
 
-# Important note
+## Important note
 #### READ THE [DISCLAIMER BELOW](#disclaimer) BEFORE USING THIS SOFTWARE!!!
 
 ## Screenshots
@@ -15,6 +15,11 @@ At the moment, there is no install process. Go to [the releases page](https://gi
 
 You're still here? Fine. If you really couldn't follow the instructions above, just click [here](https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/titanfall2-rp.exe). Just promise me one thing. Never _**ever**_ file a bug report.
 
+## Supported Game Modes
+While this project _is_ stable, it isn't **_nearly_** complete yet. Multiplayer game data isn't easy to track down in memory. For this reason, this project has a limited set of game modes that it supports. You can still play the unsupported game modes. It won't cause any problems. However, only the supported game modes will show your score and other info on Discord. For the list of supported games, see [#45](https://github.com/IncPlusPlus/titanfall2-rp/issues/45).
+
+## Known Issues
+See [the bugs area](https://github.com/IncPlusPlus/titanfall2-rp/issues?q=is%3Aopen+is%3Aissue+label%3Abug) for all the known issues at this time.
 
 ## DISCLAIMER
 
