@@ -17,7 +17,7 @@ namespace titanfall2_rp
         // Seems the only way to fix this is to offset it here. I'm not sure if this is a timezone issue or what.
         public static readonly DateTime StartTimestamp = DateTime.Now.AddHours(4);
         public const int StatusRefreshTimeInSeconds = 5;
-        private static volatile bool _userRequestedExit;
+        private static AutoResetEvent _userRequestedExit = new AutoResetEvent(false);
         private static readonly DiscordRpcClient DiscordRpcClient = new DiscordRpcClient("877931149740089374");
         private static Thread? _presenceUpdatingThread;
 
@@ -28,6 +28,8 @@ namespace titanfall2_rp
             // for existing.
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+            // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
+            Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence. Press enter at any time to exit!");
 
@@ -48,7 +50,7 @@ namespace titanfall2_rp
             DiscordRpcClient.Initialize();
 
             // Start the thread continuously updates the RP status
-            StartThread(DiscordRpcClient, tf2Api);
+            StartThread(DiscordRpcClient, tf2Api, _userRequestedExit);
 
             // Waits for the user to hit enter. Then this will close
             Console.ReadLine();
@@ -58,24 +60,22 @@ namespace titanfall2_rp
             Log.Debug("Disposing of Discord RPC client");
             DiscordRpcClient.Dispose();
             Log.Debug("Informing the presence updating thread that the user has requested it's time to exit...");
-            _userRequestedExit = true;
+            _userRequestedExit.Set();
+            // Waits for the presence updating thread to close
             _presenceUpdatingThread!.Join();
+            // Releases the resources used for the events (only after the thread that was using this has exited)
+            _userRequestedExit.Close();
             Log.Info("Closing...");
         }
 
         // With some help from https://stackoverflow.com/a/10669337/1687436
-        private static void StartThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api)
+        private static void StartThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api, AutoResetEvent userExitEvent)
         {
-            _presenceUpdatingThread = new Thread(new PresenceUpdateThread(discordRpcClient, tf2Api).Run)
+            _presenceUpdatingThread = new Thread(new PresenceUpdateThread(discordRpcClient, tf2Api, userExitEvent).Run)
             {
                 Name = "Discord RP Updating Thread"
             };
             _presenceUpdatingThread.Start();
-        }
-
-        public static bool HasUserRequestedExit()
-        {
-            return _userRequestedExit;
         }
     }
 }

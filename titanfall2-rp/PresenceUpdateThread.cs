@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading;
+using System.Timers;
 using DiscordRPC;
 using log4net;
 
@@ -9,42 +10,71 @@ namespace titanfall2_rp
     public class PresenceUpdateThread
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static System.Timers.Timer? presenceUpdateTimer;
         private const int ProcessOpenWaitTimeInMinutes = 1;
         private readonly DiscordRpcClient _discordRpcClient;
         private readonly Titanfall2Api _tf2Api;
+        private readonly EventWaitHandle _userExitEvent;
 
-        public PresenceUpdateThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api)
+        public PresenceUpdateThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api, AutoResetEvent userExitEvent)
         {
             _discordRpcClient = discordRpcClient;
             _tf2Api = tf2Api;
+            _userExitEvent = userExitEvent;
         }
 
         public void Run()
         {
-            while (true)
+            // Set up a timer that'll regularly run our method that updates the rich presence
+            SetTimer();
+
+            // Wait for the main method in Program to inform us that it's time to exit
+            _userExitEvent.WaitOne();
+            Log.Info("User has requested that the program exits. Stopping presence updates.");
+
+            // Stop anc clean up the timer
+            presenceUpdateTimer!.Stop();
+            presenceUpdateTimer.Dispose();
+        }
+
+        private void SetTimer()
+        {
+            // Create a timer with a two second interval.
+            presenceUpdateTimer = new System.Timers.Timer(Program.StatusRefreshTimeInSeconds * 1000);
+            // Hook up the Elapsed event for the timer. 
+            presenceUpdateTimer.Elapsed += OnTimedEvent;
+            presenceUpdateTimer.AutoReset = true;
+            presenceUpdateTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            Thread.CurrentThread.Name = "TimedPersistenceUpdate-" + Thread.CurrentThread.ManagedThreadId;
+            try
             {
-                if (Program.HasUserRequestedExit())
+                SetCurrentPresence(_discordRpcClient, _tf2Api);
+                // See https://stackoverflow.com/a/1650120/1687436 for determining equality between double and int
+                if (Math.Abs(presenceUpdateTimer!.Interval - Program.StatusRefreshTimeInSeconds) > 0.0000001)
                 {
-                    Log.Info("User has requested that the program exits. Stopping presence updates.");
-                    return;
+                    // We must've changed the interval previously.
+                    // It should only be a one-time operation so let's set it back to the correct value. 
+                    presenceUpdateTimer.Interval = Program.StatusRefreshTimeInSeconds;
                 }
-                try
+            }
+            catch (Exception exception)
+            {
+                if (exception is InvalidOperationException)
                 {
-                    SetCurrentPresence(_discordRpcClient, _tf2Api);
+                    Log.WarnFormat("Titanfall 2 process not found. Waiting {0} minute(s) and trying again.",
+                        ProcessOpenWaitTimeInMinutes);
+                    // Set the timer to wait longer
+                    presenceUpdateTimer!.Interval = ProcessOpenWaitTimeInMinutes * 60 * 1000;
                 }
-                catch (Exception e)
+                else
                 {
-                    if (e is InvalidOperationException)
-                    {
-                        Log.WarnFormat("Titanfall 2 process not found. Waiting {0} minute(s) and trying again.", ProcessOpenWaitTimeInMinutes);
-                        Thread.Sleep(ProcessOpenWaitTimeInMinutes * 60 * 1000);
-                    }
-                    else
-                    {
-                        Log.Warn("Failed to perform Titanfall 2 rich presence update. Waiting " +
-                                 Program.StatusRefreshTimeInSeconds + " seconds and trying again.", e);
-                        Thread.Sleep(Program.StatusRefreshTimeInSeconds * 1000);
-                    }
+                    Log.Warn("Failed to perform Titanfall 2 rich presence update. Waiting " +
+                             Program.StatusRefreshTimeInSeconds + " seconds and trying again.", exception);
+                    // No need to change the timer interval before trying again
                 }
             }
         }

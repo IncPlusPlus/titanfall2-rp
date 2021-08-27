@@ -6,6 +6,8 @@ using static titanfall2_rp.ProcessApi;
 
 namespace titanfall2_rp
 {
+    // This is probably not thread safe. Multiple threads could potentially attempt to initialize this class.
+    // However, this is unlikely given that the presence update time is multiple seconds.
     public partial class Titanfall2Api
     {
         private static readonly Regex GameModeAndMapRegex = new Regex("Playing (.*) on (.*)");
