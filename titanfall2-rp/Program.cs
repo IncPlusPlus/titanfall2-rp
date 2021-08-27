@@ -13,6 +13,7 @@ namespace titanfall2_rp
     static class Program
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private const string LoggerConfigFileName = "log4net.config";
         // For some reason, discord will show 4 hours as the starting time unless I add 4 hours here.
         // Seems the only way to fix this is to offset it here. I'm not sure if this is a timezone issue or what.
         public static readonly DateTime StartTimestamp = DateTime.Now.AddHours(4);
@@ -25,7 +26,12 @@ namespace titanfall2_rp
         {
             // Load logging configuration
             // Thanks to https://jakubwajs.wordpress.com/2019/11/28/logging-with-log4net-in-net-core-3-0-console-app/
-            // for existing.
+            var loggerConfigFile = new FileInfo(LoggerConfigFileName);
+            if (!loggerConfigFile.Exists)
+            {
+                Console.WriteLine("Couldn't find '{0}'! Creating it (this only needs to happen once)...", LoggerConfigFileName);
+                File.WriteAllText(LoggerConfigFileName, Log4NetDefaultConfig.DefaultLog4NetConfig);
+            }
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
