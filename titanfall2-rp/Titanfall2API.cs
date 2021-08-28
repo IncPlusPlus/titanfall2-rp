@@ -75,6 +75,85 @@ namespace titanfall2_rp
             return _sharp!.Memory.Read(_clientDllBaseAddress + 0xB34522, Encoding.UTF8, 50);
         }
 
+        public bool SinglePlayerMapHasChapters()
+        {
+            try
+            {
+                GetSinglePlayerChapter();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public int GetSinglePlayerChapter()
+        {
+            var mapName = GetSinglePlayerMapName();
+            switch (mapName)
+            {
+                case "sp_beacon":
+                    /*
+                     * Seems like The Beacon's chapter number can be found at the following client.dll offsets
+                     * client.dll+22B0D59
+                     * client.dll+22B0E79
+                     * client.dll+22B0F99
+                     * client.dll+22B10B9
+                     * client.dll+22B11D9
+                     * client.dll+22B12F9
+                     * client.dll+22B1539
+                     * client.dll+22B1659
+                     *
+                     * There also seem to be offsets that represent the chapter number but zero-indexed.
+                     * engine.dll+FD9BD59
+                     * engine.dll+FD9BD5F
+                     * engine.dll+FD9BD63
+                     * engine.dll+FD9BD65
+                     * engine.dll+FD9BD67
+                     * engine.dll+FD9BD69
+                     * engine.dll+FD9BD6B
+                     * engine.dll+FD9BD6D
+                     * engine.dll+FD9BD6F
+                     * engine.dll+FD9BD71
+                     * engine.dll+111D4073
+                     * engine.dll+111D4A57
+                     * engine.dll+111D4A7B
+                     * engine.dll+111D4A87
+                     * engine.dll+111D4A9F
+                     * engine.dll+111D4AAB
+                     * engine.dll+111D4AB7
+                     * engine.dll+111D4AC3
+                     * engine.dll+111D4ACF
+                     * engine.dll+111D4ADB
+                     * engine.dll+111D4AFF
+                     * server.dll+C12819
+                     * server.dll+C1281D
+                     * server.dll+C1282D
+                     * server.dll+C12831
+                     * server.dll+C12839
+                     * server.dll+C1283D
+                     * server.dll+C12841
+                     * server.dll+C12845
+                     * server.dll+C1284D
+                     * server.dll+C12851
+                     * server.dll+C12855
+                     * server.dll+C12859
+                     * server.dll+C128A5
+                     * server.dll+C1693D
+                     * server.dll+C16941
+                     * server.dll+C16945
+                     * server.dll+C16949
+                     * server.dll+C1694D
+                     * server.dll+C16951
+                     * server.dll+C16955
+                     */
+                    return _sharp!.Memory.Read(_clientDllBaseAddress+0x22B0D59,1)[0];
+                default:
+                    throw new ApplicationException("There are no chapters in map '"+mapName+"'.");
+            }
+        }
+
         public string GetSinglePlayerDifficulty()
         {
             _ensureInit();
