@@ -1,7 +1,13 @@
-﻿namespace titanfall2_rp
+﻿using System;
+
+namespace titanfall2_rp
 {
     public partial class Titanfall2Api
     {
+        private const string HelpMeBruh =
+            "Getting this value is not supported. " +
+            "If you want this to be possible, you'll need to contribute this yourself or tell me how the heck to get it.";
+
         /// <summary>
         /// Inside this class are multiplayer subclasses for each game mode (because the stats are different
         /// based on the game type. They'll also be in different memory locations).
@@ -56,9 +62,60 @@
                     this._tf2Api = tf2Api;
                 }
 
-                public int GetMyTeamScore()
+                /// <summary>
+                /// Get the score of team 1. Whether this is your team or the enemy's doesn't always stay the same.
+                /// I'm not sure why. This is something that I need some help figuring out.
+                /// </summary>
+                /// <returns>the score of team 1</returns>
+                public int GetTeam1Score()
                 {
                     return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x1121814C);
+                }
+
+                /// <summary>
+                /// Get the score of team 2. Whether this is your team or the enemy's doesn't always stay the same.
+                /// I'm not sure why. This is something that I need some help figuring out.
+                /// </summary>
+                /// <returns>the score of team 2</returns>
+                public int GetTeam2Score()
+                {
+                    return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x11218CA0);
+                }
+
+                /// <summary>
+                /// Get the score of the current user.
+                /// </summary>
+                /// <returns>the user's score</returns>
+                public int GetMyScore()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the pilot kills of the current user.
+                /// </summary>
+                /// <returns>the number of pilots the user has killed</returns>
+                public int GetMyPilotKills()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the titan kills of the current user.
+                /// </summary>
+                /// <returns>the number of titans the user has killed</returns>
+                public int GetMyTitanKills()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the minion kills of the current user.
+                /// </summary>
+                /// <returns>the number of minions the user has killed</returns>
+                public int GetMyMinionKills()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
                 }
             }
 
