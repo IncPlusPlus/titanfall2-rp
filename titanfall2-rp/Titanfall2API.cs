@@ -148,9 +148,9 @@ namespace titanfall2_rp
                      * server.dll+C16951
                      * server.dll+C16955
                      */
-                    return _sharp!.Memory.Read(_clientDllBaseAddress+0x22B0D59,1)[0];
+                    return _sharp!.Memory.Read(_clientDllBaseAddress + 0x22B0D59, 1)[0];
                 default:
-                    throw new ApplicationException("There are no chapters in map '"+mapName+"'.");
+                    throw new ApplicationException("There are no chapters in map '" + mapName + "'.");
             }
         }
 
