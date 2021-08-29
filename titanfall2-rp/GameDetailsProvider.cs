@@ -29,6 +29,8 @@ namespace titanfall2_rp
                 case GameMode.coliseum:
                     break;
                 case GameMode.aitdm:
+                    var attritionStats = tf2Api.GetMultiPlayerGameStats().GetAttrition();
+                    gameState = attritionStats.GetTeam1Score() + ":" + attritionStats.GetTeam2Score();
                     break;
                 case GameMode.tdm:
                     break;
