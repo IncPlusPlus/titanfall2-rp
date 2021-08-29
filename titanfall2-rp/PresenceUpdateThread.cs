@@ -69,6 +69,9 @@ namespace titanfall2_rp
                         ProcessOpenWaitTimeInMinutes);
                     // Set the timer to wait longer
                     presenceUpdateTimer!.Interval = ProcessOpenWaitTimeInMinutes * 60 * 1000;
+                    // Clearing the current presence. This should be fine to call every minute or so.
+                    // The purpose of this is to clear the status if the game closes.
+                    _discordRpcClient.ClearPresence();
                 }
                 else
                 {
