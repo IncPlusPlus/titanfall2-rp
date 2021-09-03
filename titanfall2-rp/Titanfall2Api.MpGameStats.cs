@@ -244,6 +244,33 @@ namespace titanfall2_rp
                 {
                     return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._clientDllBaseAddress + 0xFB83BC);
                 }
+
+                /// <summary>
+                /// Get the kills of the current user.
+                /// </summary>
+                /// <returns>the user's number of kills</returns>
+                public int GetMyKills()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the deaths of the current user.
+                /// </summary>
+                /// <returns>the user's number of deaths</returns>
+                public int GetMyDeaths()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the titan damage of the current user.
+                /// </summary>
+                /// <returns>the amount of titan damage the current user has inflicted</returns>
+                public int GetMyTitanDamage()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
             }
 
             public class FrontierDefense
