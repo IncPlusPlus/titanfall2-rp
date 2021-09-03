@@ -157,6 +157,33 @@ namespace titanfall2_rp
                 {
                     return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x11218CA0);
                 }
+
+                /// <summary>
+                /// Get the assault score of the current user.
+                /// </summary>
+                /// <returns>the user's assault score</returns>
+                public int GetMyAssaultScore()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the defense score of the current user.
+                /// </summary>
+                /// <returns>the user's defense score</returns>
+                public int GetMyDefenseScore()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the kill count of the current user.
+                /// </summary>
+                /// <returns>the user's kill count</returns>
+                public int GetMyKills()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
             }
 
             public class BountyHunt
