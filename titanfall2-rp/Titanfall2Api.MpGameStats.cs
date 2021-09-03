@@ -137,6 +137,53 @@ namespace titanfall2_rp
                 {
                     this._tf2Api = tf2Api;
                 }
+
+                /// <summary>
+                /// Get the score of team 1. Whether this is your team or the enemy's doesn't always stay the same.
+                /// I'm not sure why. This is something that I need some help figuring out.
+                /// </summary>
+                /// <returns>the score of team 1</returns>
+                public int GetTeam1Score()
+                {
+                    return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x1121814C);
+                }
+
+                /// <summary>
+                /// Get the score of team 2. Whether this is your team or the enemy's doesn't always stay the same.
+                /// I'm not sure why. This is something that I need some help figuring out.
+                /// </summary>
+                /// <returns>the score of team 2</returns>
+                public int GetTeam2Score()
+                {
+                    return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x11218CA0);
+                }
+
+                /// <summary>
+                /// Get the assault score of the current user.
+                /// </summary>
+                /// <returns>the user's assault score</returns>
+                public int GetMyAssaultScore()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the defense score of the current user.
+                /// </summary>
+                /// <returns>the user's defense score</returns>
+                public int GetMyDefenseScore()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
+
+                /// <summary>
+                /// Get the kill count of the current user.
+                /// </summary>
+                /// <returns>the user's kill count</returns>
+                public int GetMyKills()
+                {
+                    throw new NotImplementedException(HelpMeBruh);
+                }
             }
 
             public class BountyHunt
