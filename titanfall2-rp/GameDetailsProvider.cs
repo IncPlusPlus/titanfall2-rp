@@ -35,8 +35,12 @@ namespace titanfall2_rp
                 case GameMode.tdm:
                     break;
                 case GameMode.cp:
+                    var ampedHardpointStats = tf2Api.GetMultiPlayerGameStats().GetAmpedHardpoint();
+                    gameState = ampedHardpointStats.GetTeam1Score() + ":" + ampedHardpointStats.GetTeam2Score();
                     break;
                 case GameMode.at:
+                    var bountyHuntStats = tf2Api.GetMultiPlayerGameStats().GetBountyHunt();
+                    gameState = bountyHuntStats.GetTeam1Score() + ":" + bountyHuntStats.GetTeam2Score();
                     break;
                 case GameMode.ctf:
                     break;
