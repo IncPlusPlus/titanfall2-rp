@@ -49,6 +49,8 @@ namespace titanfall2_rp
                 case GameMode.mfd:
                     break;
                 case GameMode.ttdm:
+                    var titanBrawlStats = tf2Api.GetMultiPlayerGameStats().GetTitanBrawl();
+                    gameState = titanBrawlStats.GetTeam1Score() + ":" + titanBrawlStats.GetTeam2Score();
                     break;
                 case GameMode.fd_easy:
                     break;
