@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using DiscordRPC;
+using titanfall2_rp.enums;
 
 namespace titanfall2_rp
 {
