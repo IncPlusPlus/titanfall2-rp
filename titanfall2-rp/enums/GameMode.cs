@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-namespace titanfall2_rp
+
+namespace titanfall2_rp.enums
 {
     /// <summary>
     /// Per englishclient_frontend.bsp.pak000_dir.vpk/scripts/vscripts/sh_consts.gnut

@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using Process.NET;
+using titanfall2_rp.enums;
 using static titanfall2_rp.ProcessApi;
 
 namespace titanfall2_rp
