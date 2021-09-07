@@ -208,7 +208,6 @@
     <CheatEntry>
       <ID>47</ID>
       <Description>"UPDATE: Neither of these were the current tick number"</Description>
-      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -228,7 +227,6 @@
     <CheatEntry>
       <ID>77</ID>
       <Description>"Potential current tick values. Look for increments of 20 or 60 per second"</Description>
-      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -302,7 +300,6 @@
     <CheatEntry>
       <ID>78</ID>
       <Description>"These ones set themselves to 1 when the match gets out"</Description>
-      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -352,7 +349,6 @@
     <CheatEntry>
       <ID>79</ID>
       <Description>"These ones set themselves to 0 when the match gets out"</Description>
-      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -384,7 +380,6 @@
     <CheatEntry>
       <ID>80</ID>
       <Description>"These ones seem to be incrementing by 20"</Description>
-      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -438,7 +433,7 @@
     </CheatEntry>
     <CheatEntry>
       <ID>84</ID>
-      <Description>"Currently equpped titan (engine.dll+7A7429)"</Description>
+      <Description>"Currently equipped titan (engine.dll+7A7429)"</Description>
       <VariableType>Byte</VariableType>
       <Address>engine.dll+7A7429</Address>
     </CheatEntry>
