@@ -52,7 +52,7 @@ namespace titanfall2_rp
 
                 public Coliseum(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -62,7 +62,7 @@ namespace titanfall2_rp
 
                 public Attrition(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
 
                 /// <summary>
@@ -128,7 +128,7 @@ namespace titanfall2_rp
 
                 public Skirmish(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -138,7 +138,7 @@ namespace titanfall2_rp
 
                 public AmpedHardpoint(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
 
                 /// <summary>
@@ -195,7 +195,7 @@ namespace titanfall2_rp
 
                 public BountyHunt(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
 
                 /// <summary>
@@ -252,7 +252,7 @@ namespace titanfall2_rp
 
                 public CaptureTheFlag(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -262,7 +262,7 @@ namespace titanfall2_rp
 
                 public LastTitanStanding(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -272,7 +272,7 @@ namespace titanfall2_rp
 
                 public PilotsVersusPilots(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -282,7 +282,7 @@ namespace titanfall2_rp
 
                 public LiveFire(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -292,7 +292,7 @@ namespace titanfall2_rp
 
                 public MarkedForDeath(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
@@ -302,7 +302,7 @@ namespace titanfall2_rp
 
                 public TitanBrawl(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
 
                 /// <summary>
@@ -376,68 +376,68 @@ namespace titanfall2_rp
 
                 public FrontierDefense(Titanfall2Api tf2Api)
                 {
-                    this._tf2Api = tf2Api;
+                    _tf2Api = tf2Api;
                 }
             }
 
             public Coliseum GetColiseum()
             {
-                return this._coliseum;
+                return _coliseum;
             }
 
             public Attrition GetAttrition()
             {
-                return this._attrition;
+                return _attrition;
             }
 
             public Skirmish GetSkirmish()
             {
-                return this._skirmish;
+                return _skirmish;
             }
 
             public AmpedHardpoint GetAmpedHardpoint()
             {
-                return this._ampedHardpoint;
+                return _ampedHardpoint;
             }
 
             public BountyHunt GetBountyHunt()
             {
-                return this._bountyHunt;
+                return _bountyHunt;
             }
 
             public CaptureTheFlag GetCaptureTheFlag()
             {
-                return this._captureTheFlag;
+                return _captureTheFlag;
             }
 
             public LastTitanStanding GetLastTitanStanding()
             {
-                return this._lastTitanStanding;
+                return _lastTitanStanding;
             }
 
             public PilotsVersusPilots GetPilotsVersusPilots()
             {
-                return this._pilotsVersusPilots;
+                return _pilotsVersusPilots;
             }
 
             public LiveFire GetLiveFire()
             {
-                return this._liveFire;
+                return _liveFire;
             }
 
             public MarkedForDeath GetMarkedForDeath()
             {
-                return this._markedForDeath;
+                return _markedForDeath;
             }
 
             public TitanBrawl GetTitanBrawl()
             {
-                return this._titanBrawl;
+                return _titanBrawl;
             }
 
             public FrontierDefense GetFrontierDefense()
             {
-                return this._frontierDefense;
+                return _frontierDefense;
             }
 
             public Faction GetCurrentFaction()
