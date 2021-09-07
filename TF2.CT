@@ -437,6 +437,12 @@
       <VariableType>Byte</VariableType>
       <Address>engine.dll+111D3AB4</Address>
     </CheatEntry>
+    <CheatEntry>
+      <ID>87</ID>
+      <Description>"Current faction (engine.dll+7A7383)"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>engine.dll+7A7383</Address>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
