@@ -50,5 +50,20 @@ namespace titanfall2_rp.enums
                 _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
             };
         }
+
+        public static string GetAssetName(this Faction faction)
+        {
+            return faction switch
+            {
+                Faction.MarauderCorps => "marauder_corps",
+                Faction.ApexPredators => "apex_predators",
+                Faction.VinsonDynamics => "vinson_dynamics",
+                Faction.AngelCityElite => "angel_city_elite",
+                Faction.The64 => "the_6-4",
+                Faction.AresDivision => "ares_division",
+                Faction.MarvinsFinestHour => "marvin_s_finest_hour",
+                _ => throw new ArgumentOutOfRangeException(nameof(faction), faction, null)
+            };
+        }
     }
 }
