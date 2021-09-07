@@ -77,6 +77,12 @@ namespace titanfall2_rp
             return _sharp!.Memory.Read<int>(_engineDllBaseAddress + 0x111E18DC) != 0;
         }
 
+        public Titan GetTitan()
+        {
+            _ensureInit();
+            return TitanMethods.GetTitan(_sharp!.Memory.Read(_engineDllBaseAddress + 0x7A7429,1)[0]);
+        }
+
         public int GetPlayerVelocity()
         {
             _ensureInit();
