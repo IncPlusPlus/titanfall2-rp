@@ -51,6 +51,12 @@ namespace titanfall2_rp.enums
             };
         }
 
+        /// <summary>
+        /// Gets the Discord asset name for the image of the given Faction
+        /// </summary>
+        /// <param name="faction">a Faction to find the artwork of</param>
+        /// <returns>the string representing the asset name that's been uploaded to Discord</returns>
+        /// <exception cref="ArgumentOutOfRangeException">thrown if you've done something you shouldn't have</exception>
         public static string GetAssetName(this Faction faction)
         {
             return faction switch
