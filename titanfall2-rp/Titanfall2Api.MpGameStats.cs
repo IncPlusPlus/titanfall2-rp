@@ -1,4 +1,5 @@
 ﻿using System;
+using titanfall2_rp.enums;
 
 namespace titanfall2_rp
 {
@@ -26,6 +27,7 @@ namespace titanfall2_rp
             private MarkedForDeath _markedForDeath;
             private TitanBrawl _titanBrawl;
             private FrontierDefense _frontierDefense;
+            private readonly Titanfall2Api _tf2Api;
 
             public MpGameStats(Titanfall2Api titanfall2Api)
             {
@@ -41,6 +43,7 @@ namespace titanfall2_rp
                 _markedForDeath = new MarkedForDeath(titanfall2Api);
                 _titanBrawl = new TitanBrawl(titanfall2Api);
                 _frontierDefense = new FrontierDefense(titanfall2Api);
+                _tf2Api = titanfall2Api;
             }
 
             public class Coliseum
@@ -435,6 +438,12 @@ namespace titanfall2_rp
             public FrontierDefense GetFrontierDefense()
             {
                 return this._frontierDefense;
+            }
+
+            public Faction GetCurrentFaction()
+            {
+                return FactionMethods.GetFaction(
+                    _tf2Api._sharp!.Memory.Read(_tf2Api._engineDllBaseAddress + 0x7A7383, 1)[0]);
             }
         }
     }
