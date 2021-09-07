@@ -95,7 +95,6 @@ namespace titanfall2_rp
                 Assets = assets ?? new Assets
                 {
                     LargeImageKey = "icon-900x900",
-                    LargeImageText = "Large Image Text",
                 }
             });
         }
