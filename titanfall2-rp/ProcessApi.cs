@@ -23,6 +23,19 @@ namespace titanfall2_rp
                 }
             }
             return addr;
+            // return GetProcessModule(proc, modName).BaseAddress;
+        }
+
+        public static ProcessModule GetProcessModule(System.Diagnostics.Process proc, string modName)
+        {
+            foreach (ProcessModule m in proc.Modules)
+            {
+                if (m.ModuleName == modName)
+                {
+                    return m;
+                }
+            }
+            throw new ArgumentException("Couldn't find module '" + modName+"'.");
         }
 
         /// <summary>

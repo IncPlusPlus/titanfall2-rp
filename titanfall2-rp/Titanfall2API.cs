@@ -19,6 +19,8 @@ namespace titanfall2_rp
         public IntPtr EngineDllBaseAddress { get; private set; }
         public IntPtr ClientDllBaseAddress { get; private set; }
         public IntPtr ServerDllBaseAddress { get; private set; }
+        private ConvarManager? _convarManager;
+        private SignatureManager? _signatureManager;
 
         public MpStats GetMultiPlayerGameStats()
         {
@@ -64,6 +66,10 @@ namespace titanfall2_rp
         public string GetGameModeAndMapName()
         {
             _ensureInit();
+
+            var convarManager = new ConvarManager(new SignatureManager(this).GetConvarPtr(), this);
+            convarManager.Find("mp_gamemode");
+            
             return _sharp!.Memory.Read(EngineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
         }
 
@@ -136,6 +142,8 @@ namespace titanfall2_rp
             EngineDllBaseAddress = GetModuleBaseAddress(sharp.Native, "engine.dll");
             ClientDllBaseAddress = GetModuleBaseAddress(sharp.Native, "client.dll");
             ServerDllBaseAddress = GetModuleBaseAddress(sharp.Native, "server.dll");
+            this._convarManager = new ConvarManager(0,this);
+            this._signatureManager = new SignatureManager(this);
         }
     }
 }
