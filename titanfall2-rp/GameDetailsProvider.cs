@@ -24,7 +24,13 @@ namespace titanfall2_rp
             string gameDetails = tf2Api.GetGameMode().ToFriendlyString();
             string gameState = "";
             var timestamps = new Timestamps(gameOpenTimestamp);
-            var assets = new Assets() { LargeImageKey = tf2Api.GetMultiplayerMapName(), LargeImageText = tf2Api.GetFriendlyMapName(), };
+            var assets = new Assets
+            {
+                LargeImageKey = tf2Api.GetMultiplayerMapName(),
+                LargeImageText = tf2Api.GetFriendlyMapName(),
+                SmallImageKey = tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().GetAssetName(),
+                SmallImageText = tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().ToFriendlyString(),
+            };
             switch (currentGameMode)
             {
                 case GameMode.coliseum:
