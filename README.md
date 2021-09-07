@@ -11,7 +11,7 @@ Coming soon...
 
 
 ## Usage
-At the moment, there is no install process. Go to [the releases page](https://github.com/IncPlusPlus/titanfall2-rp/releases) or directly to the [latest release](https://github.com/IncPlusPlus/titanfall2-rp/releases/latest) and then download the `.exe` file from the release assets. If that's too much for you, you probably shouldn't be here :/
+At the moment, there is no install process. Go to [the releases page](https://github.com/IncPlusPlus/titanfall2-rp/releases) or directly to the [latest release](https://github.com/IncPlusPlus/titanfall2-rp/releases/latest) and then download the `.exe` file from the release assets. If that's too much for you, you probably shouldn't try this out.
 
 You're still here? Fine. If you really couldn't follow the instructions above, just click [here](https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/titanfall2-rp.exe). Just promise me one thing. Never _**ever**_ file a bug report.
 
