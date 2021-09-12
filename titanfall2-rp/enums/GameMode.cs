@@ -166,6 +166,11 @@ namespace titanfall2_rp.enums
         fd_hard,
 
         /// <summary>
+        /// Frontier Defense (Master)
+        /// </summary>
+        fd_master,
+
+        /// <summary>
         /// Frontier Defense (Insane)
         /// </summary>
         fd_insane,
