@@ -9,9 +9,8 @@ namespace titanfall2_rp
     public static class ProcessNetApi
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        // For some reason, discord will show 4 hours as the starting time unless I add 4 hours here.
-        // Seems the only way to fix this is to offset it here. I'm not sure if this is a timezone issue or what.
-        // Also, this time it's initialized will be wrong until it's set from Init(). This is just a placeholder value.
+        // The time this field is initialized to will be wrong until it's set from Init().
+        // This is just a placeholder value.
         public static DateTime StartTimestamp { get; private set; } = DateTimeOffset.Now.UtcDateTime;
         private static ProcessSharp? _sharp;
         private const string ProcessName = "Titanfall2";
