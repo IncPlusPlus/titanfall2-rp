@@ -6,6 +6,7 @@ using DiscordRPC;
 using DiscordRPC.Logging;
 using log4net;
 using log4net.Config;
+using AutoUpdaterDotNET;
 
 
 namespace titanfall2_rp
@@ -34,6 +35,9 @@ namespace titanfall2_rp
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
+
+            AutoUpdater.Synchronous = true;
+            AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence. Press enter at any time to exit!");
 
