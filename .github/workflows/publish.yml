@@ -112,7 +112,10 @@ jobs:
         id: version-grab-step
 
       - name: Try replacing the template string in the updater xml file
-        run: sed -e "s/\${VERSION}/${{ steps.version-grab-step.outputs.version }}/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
+        run: |
+          EXEVERSION=${{ steps.version-grab-step.outputs.version }}
+          echo "Setting version in template to $EXEVERSION"
+          sed -e "s/\${VERSION}/$EXEVERSION/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
 
       - name: Add EXE to release
         uses: softprops/action-gh-release@v1
