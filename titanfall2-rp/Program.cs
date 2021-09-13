@@ -35,7 +35,7 @@ namespace titanfall2_rp
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
-            
+
             AutoUpdater.Synchronous = true;
             AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
 
