@@ -1,0 +1,3 @@
+﻿branches:
+  master:
+    regex: ^master$|^main$

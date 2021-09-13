@@ -1,4 +1,4 @@
-﻿name: Build and publish
+﻿name: Build
 on: [push]
 jobs:
   build:
@@ -24,6 +24,6 @@ jobs:
         with:
           dotnet-version: '5.0.x'
         
-      - name: Attempt to build project (using the publish command)
+      - name: Attempt to build project
         run: dotnet build
         

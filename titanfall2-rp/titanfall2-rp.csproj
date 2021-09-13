@@ -13,6 +13,21 @@
 		<Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
+        <VersionPrefix Condition="'$(RELEASE_VERSION)' == ''">0.0.1</VersionPrefix>
+        <VersionSuffix Condition="'$(RELEASE_VERSION)' == ''">$([System.DateTime]::UtcNow.ToString(`yyyyMMdd-HHmm`))</VersionSuffix>
+        <FileVersion Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</FileVersion>
+        <FileVersion Condition="'$(RELEASE_VERSION)' == ''">0.0.1-$([System.DateTime]::UtcNow.ToString(`yyyyMMdd-HHmm`))</FileVersion>
+        <AssemblyTitle>Titanfall 2 Discord Rich Presence</AssemblyTitle>
+        <RepositoryUrl>https://github.com/IncPlusPlus/titanfall2-rp.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/IncPlusPlus/titanfall2-rp</PackageProjectUrl>
+        <Authors>Ryan C</Authors>
+        <Company>IncPlusPlus</Company>
+        <Product>Titanfall 2 RP</Product>
+    </PropertyGroup>
+    
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
       <PlatformTarget>x64</PlatformTarget>
     </PropertyGroup>

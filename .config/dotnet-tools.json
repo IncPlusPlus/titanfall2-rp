@@ -7,6 +7,12 @@
       "commands": [
         "dotnet-format"
       ]
+    },
+    "dotnet-versioninfo": {
+      "version": "1.0.2",
+      "commands": [
+        "versioninfo"
+      ]
     }
   }
 }
