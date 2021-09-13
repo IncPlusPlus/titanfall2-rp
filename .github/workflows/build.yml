@@ -1,19 +1,6 @@
 ﻿name: Build
 on: [push]
 jobs:
-  xml:
-    runs-on: ubuntu-latest
-    env: 
-      RELEASE_VERSION: 2.3.5
-    steps:
-      - name: Check out repo
-        uses: actions/checkout@v2
-
-      - name: Try replacing the template string
-        run: sed -e "s/\${VERSION}/$RELEASE_VERSION/" ./assets/auto-update-template.xml | tee updater-helper-file.xml 
-      
-      - name: Read the new file
-        run: cat updater-helper-file.xml
   build:
     runs-on: windows-latest
     steps:
@@ -28,7 +15,7 @@ jobs:
 
       - name: Restore dotnet tools
         uses: xt0rted/dotnet-tool-restore@v1
-      
+
       - name: Run dotnet format
         run: dotnet format --check
 # https://github.com/xt0rted/dotnet-format/issues/174
@@ -37,10 +24,9 @@ jobs:
 
       - name: Attempt to build project
         run: dotnet build
-          
+
       - name: Show exe version info
         run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.exe -j
-          
+
       - name: Show dll version info
         run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.dll -j
-        
