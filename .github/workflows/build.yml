@@ -14,9 +14,6 @@ jobs:
         run: |
           git config remote.origin.url https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
           git fetch --prune --depth=10000
-      
-      - name: Create fake git tag so that I can test this without pushing a thousand releases
-        run: git tag 2.8.1
           
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.10
