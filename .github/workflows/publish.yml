@@ -86,26 +86,11 @@ jobs:
       - name: Show dll version info
         run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.dll -j
 
-      - name: Put the exe version in a step output
-        run: |
-          VERSIONNUMTEMP=$(dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j | jq .[0])
-          echo "::set-output name=version::$VERSIONNUMTEMP"
-        id: version-grab-step
-
-      - name: Try replacing the template string in the updater xml file
-        run: sed -e "s/\${VERSION}/${{ steps.version-grab-step.outputs.version }}/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
-
       - name: Upload EXE as run artifact
         uses: actions/upload-artifact@v2
         with:
           name: exe
           path: titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
-
-      - name: Upload updater XML as run artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: updater-xml
-          path: updater-helper-file.xml
 
   release:
     name: Add artifact to GH Release
@@ -120,10 +105,14 @@ jobs:
         with:
           name: exe
 
-      - name: Get updater XML from artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: updater-xml
+      - name: Put the exe version in a step output
+        run: |
+          VERSIONNUMTEMP=$(dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j | jq .[0]["FileVersion"])
+          echo "::set-output name=version::$VERSIONNUMTEMP"
+        id: version-grab-step
+
+      - name: Try replacing the template string in the updater xml file
+        run: sed -e "s/\${VERSION}/${{ steps.version-grab-step.outputs.version }}/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
 
       - name: Add EXE to release
         uses: softprops/action-gh-release@v1
