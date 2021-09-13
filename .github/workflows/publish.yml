@@ -107,7 +107,11 @@ jobs:
 
       - name: Put the exe version in a step output
         run: |
+          dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j
+          dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j | jq .[0]
+          dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j | jq .[0].FileVersion
           VERSIONNUMTEMP=$(dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j | jq .[0].FileVersion)
+          echo "VERSIONNUMTEMP set to $VERSIONNUMTEMP"
           echo "::set-output name=version::$VERSIONNUMTEMP"
         id: version-grab-step
 
