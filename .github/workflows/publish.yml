@@ -96,6 +96,9 @@ jobs:
     name: Add artifact to GH Release
     runs-on: ubuntu-latest
     needs: [ build ]
+    env:
+      # For use with https://stackoverflow.com/a/60364278/1687436
+      RELEASE_VERSION: ${{needs.version.outputs.versionNumber}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -105,24 +108,8 @@ jobs:
         with:
           name: exe
 
-      - name: Restore dotnet tools
-        uses: xt0rted/dotnet-tool-restore@v1
-
-      - name: Put the exe version in a step output
-        run: |
-          dotnet versioninfo titanfall2-rp.exe -j
-          dotnet versioninfo titanfall2-rp.exe -j | jq .[0]
-          dotnet versioninfo titanfall2-rp.exe -j | jq .[0].FileVersion
-          VERSIONNUMTEMP=$(dotnet versioninfo titanfall2-rp.exe -j | jq .[0].FileVersion)
-          echo "VERSIONNUMTEMP set to $VERSIONNUMTEMP"
-          echo "::set-output name=version::$VERSIONNUMTEMP"
-        id: version-grab-step
-
-      - name: Try replacing the template string in the updater xml file
-        run: |
-          EXEVERSION=${{ steps.version-grab-step.outputs.version }}
-          echo "Setting version in template to $EXEVERSION"
-          sed -e "s/\${VERSION}/$EXEVERSION/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
+      - name: Replace the template string in the updater xml file
+        run: sed -e "s/\${VERSION}/$RELEASE_VERSION/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
 
       - name: Add EXE to release
         uses: softprops/action-gh-release@v1
