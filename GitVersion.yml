@@ -1,3 +1,3 @@
 ﻿branches:
   master:
-    regex: ^master$|^main$|^feature/Auto_updates_(part_1)$
+    regex: ^master$|^main$|^feature\/Auto_updates_\(part_1\)$
