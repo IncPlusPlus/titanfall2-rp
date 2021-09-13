@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <item>
     <version>${VERSION}</version>
-    <url>https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/titanfall2-rp.exe</url>
+    <url>https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/titanfall2-rp.zip</url>
     <changelog>https://github.com/IncPlusPlus/titanfall2-rp/releases/tag/v${VERSION}#start-of-content</changelog>
     <mandatory>true</mandatory>
 </item>

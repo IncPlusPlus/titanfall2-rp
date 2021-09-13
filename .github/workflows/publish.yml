@@ -110,6 +110,9 @@ jobs:
 
       - name: Replace the template string in the updater xml file
         run: sed -e "s/\${VERSION}/$RELEASE_VERSION/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
+        
+      - name: Make a zip
+        run: zip titanfall2-rp.zip titanfall2-rp.exe
 
       - name: Add EXE to release
         uses: softprops/action-gh-release@v1
@@ -117,6 +120,7 @@ jobs:
           prerelease: false
           files: |
             titanfall2-rp.exe
+            titanfall2-rp.zip
             updater-helper-file.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
