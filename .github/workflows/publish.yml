@@ -74,11 +74,6 @@ jobs:
       #      - name: Run dotnet format
       #        uses: xt0rted/dotnet-format@v1
 
-      - name: Set up .NET Core SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '5.0.x'
-
       - name: Attempt to build project (using the publish command)
         run: dotnet publish
         
