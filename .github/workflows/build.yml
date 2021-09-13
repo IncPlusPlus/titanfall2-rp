@@ -36,4 +36,4 @@ jobs:
         id: version-grab-step
         
       - name: Grab the stored version
-        run: echo The stored version was ${{ steps.version-grab-step.outputs.version }}
+        run: echo "The stored version was ${{ steps.version-grab-step.outputs.version }}"
