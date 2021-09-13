@@ -50,7 +50,7 @@ jobs:
         with:
           path: version1.txt
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: [ version ]
     env:
       # For use with https://stackoverflow.com/a/60364278/1687436
@@ -58,6 +58,9 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
+
+      - name: Show dotnet info
+        run: dotnet --info
 
       - name: Show the version that's being built
         run: echo Building version $RELEASE_VERSION
@@ -76,6 +79,12 @@ jobs:
 
       - name: Attempt to build project (using the publish command)
         run: dotnet publish
+        
+      - name: Show exe version info
+        run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.exe -j
+
+      - name: Show dll version info
+        run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.dll -j
 
       - name: Upload EXE as run artifact
         uses: actions/upload-artifact@v2
