@@ -63,7 +63,7 @@ jobs:
         run: dotnet --info
 
       - name: Show the version that's being built
-        run: echo Building version $RELEASE_VERSION
+        run: echo "Building version $RELEASE_VERSION"
 
       - name: Add dotnet-format problem matcher
         uses: xt0rted/dotnet-format-problem-matcher@v1
@@ -95,7 +95,7 @@ jobs:
   release:
     name: Add artifact to GH Release
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs: [ version, build ]
     env:
       # For use with https://stackoverflow.com/a/60364278/1687436
       RELEASE_VERSION: ${{needs.version.outputs.versionNumber}}
