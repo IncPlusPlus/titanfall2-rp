@@ -1,62 +1,11 @@
 ﻿name: Build
 on: [push]
 jobs:
-  version:
-    name: Create version number
-    runs-on: ubuntu-18.04
-    outputs: 
-      versionNumber: ${{ steps.version.outputs.content }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        
-      - name: Fetch all history for all tags and branches
-        run: |
-          git config remote.origin.url https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
-          git fetch --prune --depth=10000
-          
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.10
-        with:
-          versionSpec: '5.x'
-          
-      - name: Use GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v0.9.10
-        
-      - name: Create version.txt with nuGetVersion
-        run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
-        
-      - name: Upload version.txt
-        uses: actions/upload-artifact@v2
-        with:
-          name: gitversion
-          path: version.txt
-          
-      - name: Get version.txt
-        uses: actions/download-artifact@v2
-        with:
-          name: gitversion
-          
-      - name: Create new file without newline char from version.txt
-        run: tr -d '\n' < version.txt > version1.txt
-        
-      - name: Read version
-        id: version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: version1.txt
   build:
     runs-on: ubuntu-latest
-    needs: [ version ]
-    env:
-      RELEASE_VERSION: ${{needs.version.outputs.versionNumber}}
     steps:
       - name: Check out repo
         uses: actions/checkout@v2
-        
-      - name: Try to read version from previous job
-        run: echo RELEASE_VERSION is $RELEASE_VERSION
 
       - name: Add dotnet-format problem matcher
         uses: xt0rted/dotnet-format-problem-matcher@v1
