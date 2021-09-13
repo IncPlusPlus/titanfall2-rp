@@ -25,6 +25,9 @@ jobs:
       - name: Attempt to build project
         run: dotnet build /p:Version=1.2.3
           
-      - name: Show assembly info
+      - name: Show exe info
         run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.exe -j
+          
+      - name: Show dll info
+        run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.dll -j
         
