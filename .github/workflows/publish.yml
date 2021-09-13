@@ -76,6 +76,9 @@ jobs:
 
       - name: Attempt to build project (using the publish command)
         run: dotnet publish
+        
+      - name: Show assembly info
+        run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe -j
 
       - name: Upload EXE as run artifact
         uses: actions/upload-artifact@v2
