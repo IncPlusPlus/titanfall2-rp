@@ -1,6 +1,16 @@
 ﻿name: Build
 on: [push]
 jobs:
+  xml:
+    runs-on: ubuntu-latest
+    env: 
+      RELEASE_VERSION: 2.3.5
+    steps:
+      - name: Try replacing the template string
+        run: sed -e 's/\${VERSION}/$RELEASE_VERSION/' assets/auto-update-template.xml | tee updater-helper-file.xml 
+      
+      - name: Read the new file
+        run: cat updater-helper-file.xml
   build:
     runs-on: windows-latest
     steps:
