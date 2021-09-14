@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
+using AutoUpdaterDotNET;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using log4net;
 using log4net.Config;
-using AutoUpdaterDotNET;
-
 
 namespace titanfall2_rp
 {
@@ -15,6 +15,7 @@ namespace titanfall2_rp
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string LoggerConfigFileName = "log4net.config";
+        public static readonly Version AppVersion = Assembly.GetEntryAssembly()!.GetName().Version!;
         public const int StatusRefreshTimeInSeconds = 5;
         public const int StatusRefreshTimeInMs = StatusRefreshTimeInSeconds * 1000;
         private static AutoResetEvent _userRequestedExit = new AutoResetEvent(false);
@@ -36,8 +37,26 @@ namespace titanfall2_rp
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
-            AutoUpdater.Synchronous = true;
-            AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
+            Log.InfoFormat("IncPlusPlus' TF|2 Discord Rich Presence Tool version {0} (https://github.com/IncPlusPlus/titanfall2-rp)", AppVersion);
+
+            if (!HasWritePermission(AppContext.BaseDirectory!))
+            {
+                Log.FatalFormat("This program needs write permissions to the current directory.\nThe directory '{0}' is not writeable!!!", AppContext.BaseDirectory!);
+            }
+            else { AutoUpdater.RunUpdateAsAdmin = false; }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Log.Info("Checking for updates...");
+                AutoUpdater.Synchronous = true;
+                AutoUpdater.ReportErrors = true;
+                AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
+                AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
+            }
+            else
+            {
+                Log.Info("Skipped checking for updates as that's a Windows-only feature.");
+            }
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence. Press enter at any time to exit!");
 
@@ -46,7 +65,7 @@ namespace titanfall2_rp
             var tf2Api = new Titanfall2Api();
 
             // Make the RPC library use a custom implemented logger (this is such a cool library feature)
-            DiscordRpcClient.Logger = new Log4NetDiscordLogger() { Level = LogLevel.Warning };
+            DiscordRpcClient.Logger = new Log4NetDiscordLogger { Level = LogLevel.Warning };
 
             // Subscribe to events
             DiscordRpcClient.OnReady += (sender, e) => { Log.DebugFormat("Received Ready from user {0}", e.User.Username); };
@@ -76,6 +95,12 @@ namespace titanfall2_rp
             Log.Info("Closing...");
         }
 
+        private static void AutoUpdater_ApplicationExitEvent()
+        {
+            Log.Info("Closing application in preparation for update...");
+            Environment.Exit(0);
+        }
+
         // With some help from https://stackoverflow.com/a/10669337/1687436
         private static void StartThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api, AutoResetEvent userExitEvent)
         {
@@ -84,6 +109,21 @@ namespace titanfall2_rp
                 Name = "Discord RP Updating Thread"
             };
             _presenceUpdatingThread.Start();
+        }
+
+        public static bool HasWritePermission(string tempfilepath)
+        {
+            try
+            {
+                File.Create(tempfilepath + "temp.txt").Close();
+                File.Delete(tempfilepath + "temp.txt");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
