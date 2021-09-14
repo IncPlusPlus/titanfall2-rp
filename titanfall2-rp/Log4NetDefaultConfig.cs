@@ -51,12 +51,12 @@ namespace titanfall2_rp
 		</layout>
 	</appender>
 </log4net>";
-        
+
         public static XmlElement GetLoggerConfigAsXml()
         {
-	        XmlDocument doc = new();
-	        doc.LoadXml(DefaultLog4NetConfig);
-	        return doc.DocumentElement!;
+            XmlDocument doc = new();
+            doc.LoadXml(DefaultLog4NetConfig);
+            return doc.DocumentElement!;
         }
     }
 }
