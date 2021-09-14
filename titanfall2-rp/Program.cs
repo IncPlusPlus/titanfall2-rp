@@ -34,7 +34,7 @@ namespace titanfall2_rp
 
             if (!appDirectoryWritable)
             {
-                Log.FatalFormat(
+                Log.ErrorFormat(
                     "This program needs write permissions to the current directory." +
                     "\nThe directory '{0}' is not writeable!!!" +
                     "\nThis could affect logging!",
