@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows.Forms;
 using AutoUpdaterDotNET;
 using DiscordRPC;
 using DiscordRPC.Logging;
@@ -99,7 +98,7 @@ namespace titanfall2_rp
         private static void AutoUpdater_ApplicationExitEvent()
         {
             Log.Info("Closing application in preparation for update...");
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         // With some help from https://stackoverflow.com/a/10669337/1687436
