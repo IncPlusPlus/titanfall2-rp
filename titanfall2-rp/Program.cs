@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using AutoUpdaterDotNET;
@@ -45,11 +46,18 @@ namespace titanfall2_rp
             }
             else { AutoUpdater.RunUpdateAsAdmin = false; }
 
-            Log.Info("Checking for updates...");
-            AutoUpdater.Synchronous = true;
-            AutoUpdater.ReportErrors = true;
-            AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
-            AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Log.Info("Checking for updates...");
+                AutoUpdater.Synchronous = true;
+                AutoUpdater.ReportErrors = true;
+                AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
+                AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
+            }
+            else
+            {
+                Log.Info("Skipped checking for updates as that's a Windows-only feature.");
+            }
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence. Press enter at any time to exit!");
 
