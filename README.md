@@ -5,6 +5,25 @@ This project aims to allow for Discord's Rich Presence feature to work with Tita
 ## Important note
 #### READ THE [DISCLAIMER BELOW](#disclaimer) BEFORE USING THIS SOFTWARE!!!
 
+## Features
+Here's what this application is capable of
+- Rich presence features
+  - Single player
+    - Show campaign mission name
+    - Show map previews (there are multiple which are rotated)
+  - Multi-player
+    - Show game mode
+    - Show map preview and name
+    - Show current faction
+    - Show titan currently in use (planned in [#70](https://github.com/IncPlusPlus/titanfall2-rp/pull/70))
+    - Show score* (see [#45](https://github.com/IncPlusPlus/titanfall2-rp/issues/45) for supported game modes)
+- Application-specific features
+  - Error logging
+  - Customization/settings (planned)
+  - Ability to start minimized (planned)
+  - Ability to minimize to system tray (planned)
+  - Automatic updates check (Windows only) 
+
 ## Screenshots
 
 Coming soon...
