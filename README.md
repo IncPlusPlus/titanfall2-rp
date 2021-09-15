@@ -29,10 +29,26 @@ Here's what this application is capable of
 Coming soon...
 
 
-## Usage
+## Installation
 At the moment, there is no install process. Go to [the releases page](https://github.com/IncPlusPlus/titanfall2-rp/releases) or directly to the [latest release](https://github.com/IncPlusPlus/titanfall2-rp/releases/latest) and then download the `.exe` file from the release assets. If that's too much for you, you probably shouldn't try this out.
 
 You're still here? Fine. If you really couldn't follow the instructions above, just click [here](https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/titanfall2-rp.exe). Just promise me one thing. Never _**ever**_ file a bug report.
+
+### Issues with Microsoft Defender SmartScreen
+Upon attempting to run `titanfall2-rp.exe`, you may be prevented from doing so by a Microsoft Defender SmartScreen window. It should resemble the following:
+
+![image](https://user-images.githubusercontent.com/6992149/133367975-0bc82639-360d-44d0-b916-068c04a06a17.png)
+
+Click "More info" and then click "Run anyway". You will only be prompted like this once. It _may_ happen again after updating.
+
+# OS Support
+Currently this is officially supported only on Windows. However, I've been informed that it works on Linux with the use of a Discord IPC bridge. This may have been broken with the introduction of autmatic-updates but I think I mitigated that issue. Please file a bug if that's not the case. I'll provide more information about linux installation steps in the future.
+
+## Usage
+1. Open Discord
+2. Run this program
+3. Open Titanfall 2
+4. Have fun!
 
 ## Supported Game Modes
 While this project _is_ stable, it isn't **_nearly_** complete yet. Multiplayer game data isn't easy to track down in memory. For this reason, this project has a limited set of game modes that it supports. You can still play the unsupported game modes. It won't cause any problems. However, only the supported game modes will show your score and other info on Discord. For the list of supported games, see [#45](https://github.com/IncPlusPlus/titanfall2-rp/issues/45).
