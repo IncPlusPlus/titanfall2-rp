@@ -95,6 +95,7 @@ namespace titanfall2_rp
                 Assets = assets ?? new Assets
                 {
                     LargeImageKey = "icon-900x900",
+                    LargeImageText = "titanfall2-rp " + Program.AppVersion + " by IncPlusPlus",
                 }
             });
         }
