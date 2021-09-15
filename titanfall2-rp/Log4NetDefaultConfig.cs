@@ -1,4 +1,6 @@
-﻿namespace titanfall2_rp
+﻿using System.Xml;
+
+namespace titanfall2_rp
 {
     public static class Log4NetDefaultConfig
     {
@@ -49,5 +51,12 @@
 		</layout>
 	</appender>
 </log4net>";
+
+        public static XmlElement GetLoggerConfigAsXml()
+        {
+            XmlDocument doc = new();
+            doc.LoadXml(DefaultLog4NetConfig);
+            return doc.DocumentElement!;
+        }
     }
 }
