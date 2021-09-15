@@ -38,6 +38,7 @@ You're still here? Fine. If you really couldn't follow the instructions above, j
 Upon attempting to run `titanfall2-rp.exe`, you may be prevented from doing so by a Microsoft Defender SmartScreen window. It should resemble the following:
 
 ![image](https://user-images.githubusercontent.com/6992149/133367975-0bc82639-360d-44d0-b916-068c04a06a17.png)
+
 Click "More info" and then click "Run anyway". You will only be prompted like this once. It _may_ happen again after updating.
 
 # OS Support
