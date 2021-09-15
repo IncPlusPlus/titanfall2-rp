@@ -24,29 +24,30 @@ namespace titanfall2_rp
 
         static void Main(string[] args)
         {
-            // Load logging configuration
-            // Thanks to https://jakubwajs.wordpress.com/2019/11/28/logging-with-log4net-in-net-core-3-0-console-app/
-            var loggerConfigFile = new FileInfo(LoggerConfigFileName);
-            if (!loggerConfigFile.Exists)
-            {
-                Console.WriteLine("Couldn't find '{0}'! Creating it (this only needs to happen once)...", LoggerConfigFileName);
-                File.WriteAllText(LoggerConfigFileName, Log4NetDefaultConfig.DefaultLog4NetConfig);
-            }
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+            ConfigureLogger();
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
             Log.InfoFormat("IncPlusPlus' TF|2 Discord Rich Presence Tool version {0} (https://github.com/IncPlusPlus/titanfall2-rp)", AppVersion);
 
-            if (!HasWritePermission(AppContext.BaseDirectory!))
+            var appDirectoryWritable = HasWritePermission(AppContext.BaseDirectory!);
+
+            if (!appDirectoryWritable)
             {
-                Log.FatalFormat("This program needs write permissions to the current directory.\nThe directory '{0}' is not writeable!!!", AppContext.BaseDirectory!);
+                Log.ErrorFormat(
+                    "This program needs write permissions to the current directory." +
+                    "\nThe directory '{0}' is not writeable!!!" +
+                    "\nThis could affect logging!",
+                    AppContext.BaseDirectory!);
             }
-            else { AutoUpdater.RunUpdateAsAdmin = false; }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
+                if (appDirectoryWritable)
+                {
+                    // Don't give a UAC prompt if I don't have to (they're annoying)
+                    AutoUpdater.RunUpdateAsAdmin = false;
+                }
                 Log.Info("Checking for updates...");
                 AutoUpdater.Synchronous = true;
                 AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
@@ -92,6 +93,31 @@ namespace titanfall2_rp
             // Releases the resources used for the events (only after the thread that was using this has exited)
             _userRequestedExit.Close();
             Log.Info("Closing...");
+        }
+
+        private static void ConfigureLogger()
+        {
+            // Load logging configuration
+            // Thanks to https://jakubwajs.wordpress.com/2019/11/28/logging-with-log4net-in-net-core-3-0-console-app/
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            // Start with the default logger before trying any fancy config file stuff
+            XmlConfigurator.Configure(logRepository, Log4NetDefaultConfig.GetLoggerConfigAsXml());
+            var loggerConfigFile = new FileInfo(LoggerConfigFileName);
+            if (!loggerConfigFile.Exists)
+            {
+                Log.WarnFormat("Couldn't find '{0}'! Creating it (this only needs to happen once)...", LoggerConfigFileName);
+                try
+                {
+                    File.WriteAllText(LoggerConfigFileName, Log4NetDefaultConfig.DefaultLog4NetConfig);
+                }
+                catch (Exception e)
+                {
+                    Log.Error("Unable to save logging config", e);
+                    Log.Error("Using built-in default logging configuration.");
+                    return;
+                }
+            }
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
         private static void AutoUpdater_ApplicationExitEvent()
