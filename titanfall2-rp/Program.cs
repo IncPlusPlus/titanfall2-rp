@@ -49,7 +49,6 @@ namespace titanfall2_rp
             {
                 Log.Info("Checking for updates...");
                 AutoUpdater.Synchronous = true;
-                AutoUpdater.ReportErrors = true;
                 AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
                 AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
             }
