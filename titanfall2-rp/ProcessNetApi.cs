@@ -34,7 +34,7 @@ namespace titanfall2_rp
             Log.Debug("Found '" + ProcessName + "'" + "!");
             var proc = processSearch[0];
             _sharp = new ProcessSharp(proc, MemoryType.Remote);
-            StartTimestamp = DateTimeOffset.Now.UtcDateTime;
+            StartTimestamp = _sharp.Native.StartTime.ToUniversalTime();
             return true;
         }
 
