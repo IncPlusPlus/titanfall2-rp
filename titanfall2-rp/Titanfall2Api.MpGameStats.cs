@@ -254,6 +254,26 @@ namespace titanfall2_rp
                 {
                     _tf2Api = tf2Api;
                 }
+
+                /// <summary>
+                /// Get the score of team 1. Whether this is your team or the enemy's doesn't always stay the same.
+                /// I'm not sure why. This is something that I need some help figuring out.
+                /// </summary>
+                /// <returns>the score of team 1</returns>
+                public int GetTeam1Score()
+                {
+                    return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x1121814C);
+                }
+
+                /// <summary>
+                /// Get the score of team 2. Whether this is your team or the enemy's doesn't always stay the same.
+                /// I'm not sure why. This is something that I need some help figuring out.
+                /// </summary>
+                /// <returns>the score of team 2</returns>
+                public int GetTeam2Score()
+                {
+                    return _tf2Api._sharp!.Memory.Read<int>(_tf2Api._engineDllBaseAddress + 0x11218CA0);
+                }
             }
 
             public class LastTitanStanding
