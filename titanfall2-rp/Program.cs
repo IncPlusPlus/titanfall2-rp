@@ -41,7 +41,7 @@ namespace titanfall2_rp
                     AppContext.BaseDirectory!);
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !IsRunningInWine())
             {
                 if (appDirectoryWritable)
                 {
@@ -93,6 +93,17 @@ namespace titanfall2_rp
             // Releases the resources used for the events (only after the thread that was using this has exited)
             _userRequestedExit.Close();
             Log.Info("Closing...");
+        }
+
+        /// <summary>
+        /// This method is somewhat deceiving. This will return true as long as it's not on windows. This should be
+        /// used in tandem with an IfOnWindows() conditional. That'll probably return true when in wine so you'd want
+        /// another method to make sure you're truly in a Windows environment. That's what this method is useful for.
+        /// </summary>
+        /// <returns>whether this program is running inside WINE</returns>
+        private static bool IsRunningInWine()
+        {
+            return System.Diagnostics.Process.GetProcessesByName("winlogon").Length == 0;
         }
 
         private static void ConfigureLogger()
