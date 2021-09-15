@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using log4net;
 using Process.NET;
 using titanfall2_rp.enums;
 using static titanfall2_rp.ProcessApi;
@@ -11,6 +13,7 @@ namespace titanfall2_rp
     // However, this is unlikely given that the presence update time is multiple seconds.
     public partial class Titanfall2Api
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Regex GameModeAndMapRegex = new Regex("Playing (.*) on (.*)");
         private ProcessSharp? _sharp;
         private IntPtr _engineDllBaseAddress;
@@ -100,6 +103,7 @@ namespace titanfall2_rp
                     throw new InvalidOperationException(
                         "Couldn't initialize Titanfall2Api. Make sure the process is running!");
                 }
+                Log.Info("Found a running instance of Titanfall 2.");
                 _populateFields(ProcessNetApi.GetProcess());
             }
         }

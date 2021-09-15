@@ -50,6 +50,8 @@ namespace titanfall2_rp
                     gameState = bountyHuntStats.GetTeam1Score() + ":" + bountyHuntStats.GetTeam2Score();
                     break;
                 case GameMode.ctf:
+                    var ctfStats = tf2Api.GetMultiPlayerGameStats().GetCaptureTheFlag();
+                    gameState = ctfStats.GetTeam1Score() + ":" + ctfStats.GetTeam2Score();
                     break;
                 case GameMode.lts:
                     break;
