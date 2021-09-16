@@ -22,7 +22,7 @@ Here's what this application is capable of
   - Customization/settings (planned)
   - Ability to start minimized (planned)
   - Ability to minimize to system tray (planned)
-  - Automatic updates check (Windows only) 
+  - Automatic updates check ([Windows only](https://github.com/IncPlusPlus/titanfall2-rp/pull/108#issuecomment-921284407)) 
 
 ## Screenshots
 
