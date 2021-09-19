@@ -36,16 +36,16 @@ namespace titanfall2_rp.updater
         protected override bool? CheckForUpdates()
         {
             // TODO: Try cleaning up the zip extractor and any previous downloads here (be nice to %tmp%)
-            XmlTextReader xmlTextReader =
-                new XmlTextReader(new StringReader(_client.GetStringAsync(_appCastUri).Result)) { XmlResolver = null };
+            XmlTextReader xmlTextReader = new(new StringReader(_client.GetStringAsync(_appCastUri).Result))
+            { XmlResolver = null };
             UpdateInfoEventArgs args = (UpdateInfoEventArgs)xmlSerializer.Deserialize(xmlTextReader)!;
             return new Version(args.CurrentVersion) > AppVersion;
         }
 
         protected override void AttemptUpdate()
         {
-            XmlTextReader xmlTextReader = new(new StringReader(_client.GetStringAsync(_appCastUri).Result))
-                { XmlResolver = null };
+            XmlTextReader xmlTextReader =
+                new(new StringReader(_client.GetStringAsync(_appCastUri).Result)) { XmlResolver = null };
             UpdateInfoEventArgs args = (UpdateInfoEventArgs)xmlSerializer.Deserialize(xmlTextReader)!;
             var tempFile = Path.Combine(Path.GetTempPath(), "titanfall2-rp-update-" + Guid.NewGuid() + ".tmp");
             Uri dlUri = new Uri(args.DownloadURL);
@@ -76,9 +76,9 @@ namespace titanfall2_rp.updater
                     UseShellExecute = true,
                     Arguments = arguments.ToString(),
                 };
-                
+
                 var proc = System.Diagnostics.Process.Start(processStartInfo);
-                
+
                 Environment.Exit(0);
             }
             else
