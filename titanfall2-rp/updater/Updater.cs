@@ -15,20 +15,29 @@ namespace titanfall2_rp.updater
         private static UpdateHelper? _updater;
 
         public static UpdateHelper Updater => _updater ?? GetUpdaterForOs();
-        
+
         private static UpdateHelper GetUpdaterForOs()
         {
             Log.DebugFormat("Grabbing an updater for OS '{0}'.", RuntimeInformation.OSDescription);
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                if(EnvironmentUtils.IsRunningInWine()) {_updater = new WineUpdater();} else {_updater = new WindowsUpdater();}
-                
-            }else {
+                if (EnvironmentUtils.IsRunningInWine())
+                {
+                    _updater = new WineUpdater();
+                }
+                else
+                {
+                    _updater = new WindowsUpdater();
+                }
+
+            }
+            else
+            {
                 _updater = new StubUpdater();
             }
             return _updater;
         }
-        
+
         public void Update()
         {
             Log.Info("Checking for update...");
@@ -37,11 +46,12 @@ namespace titanfall2_rp.updater
             {
                 var updateAvailable = CheckForUpdates();
                 checkUpdatesSuccess = true;
-                if (updateAvailable==null)
+                if (updateAvailable == null)
                 {
                     Log.Info("It's unknown if an update is available, attempting to update now...");
                     AttemptUpdate();
-                } else if ((bool)updateAvailable)
+                }
+                else if ((bool)updateAvailable)
                 {
                     Log.Info("There's an update available! Starting the update process...");
                     AttemptUpdate();
@@ -54,7 +64,7 @@ namespace titanfall2_rp.updater
             catch (Exception e)
             {
                 Log.Error(checkUpdatesSuccess ? "Failed to perform update." : "Failed to check for updates.", e);
-            } 
+            }
         }
 
         /// <summary>

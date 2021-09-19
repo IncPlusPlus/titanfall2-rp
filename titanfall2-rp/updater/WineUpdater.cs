@@ -16,18 +16,18 @@ namespace titanfall2_rp.updater
         private readonly HttpClient _client;
         private readonly Uri _appCastUri;
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(UpdateInfoEventArgs));
-        
+
 
         public WineUpdater()
         {
             _client = new HttpClient();
             _appCastUri = new Uri(AppCastURL);
         }
-        
+
         protected override bool? CheckForUpdates()
         {
-            XmlTextReader xmlTextReader = new XmlTextReader(new StringReader(_client.GetStringAsync(_appCastUri).Result)) {XmlResolver = null};
-            UpdateInfoEventArgs args = (UpdateInfoEventArgs) xmlSerializer.Deserialize(xmlTextReader)!;
+            XmlTextReader xmlTextReader = new XmlTextReader(new StringReader(_client.GetStringAsync(_appCastUri).Result)) { XmlResolver = null };
+            UpdateInfoEventArgs args = (UpdateInfoEventArgs)xmlSerializer.Deserialize(xmlTextReader)!;
             return null;
         }
 

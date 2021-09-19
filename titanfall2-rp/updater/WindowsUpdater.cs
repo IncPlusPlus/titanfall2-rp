@@ -6,7 +6,7 @@ using titanfall2_rp.misc;
 
 namespace titanfall2_rp.updater
 {
-    public class WindowsUpdater: UpdateHelper
+    public class WindowsUpdater : UpdateHelper
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
@@ -26,7 +26,7 @@ namespace titanfall2_rp.updater
             AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
             AutoUpdater.Start(AppCastURL);
         }
-        
+
         private static void AutoUpdater_ApplicationExitEvent()
         {
             Log.Debug("Closing application in preparation for update...");
