@@ -12,6 +12,14 @@
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<Nullable>enable</Nullable>
     </PropertyGroup>
+    
+    <!--https://stackoverflow.com/a/41106851/1687436-->
+    <ItemGroup>
+        <Content Remove="Resources/ZipExtractor.exe"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Resources/ZipExtractor.exe"/>
+    </ItemGroup>
 
     <PropertyGroup>
         <Version Condition="'$(RELEASE_VERSION)' != ''">$(RELEASE_VERSION)</Version>
