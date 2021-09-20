@@ -17,7 +17,7 @@ namespace titanfall2_rp
 
 	<!--File Appender-->
 	<appender name=""file"" type=""log4net.Appender.RollingFileAppender"">
-		<file value=""titanfall-rp.log"" />
+		<file value=""titanfall2-rp.log"" />
 		<appendToFile value=""true"" />
 		<rollingStyle value=""Size"" />
 		<maxSizeRollBackups value=""5"" />
