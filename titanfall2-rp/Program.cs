@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using Common;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using log4net;
@@ -14,6 +15,7 @@ namespace titanfall2_rp
     static class Program
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private const string LogFileName = "titanfall2-rp.log";
         private const string LoggerConfigFileName = "log4net.config";
         public const int StatusRefreshTimeInSeconds = 5;
         public const int StatusRefreshTimeInMs = StatusRefreshTimeInSeconds * 1000;
@@ -23,7 +25,7 @@ namespace titanfall2_rp
 
         static void Main(string[] args)
         {
-            ConfigureLogger();
+            Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
@@ -75,31 +77,6 @@ namespace titanfall2_rp
             // Releases the resources used for the events (only after the thread that was using this has exited)
             _userRequestedExit.Close();
             Log.Info("Closing...");
-        }
-
-        private static void ConfigureLogger()
-        {
-            // Load logging configuration
-            // Thanks to https://jakubwajs.wordpress.com/2019/11/28/logging-with-log4net-in-net-core-3-0-console-app/
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            // Start with the default logger before trying any fancy config file stuff
-            XmlConfigurator.Configure(logRepository, Log4NetDefaultConfig.GetLoggerConfigAsXml());
-            var loggerConfigFile = new FileInfo(LoggerConfigFileName);
-            if (!loggerConfigFile.Exists)
-            {
-                Log.WarnFormat("Couldn't find '{0}'! Creating it (this only needs to happen once)...", LoggerConfigFileName);
-                try
-                {
-                    File.WriteAllText(LoggerConfigFileName, Log4NetDefaultConfig.DefaultLog4NetConfig);
-                }
-                catch (Exception e)
-                {
-                    Log.Error("Unable to save logging config", e);
-                    Log.Error("Using built-in default logging configuration.");
-                    return;
-                }
-            }
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
         // With some help from https://stackoverflow.com/a/10669337/1687436
