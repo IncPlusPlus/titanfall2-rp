@@ -22,6 +22,10 @@ jobs:
 #      - name: Run dotnet format
 #        uses: xt0rted/dotnet-format@v1
 
+      # Without this, the project will fail to build because ZipExtractor won't be present in the Resources dir
+      - name: Create a single-file executable of ZipExtractor
+        run: dotnet publish ZipExtractor
+
       - name: Attempt to build project
         run: dotnet build
 
