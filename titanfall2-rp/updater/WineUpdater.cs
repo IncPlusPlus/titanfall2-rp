@@ -50,6 +50,15 @@ namespace titanfall2_rp.updater
             var tempFile = Path.Combine(Path.GetTempPath(), "titanfall2-rp-update-" + Guid.NewGuid() + ".tmp");
             Uri dlUri = new Uri(args.DownloadURL);
             var response = _client.GetAsync(dlUri).Result;
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new WebException(
+                    $"Download of the update file failed with code " +
+                    $"{(int)response.StatusCode}: {response.StatusCode}. " +
+                    $"Response body:\n{response.Content.ReadAsStringAsync().Result}");
+            }
+
             StreamToFile(response.Content.ReadAsStream(), tempFile).Wait();
 
             var contentDisposition = response.Content.Headers.ContentDisposition;
