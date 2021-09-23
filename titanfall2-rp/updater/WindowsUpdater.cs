@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using AutoUpdaterDotNET;
 using log4net;
@@ -22,9 +23,23 @@ namespace titanfall2_rp.updater
                 // Don't give a UAC prompt if I don't have to (they're annoying)
                 AutoUpdater.RunUpdateAsAdmin = false;
             }
+
             AutoUpdater.Synchronous = true;
             AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
-            AutoUpdater.Start(AppCastURL);
+            try
+            {
+                AutoUpdater.Start(AppCastURL);
+            }
+            catch (Exception e)
+            {
+                if (e is not FileNotFoundException fileNotFoundException) throw;
+
+                if (fileNotFoundException.FileName?.StartsWith("System.Windows.Forms") ?? false)
+                {
+                    throw new ApplicationException($"'{fileNotFoundException.Source}' tried to use Windows Forms but failed to load the assembly '{fileNotFoundException.FileName}' at runtime. Was this exe compiled on Linux?");
+                }
+                throw;
+            }
         }
 
         private static void AutoUpdater_ApplicationExitEvent()
