@@ -7,8 +7,7 @@ riderModule.iml
 .idea/
 
 # Generated zip extractor program (to be embedded)
-titanfall2-rp/Resources/ZipExtractor.exe
-titanfall2-rp/Resources/log4net.config
+titanfall2-rp/Resources/ZipExtractor
 
 
 ## Ignore Visual Studio temporary files, build results, and

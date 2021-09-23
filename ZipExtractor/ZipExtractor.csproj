@@ -7,7 +7,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <PropertyGroup>
-        <PublishDir>..\titanfall2-rp\Resources</PublishDir>
+        <PublishDir>..\titanfall2-rp\Resources\ZipExtractor</PublishDir>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
@@ -30,7 +30,7 @@
         </None>
     </ItemGroup>
     <Target Name="CleanPublishPath" AfterTargets="Clean">
-        <Delete Files="..\titanfall2-rp\Resources\ZipExtractor.exe"/>
+        <RemoveDir Directories="..\titanfall2-rp\Resources\ZipExtractor"/>
     </Target>
 
 </Project>
