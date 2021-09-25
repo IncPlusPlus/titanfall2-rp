@@ -22,11 +22,13 @@ namespace ZipExtractor
         private const string LogFileName = "titanfall2-rp-ZipExtractor.log";
         private const string LoggerConfigFileName = "log4net-tf2-ZipExtractor.config";
         private const int MaxRetries = 2;
+        private static AutoResetEvent _resetEvent = new AutoResetEvent(false);
 
-        static void Main(string[] args)
+        static void Main()
         {
             Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
             Log.Info("Starting ZipExtractor...");
+            string[] args = Environment.GetCommandLineArgs();
             var stringBuilder = new StringBuilder("ZipExtractor started with the following commandline args:\n");
             for (var index = 0; index < args.Length; index++)
             {
@@ -34,11 +36,13 @@ namespace ZipExtractor
                 stringBuilder.AppendLine($"[{index}] {arg}");
             }
 
-            Log.DebugFormat("ZipExtractor started with the following commandline args: {0}", stringBuilder);
+            Log.Info($"File location of logger config is {new FileInfo(LoggerConfigFileName).FullName}");
+            Log.Info(stringBuilder.ToString());
 
             try
             {
                 AttemptUnzip(args);
+                Log.Info("Unzip performed successfully!");
             }
             catch (Exception e)
             {
@@ -95,7 +99,17 @@ namespace ZipExtractor
                         path += Path.DirectorySeparatorChar;
                     }
 
-                    var archive = ZipFile.OpenRead(args[1]);
+                    ZipArchive archive;
+
+                    try
+                    {
+                        archive = ZipFile.OpenRead(args[1]);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
 
                     var entries = archive.Entries;
 
@@ -209,7 +223,9 @@ namespace ZipExtractor
                     {
                         if (eventArgs.Error != null)
                         {
-                            throw eventArgs.Error;
+                            Log.Fatal($"Encountered an error from DoWork.", eventArgs.Error);
+                            Environment.Exit(1);
+                            // throw eventArgs.Error;
                         }
 
                         if (!eventArgs.Cancelled)
@@ -235,13 +251,21 @@ namespace ZipExtractor
                             }
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Log.Fatal("Encountered an exception during RunWorkerCompleted.", e);
+                        Environment.Exit(2);
+                    }
                     finally
                     {
+                        _resetEvent.Set();
                         Environment.Exit(0);
                     }
                 };
 
                 backgroundWorker.RunWorkerAsync();
+                // So that this method doesn't immediately exit (https://stackoverflow.com/a/123791/1687436)
+                _resetEvent.WaitOne();
             }
             else
             {
