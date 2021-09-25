@@ -95,7 +95,7 @@ namespace Common
                     return;
                 }
             }
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+            XmlConfigurator.Configure(logRepository, new FileInfo(loggerConfigFileName));
         }
     }
 }
