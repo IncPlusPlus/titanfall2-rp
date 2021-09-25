@@ -9,8 +9,6 @@
     <PropertyGroup>
         <PublishDir>..\titanfall2-rp\Resources\ZipExtractor</PublishDir>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <DebugType>none</DebugType>
-        <DebugSymbols>false</DebugSymbols>
     </PropertyGroup>
     <PropertyGroup>
         <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
