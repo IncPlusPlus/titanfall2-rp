@@ -10,18 +10,17 @@ using System.Text;
 using System.Threading;
 using Common;
 using log4net;
-using log4net.Util;
 
 namespace ZipExtractor
 {
     /// <summary>
     /// A zip extractor program largely copied from AutoUpdater.NET
     /// </summary>
-    class Program
+    static class Program
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string LogFileName = "titanfall2-rp-ZipExtractor.log";
-        private const string LoggerConfigFileName = "log4net.config";
+        private const string LoggerConfigFileName = "log4net-tf2-ZipExtractor.config";
         private const int MaxRetries = 2;
 
         static void Main(string[] args)

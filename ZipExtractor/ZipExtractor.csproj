@@ -25,7 +25,7 @@
         <ProjectReference Include="..\Common\Common.csproj"/>
     </ItemGroup>
     <ItemGroup>
-        <None Update="log4net.config">
+        <None Update="log4net-tf2-ZipExtractor.config">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
     </ItemGroup>
