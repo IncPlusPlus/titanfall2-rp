@@ -3,8 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,7 +75,7 @@ namespace titanfall2_rp.updater
                 var executablePath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName;
                 var extractionPath = Path.GetDirectoryName(executablePath);
 
-                var arguments = new StringBuilder($"\"{tempPath}\" \"{extractionPath}\" \"{executablePath}\"");
+                var arguments = new StringBuilder($"\"{tempFile}\" \"{extractionPath}\" \"{executablePath}\"");
 
                 var processStartInfo = new ProcessStartInfo
                 {
