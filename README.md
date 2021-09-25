@@ -1,4 +1,5 @@
 ﻿# Titanfall 2 Discord Rich Presence
+# Titanfall 2 Discord Rich Presence
 
 This project aims to allow for Discord's Rich Presence feature to work with Titanfall 2. This is accomplished in a very hacky way. Specifically, known memory addresses are directly read from by this program. Yes, you read that right. I had to mess around in Cheat Engine to find the right memory addresses to read various values from. It's incredibly hacky but at least the code is relatively elegant if I say so myself.
 
@@ -63,3 +64,16 @@ Titanfall 2 appears to have no client-side anti-cheat, nor any game integrity sc
 ### **_HOWEVER_**
 
 I am not responsible for any action taken against you, automatically or manually, by Respawn Entertainment, Electronic Arts, or any anti-cheat that this tool might set off. While I am reasonably sure that Titanfall 2 has no, if not minimal VAC protection, I have not made certain of this. YOU TAKE FULL RESPONSIBILITY OF ANY REPERCUSSIONS THAT YOU MAY INCUR BY USING THIS TOOL.
+
+# Building/Running
+
+This section is just for developers. If you only want to _use_ this program, see the [installation](#installation) section.
+
+To build this project, run `dotnet publish`.
+
+To run this project, run the exe file from `[PROJECT_ROOT_DIR]\titanfall2-rp\bin\Debug\net5.0\win10-x64\publish` (where PROJECT_ROOT_DIR is the directory where you cloned this project) which was created when you ran `dotnet publish`.
+
+If you change anything in the ZipExtractor project, the changes will only be reflected after running `dotnet publish ZipExtractor` because of where the main `titanfall2-rip` project expects it to be (for use as an embedded resource).
+
+## Building on Linux
+Building on Linux works the same way as on Windows. However, the exe you create will have the auto-updating feature disabled on Windows. 
