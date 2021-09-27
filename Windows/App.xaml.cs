@@ -14,17 +14,19 @@ namespace titanfall2_rp.Windows
     /// </summary>
     public partial class App
     { 
-        private NotifyIcon _notifyIcon;
+        private NotifyIcon? _notifyIcon;
         private bool _isExit; 
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // TODO: Make the titanfall2-rp project into a library and make a Wine project (console application) that uses it as well
+            
             Forms.Init();
 
             base.OnStartup(e);
 
             _notifyIcon = new NotifyIcon();
-            _notifyIcon.MouseUp += NotifyIconOnMouseUp;
+            _notifyIcon.MouseDoubleClick += NotifyIconOnDoubleClick;
             _notifyIcon.MouseMove += NotifyIconOnMouseMove;
             _notifyIcon.Icon = titanfall2_rp.Windows.Properties.Resources.TrayIcon;
             _notifyIcon.Visible = true;
@@ -33,12 +35,26 @@ namespace titanfall2_rp.Windows
             CreateContextMenu();
         }
 
+        private void NotifyIconOnDoubleClick(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                ToggleWindow();
+        }
+
         private void CreateContextMenu()
         {
-            _notifyIcon.ContextMenuStrip =
+            _notifyIcon!.ContextMenuStrip =
                 new ContextMenuStrip();
-            _notifyIcon.ContextMenuStrip.Items.Add("Exit", 
-                titanfall2_rp.Windows.Properties.Resources.TrayIcon.ToBitmap()).Click += 
+
+            _notifyIcon.ContextMenuStrip.ShowImageMargin = false;
+            
+            // TODO: Implement these
+            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates");
+            _notifyIcon.ContextMenuStrip.Items.Add("Open the log");
+            _notifyIcon.ContextMenuStrip.Items.Add("Show the log location");
+            _notifyIcon.ContextMenuStrip.Items.Add("Open settings");
+            _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location");
+            _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += 
                 (s, e) => ExitApplication();
         }
 
@@ -52,7 +68,7 @@ namespace titanfall2_rp.Windows
                 MainWindow.Close();
                 MainWindow = null;
             }
-            _notifyIcon.Dispose();
+            _notifyIcon?.Dispose();
             _notifyIcon = null;
 
             // Stop the application
@@ -104,13 +120,6 @@ namespace titanfall2_rp.Windows
             }
         }
 
-        // Toggle the window on a left click on the icon
-        private void NotifyIconOnMouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-                ToggleWindow();
-        }
-
         // Toggle when the window 'X' was clicked
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
@@ -126,7 +135,7 @@ namespace titanfall2_rp.Windows
 
         // Store the current position of the mouse on the icon to check if the mouse clicked inside the icon
         // when the window gets deactivated to avoid a duplicated window toggle
-        private void NotifyIconOnMouseMove(object sender, MouseEventArgs e)
+        private void NotifyIconOnMouseMove(object? sender, MouseEventArgs e)
         {
             _lastMousePositionInIcon = Control.MousePosition;
         }
@@ -135,7 +144,7 @@ namespace titanfall2_rp.Windows
         /// Called when clicked outside the window.
         /// Toggles the window to get hidden.
         /// </summary> 
-        private void MainWindowOnDeactivated(object sender, EventArgs e)
+        private void MainWindowOnDeactivated(object? sender, EventArgs e)
         {
             // Check if the deactivation came by clicking the icon since this already toggles the window
             if (_lastMousePositionInIcon.HasValue && _lastMousePositionInIcon == Control.MousePosition)

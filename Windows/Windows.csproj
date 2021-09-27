@@ -8,6 +8,7 @@
         <UseWindowsForms>true</UseWindowsForms>
         <RootNamespace>titanfall2_rp.Windows</RootNamespace>
         <AssemblyName>titanfall2_rp.Windows</AssemblyName>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <!--https://github.com/xamarin/Xamarin.Forms/issues/13217-->
