@@ -1,21 +1,22 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Threading;
-using AutoUpdaterDotNET;
+using Common;
 using DiscordRPC;
 using DiscordRPC.Logging;
 using log4net;
 using log4net.Config;
+using titanfall2_rp.misc;
+using titanfall2_rp.updater;
 
 namespace titanfall2_rp
 {
     static class Program
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private const string LogFileName = "titanfall2-rp.log";
         private const string LoggerConfigFileName = "log4net.config";
-        public static readonly Version AppVersion = Assembly.GetEntryAssembly()!.GetName().Version!;
         public const int StatusRefreshTimeInSeconds = 5;
         public const int StatusRefreshTimeInMs = StatusRefreshTimeInSeconds * 1000;
         private static AutoResetEvent _userRequestedExit = new AutoResetEvent(false);
@@ -24,15 +25,13 @@ namespace titanfall2_rp
 
         static void Main(string[] args)
         {
-            ConfigureLogger();
+            Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
-            Log.InfoFormat("IncPlusPlus' TF|2 Discord Rich Presence Tool version {0} (https://github.com/IncPlusPlus/titanfall2-rp)", AppVersion);
+            Log.InfoFormat("IncPlusPlus' TF|2 Discord Rich Presence Tool version {0} (https://github.com/IncPlusPlus/titanfall2-rp)", UpdateHelper.AppVersion);
 
-            var appDirectoryWritable = HasWritePermission(AppContext.BaseDirectory!);
-
-            if (!appDirectoryWritable)
+            if (!EnvironmentUtils.AppDirectoryWritable())
             {
                 Log.ErrorFormat(
                     "This program needs write permissions to the current directory." +
@@ -41,22 +40,7 @@ namespace titanfall2_rp
                     AppContext.BaseDirectory!);
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !IsRunningInWine())
-            {
-                if (appDirectoryWritable)
-                {
-                    // Don't give a UAC prompt if I don't have to (they're annoying)
-                    AutoUpdater.RunUpdateAsAdmin = false;
-                }
-                Log.Info("Checking for updates...");
-                AutoUpdater.Synchronous = true;
-                AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
-                AutoUpdater.Start("https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml");
-            }
-            else
-            {
-                Log.Info("Skipped checking for updates as that's a Windows-only feature.");
-            }
+            UpdateHelper.Updater.Update();
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence. Press enter at any time to exit!");
 
@@ -95,48 +79,6 @@ namespace titanfall2_rp
             Log.Info("Closing...");
         }
 
-        /// <summary>
-        /// This method is somewhat deceiving. This will return true as long as it's not on windows. This should be
-        /// used in tandem with an IfOnWindows() conditional. That'll probably return true when in wine so you'd want
-        /// another method to make sure you're truly in a Windows environment. That's what this method is useful for.
-        /// </summary>
-        /// <returns>whether this program is running inside WINE</returns>
-        private static bool IsRunningInWine()
-        {
-            return System.Diagnostics.Process.GetProcessesByName("winlogon").Length == 0;
-        }
-
-        private static void ConfigureLogger()
-        {
-            // Load logging configuration
-            // Thanks to https://jakubwajs.wordpress.com/2019/11/28/logging-with-log4net-in-net-core-3-0-console-app/
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            // Start with the default logger before trying any fancy config file stuff
-            XmlConfigurator.Configure(logRepository, Log4NetDefaultConfig.GetLoggerConfigAsXml());
-            var loggerConfigFile = new FileInfo(LoggerConfigFileName);
-            if (!loggerConfigFile.Exists)
-            {
-                Log.WarnFormat("Couldn't find '{0}'! Creating it (this only needs to happen once)...", LoggerConfigFileName);
-                try
-                {
-                    File.WriteAllText(LoggerConfigFileName, Log4NetDefaultConfig.DefaultLog4NetConfig);
-                }
-                catch (Exception e)
-                {
-                    Log.Error("Unable to save logging config", e);
-                    Log.Error("Using built-in default logging configuration.");
-                    return;
-                }
-            }
-            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
-        }
-
-        private static void AutoUpdater_ApplicationExitEvent()
-        {
-            Log.Info("Closing application in preparation for update...");
-            Environment.Exit(0);
-        }
-
         // With some help from https://stackoverflow.com/a/10669337/1687436
         private static void StartThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api, AutoResetEvent userExitEvent)
         {
@@ -145,21 +87,6 @@ namespace titanfall2_rp
                 Name = "Discord RP Updating Thread"
             };
             _presenceUpdatingThread.Start();
-        }
-
-        public static bool HasWritePermission(string tempfilepath)
-        {
-            try
-            {
-                File.Create(tempfilepath + "temp.txt").Close();
-                File.Delete(tempfilepath + "temp.txt");
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return false;
-            }
-
-            return true;
         }
     }
 }
