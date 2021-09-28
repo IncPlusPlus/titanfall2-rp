@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
 using Application = Xamarin.Forms.Application;
-using Point = Xamarin.Forms.Point;
+using MessageBox = System.Windows.MessageBox;
 
 namespace titanfall2_rp.Windows
 {
@@ -13,14 +13,13 @@ namespace titanfall2_rp.Windows
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App
-    { 
+    {
         private NotifyIcon? _notifyIcon;
-        private bool _isExit; 
+        private RichPresenceManager? _program;
+        private bool _isExit;
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            // TODO: Make the titanfall2-rp project into a library and make a Wine project (console application) that uses it as well
-            
             Forms.Init();
 
             base.OnStartup(e);
@@ -31,8 +30,11 @@ namespace titanfall2_rp.Windows
             _notifyIcon.Icon = titanfall2_rp.Windows.Properties.Resources.TrayIcon;
             _notifyIcon.Visible = true;
             _notifyIcon.Text = "Titanfall 2 Discord Rich Presence";
-             
+
             CreateContextMenu();
+
+            _program = new RichPresenceManager();
+            _program.Begin();
         }
 
         private void NotifyIconOnDoubleClick(object? sender, MouseEventArgs e)
@@ -47,15 +49,21 @@ namespace titanfall2_rp.Windows
                 new ContextMenuStrip();
 
             _notifyIcon.ContextMenuStrip.ShowImageMargin = false;
-            
+
             // TODO: Implement these
-            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates");
-            _notifyIcon.ContextMenuStrip.Items.Add("Open the log");
-            _notifyIcon.ContextMenuStrip.Items.Add("Show the log location");
-            _notifyIcon.ContextMenuStrip.Items.Add("Open settings");
-            _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location");
-            _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += 
-                (s, e) => ExitApplication();
+            _notifyIcon.ContextMenuStrip.Items.Add("Open Titanfall 2").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Open the log").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Show the log location").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Open settings").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
+        }
+
+        private static void AlertFeatureNotImplemented()
+        {
+            MessageBox.Show("This feature isn't available yet!", "Titanfall 2 Discord Rich Presence",
+                MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void ExitApplication()
@@ -68,8 +76,11 @@ namespace titanfall2_rp.Windows
                 MainWindow.Close();
                 MainWindow = null;
             }
+
             _notifyIcon?.Dispose();
             _notifyIcon = null;
+
+            _program?.Stop();
 
             // Stop the application
             Current.Shutdown();
@@ -79,7 +90,7 @@ namespace titanfall2_rp.Windows
         /// Toggles the window between visible and hidden.
         /// </summary>
         private void ToggleWindow()
-        { 
+        {
             // Create window when it is opened for the first time
             if (MainWindow == null)
             {
