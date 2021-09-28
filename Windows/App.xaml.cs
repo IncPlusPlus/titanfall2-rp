@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
+using titanfall2_rp.updater;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
 using Application = Xamarin.Forms.Application;
@@ -51,12 +52,14 @@ namespace titanfall2_rp.Windows
             _notifyIcon.ContextMenuStrip.ShowImageMargin = false;
 
             // TODO: Implement these
+
+            // TODO: This should open Titanfall 2 depending on whether the location of the game is known (and if the user uses steam. This will be set in the config)
             _notifyIcon.ContextMenuStrip.Items.Add("Open Titanfall 2").Click += (_, _) => AlertFeatureNotImplemented();
             _notifyIcon.ContextMenuStrip.Items.Add("Open the log").Click += (_, _) => AlertFeatureNotImplemented();
             _notifyIcon.ContextMenuStrip.Items.Add("Show the log location").Click += (_, _) => AlertFeatureNotImplemented();
             _notifyIcon.ContextMenuStrip.Items.Add("Open settings").Click += (_, _) => AlertFeatureNotImplemented();
             _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location").Click += (_, _) => AlertFeatureNotImplemented();
-            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click += (_, _) => AlertFeatureNotImplemented();
+            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click += (_, _) => UpdateHelper.Updater.Update();
             _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
         }
 
