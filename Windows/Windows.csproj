@@ -7,7 +7,7 @@
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
         <RootNamespace>titanfall2_rp.Windows</RootNamespace>
-        <AssemblyName>titanfall2_rp</AssemblyName>
+        <AssemblyName>titanfall2-rp</AssemblyName>
         <PublishTrimmed>true</PublishTrimmed>
         <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
         <!--https://docs.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-3-0#single-file-executables-->
