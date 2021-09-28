@@ -10,8 +10,6 @@ namespace titanfall2_rp.updater
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         public static readonly Version AppVersion = Assembly.GetEntryAssembly()!.GetName().Version!;
-        protected static readonly string AppCastURL =
-            "https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml";
         private static UpdateHelper? _updater;
 
         public static UpdateHelper Updater => _updater ?? GetUpdaterForOs();

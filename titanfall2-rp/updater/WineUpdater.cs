@@ -19,16 +19,18 @@ namespace titanfall2_rp.updater
     /// </summary>
     public class WineUpdater : UpdateHelper
     {
+        private const string AppCastUrl =
+            "https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file-wine.xml";
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private readonly HttpClient _client;
         private readonly Uri _appCastUri;
-        XmlSerializer xmlSerializer = new XmlSerializer(typeof(UpdateInfoEventArgs));
+        private readonly XmlSerializer _xmlSerializer = new XmlSerializer(typeof(UpdateInfoEventArgs));
 
 
         public WineUpdater()
         {
             _client = new HttpClient();
-            _appCastUri = new Uri(AppCastURL);
+            _appCastUri = new Uri(AppCastUrl);
         }
 
         protected override bool? CheckForUpdates()
@@ -36,7 +38,7 @@ namespace titanfall2_rp.updater
             // TODO: Try cleaning up the zip extractor and any previous downloads here (be nice to %tmp%)
             XmlTextReader xmlTextReader = new(new StringReader(_client.GetStringAsync(_appCastUri).Result))
             { XmlResolver = null };
-            UpdateInfoEventArgs args = (UpdateInfoEventArgs)xmlSerializer.Deserialize(xmlTextReader)!;
+            UpdateInfoEventArgs args = (UpdateInfoEventArgs)_xmlSerializer.Deserialize(xmlTextReader)!;
             return new Version(args.CurrentVersion) > AppVersion;
         }
 
@@ -44,7 +46,7 @@ namespace titanfall2_rp.updater
         {
             XmlTextReader xmlTextReader =
                 new(new StringReader(_client.GetStringAsync(_appCastUri).Result)) { XmlResolver = null };
-            UpdateInfoEventArgs args = (UpdateInfoEventArgs)xmlSerializer.Deserialize(xmlTextReader)!;
+            UpdateInfoEventArgs args = (UpdateInfoEventArgs)_xmlSerializer.Deserialize(xmlTextReader)!;
             var tempFile = Path.Combine(Path.GetTempPath(), "titanfall2-rp-update-" + Guid.NewGuid() + ".tmp");
             Uri dlUri = new Uri(args.DownloadURL);
             var response = _client.GetAsync(dlUri).Result;

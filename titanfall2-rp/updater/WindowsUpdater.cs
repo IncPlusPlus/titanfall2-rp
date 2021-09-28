@@ -9,6 +9,8 @@ namespace titanfall2_rp.updater
 {
     public class WindowsUpdater : UpdateHelper
     {
+        private const string AppCastUrl =
+            "https://github.com/IncPlusPlus/titanfall2-rp/releases/latest/download/updater-helper-file.xml";
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         protected override bool? CheckForUpdates()
@@ -27,7 +29,7 @@ namespace titanfall2_rp.updater
             AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
             try
             {
-                AutoUpdater.Start(AppCastURL);
+                AutoUpdater.Start(AppCastUrl);
             }
             catch (Exception e)
             {
@@ -35,8 +37,10 @@ namespace titanfall2_rp.updater
 
                 if (fileNotFoundException.FileName?.StartsWith("System.Windows.Forms") ?? false)
                 {
-                    throw new ApplicationException($"'{fileNotFoundException.Source}' tried to use Windows Forms but failed to load the assembly '{fileNotFoundException.FileName}' at runtime. Was this exe compiled on Linux?");
+                    throw new ApplicationException(
+                        $"'{fileNotFoundException.Source}' tried to use Windows Forms but failed to load the assembly '{fileNotFoundException.FileName}' at runtime. Was this exe compiled on Linux?");
                 }
+
                 throw;
             }
         }
