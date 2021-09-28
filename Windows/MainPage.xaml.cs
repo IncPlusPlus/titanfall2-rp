@@ -17,9 +17,9 @@ namespace titanfall2_rp.Windows
             InitializeComponent();
         }
 
-        private async void GotoCalculatorClicked(object sender, EventArgs e)
+        private async void EditSettingsClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CalculatorPage());
+            await Navigation.PushAsync(new SettingsPage());
         }
     }
 }

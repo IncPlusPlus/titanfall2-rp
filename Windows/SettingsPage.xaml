@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              BackgroundColor="Black"
              Title="Calculator"
-             x:Class="titanfall2_rp.Windows.CalculatorPage">
+             x:Class="titanfall2_rp.Windows.SettingsPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="ButtonDefault" TargetType="{x:Type Button}">

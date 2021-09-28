@@ -24,7 +24,6 @@ namespace titanfall2_rp.updater
                 AutoUpdater.RunUpdateAsAdmin = false;
             }
 
-            AutoUpdater.Synchronous = true;
             AutoUpdater.ApplicationExitEvent += AutoUpdater_ApplicationExitEvent;
             try
             {

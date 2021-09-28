@@ -41,7 +41,7 @@ namespace titanfall2_rp
         private void SetTimer()
         {
             // Create a timer with a two second interval.
-            presenceUpdateTimer = new System.Timers.Timer(Program.StatusRefreshTimeInMs);
+            presenceUpdateTimer = new System.Timers.Timer(RichPresenceManager.StatusRefreshTimeInMs);
             // Hook up the Elapsed event for the timer. 
             presenceUpdateTimer.Elapsed += OnTimedEvent;
             presenceUpdateTimer.AutoReset = true;
@@ -55,11 +55,11 @@ namespace titanfall2_rp
             {
                 SetCurrentPresence(_discordRpcClient, _tf2Api);
                 // See https://stackoverflow.com/a/1650120/1687436 for determining equality between double and int
-                if (Math.Abs(presenceUpdateTimer!.Interval - Program.StatusRefreshTimeInMs) > 0.0000001)
+                if (Math.Abs(presenceUpdateTimer!.Interval - RichPresenceManager.StatusRefreshTimeInMs) > 0.0000001)
                 {
                     // We must've changed the interval previously.
                     // It should only be a one-time operation so let's set it back to the correct value. 
-                    presenceUpdateTimer.Interval = Program.StatusRefreshTimeInMs;
+                    presenceUpdateTimer.Interval = RichPresenceManager.StatusRefreshTimeInMs;
                 }
             }
             catch (Exception exception)
@@ -77,7 +77,7 @@ namespace titanfall2_rp
                 else
                 {
                     Log.Warn("Failed to perform Titanfall 2 rich presence update. Waiting " +
-                             Program.StatusRefreshTimeInSeconds + " seconds and trying again.", exception);
+                             RichPresenceManager.StatusRefreshTimeInSeconds + " seconds and trying again.", exception);
                     // No need to change the timer interval before trying again
                 }
             }

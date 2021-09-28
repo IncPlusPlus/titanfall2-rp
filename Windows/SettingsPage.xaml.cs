@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 namespace titanfall2_rp.Windows
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CalculatorPage : ContentPage
+    public partial class SettingsPage : ContentPage
     {
-        public CalculatorPage()
+        public SettingsPage()
         {
             InitializeComponent();
         }
