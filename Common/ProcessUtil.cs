@@ -5,15 +5,15 @@ using log4net;
 
 namespace Common
 {
-    public class ProcessUtil
+    public static class ProcessUtil
     {
-        private readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         /// <summary>
         /// Launches Titanfall 2 using the information it can get from the Config file
         /// </summary>
         /// <returns>true if successful, false if the operation failed</returns>
-        public bool LaunchTitanfall2()
+        public static bool LaunchTitanfall2()
         {
             Log.Info("Attempting to launch Titanfall 2.");
             if (Config.IsInstalledThroughSteam)
@@ -42,13 +42,15 @@ namespace Common
             }
         }
 
-        public bool LaunchExeOrProtocol(string fullExePathOrUri)
+        public static bool LaunchExeOrProtocol(string fullExePathOrUri, string arguments = "")
         {
             Log.DebugFormat("Launching '{0}'...", fullExePathOrUri);
             var startInfo = new System.Diagnostics.ProcessStartInfo
             {
                 FileName = fullExePathOrUri,
+                // Set to false when you need env vars. Set to true to execute steam:// protocol links
                 UseShellExecute = true,
+                Arguments = arguments,
             };
             var process = new System.Diagnostics.Process();
             process.StartInfo = startInfo;
@@ -65,13 +67,27 @@ namespace Common
             }
         }
 
-        public bool ShowFile(string filePath)
+        public static bool ShowFile(string filePath)
         {
+            var fileInfo = new FileInfo(filePath);
+            if (fileInfo.Exists)
+            {
+                return LaunchExeOrProtocol("explorer.exe", $"/select,\"{fileInfo.FullName}\"");
+            }
+
+            Log.ErrorFormat("Tried to show file '{0}' but it doesn't exist!", fileInfo.FullName);
             return false;
         }
 
-        public bool EditFile(string filePath)
+        public static bool EditFile(string filePath)
         {
+            var fileInfo = new FileInfo(filePath);
+            if (fileInfo.Exists)
+            {
+                return LaunchExeOrProtocol("notepad.exe", $"\"{fileInfo.FullName}\"");
+            }
+
+            Log.ErrorFormat("Tried to open file '{0}' but it doesn't exist!", fileInfo.FullName);
             return false;
         }
     }
