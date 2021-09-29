@@ -4,11 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             Title="Main page!"
+             Title="Home Page"
              x:Class="titanfall2_rp.Windows.MainPage">
     <ContentPage.Content>
         <StackLayout Margin="20">
-            <Label Text="Hello Xamarin.Forms!" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
+            <Label Text="Welcome back, pilot! There's nothing to see here yet! Check back in later." HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" />
             <Button Clicked="EditSettingsClicked" Text="Edit Settings" VerticalOptions="End" HorizontalOptions="Fill" />
         </StackLayout>
     </ContentPage.Content>
