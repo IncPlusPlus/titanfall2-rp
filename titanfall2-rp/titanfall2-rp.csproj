@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <AssemblyName>titanfall2-rp-lib</AssemblyName>
+        <RootNamespace>titanfall2_rp</RootNamespace>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
