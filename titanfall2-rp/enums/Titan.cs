@@ -26,7 +26,7 @@
 
         public static string GetAssetName(this Titan titan)
         {
-            return titan.ToString();
+            return titan.ToString().ToLower();
         }
     }
 }
