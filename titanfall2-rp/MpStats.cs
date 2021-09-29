@@ -32,7 +32,7 @@ namespace titanfall2_rp
         /// Get the score of team 1. Whether this is your team or the enemy's doesn't always stay the same.
         /// I'm not sure why. This is something that I need some help figuring out.
         /// </summary>
-        /// <returns>the score of team 1</returns>
+        /// <returns>the score of team 1, -1 if not applicable to this game mode</returns>
         public virtual int GetTeam1Score()
         {
             return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x1121814C);
@@ -42,7 +42,7 @@ namespace titanfall2_rp
         /// Get the score of team 2. Whether this is your team or the enemy's doesn't always stay the same.
         /// I'm not sure why. This is something that I need some help figuring out.
         /// </summary>
-        /// <returns>the score of team 2</returns>
+        /// <returns>the score of team 2, -1 if not applicable to this game mode</returns>
         public virtual int GetTeam2Score()
         {
             return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x11218CA0);
