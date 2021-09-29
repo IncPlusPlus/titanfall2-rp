@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.12" />
+    <PackageReference Include="SharpConfig" Version="3.2.9.1" />
   </ItemGroup>
 
 </Project>

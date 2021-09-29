@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Forms;
+using Common;
 using titanfall2_rp.updater;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
@@ -54,13 +55,40 @@ namespace titanfall2_rp.Windows
             // TODO: Implement these
 
             // TODO: This should open Titanfall 2 depending on whether the location of the game is known (and if the user uses steam. This will be set in the config)
-            _notifyIcon.ContextMenuStrip.Items.Add("Open Titanfall 2").Click += (_, _) => AlertFeatureNotImplemented();
-            _notifyIcon.ContextMenuStrip.Items.Add("Open the log").Click += (_, _) => AlertFeatureNotImplemented();
-            _notifyIcon.ContextMenuStrip.Items.Add("Show the log location").Click += (_, _) => AlertFeatureNotImplemented();
-            _notifyIcon.ContextMenuStrip.Items.Add("Open settings").Click += (_, _) => AlertFeatureNotImplemented();
-            _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location").Click += (_, _) => AlertFeatureNotImplemented();
-            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click += (_, _) => UpdateHelper.Updater.Update();
+            _notifyIcon.ContextMenuStrip.Items.Add("Open Titanfall 2").Click += (_, _) =>
+            {
+                if (!ProcessUtil.LaunchTitanfall2()) NotifyUserOfError();
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Open the log").Click += (_, _) =>
+            {
+                if (!ProcessUtil.EditFile("titanfall2-rp.log")) NotifyUserOfError();
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Show the log location").Click += (_, _) =>
+            {
+                if (!ProcessUtil.ShowFile("titanfall2-rp.log")) NotifyUserOfError();
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Show the log config location").Click += (_, _) =>
+            {
+                if (!ProcessUtil.ShowFile("log4net.config")) NotifyUserOfError();
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Open settings").Click += (_, _) =>
+            {
+                if (!ProcessUtil.EditFile(Config.ConfigFileName)) NotifyUserOfError();
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location").Click += (_, _) =>
+            {
+                if (!ProcessUtil.ShowFile(Config.ConfigFileName)) NotifyUserOfError();
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click +=
+                (_, _) => UpdateHelper.Updater.Update();
             _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
+        }
+
+        private static void NotifyUserOfError()
+        {
+            MessageBox.Show(
+                "An error occurred! Check the log for details.", "Titanfall 2 Discord Rich Presence",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private static void AlertFeatureNotImplemented()
@@ -99,7 +127,7 @@ namespace titanfall2_rp.Windows
             {
                 MainWindow = new FormsApplicationPage
                 {
-                    Title = "Xamarin.Forms tray!",
+                    Title = "TF|2 Rich Presence",
                     Height = 600,
                     Width = 350,
                     Topmost = true,
