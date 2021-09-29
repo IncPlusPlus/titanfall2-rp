@@ -20,12 +20,28 @@ namespace Common
             get
             {
                 EnsureInit();
-                return _config["General"]["InstalledThroughSteam"].GetValueOrDefault(Defaults.InstalledThroughSteam);
+                return _config[Props.General][Props.InstalledThroughSteam]
+                    .GetValueOrDefault(Defaults.InstalledThroughSteam);
             }
             set
             {
                 EnsureInit();
-                _config["General"]["InstalledThroughSteam"].BoolValue = value;
+                _config[Props.General][Props.InstalledThroughSteam].BoolValue = value;
+                Save();
+            }
+        }
+
+        public static string Titanfall2ExecutablePath
+        {
+            get
+            {
+                EnsureInit();
+                return _config[Props.General][Props.Titanfall2ExePath].GetValueOrDefault(Defaults.Titanfall2ExePath);
+            }
+            set
+            {
+                EnsureInit();
+                _config[Props.General][Props.Titanfall2ExePath].StringValue = value;
                 Save();
             }
         }
@@ -67,18 +83,18 @@ namespace Common
         {
             _config = new Configuration
             {
-                ["General"] =
+                [Props.General] =
                 {
                     PreComment = "Configuration file for IncPlusPlus's Titanfall 2 Discord Rich Presence tool",
-                    ["InstalledThroughSteam"] =
+                    [Props.InstalledThroughSteam] =
                     {
                         PreComment = Defaults.InstalledThroughSteamComment,
                         BoolValue = Defaults.InstalledThroughSteam,
                     },
-                    ["Titanfall2ExecutablePath"] =
+                    [Props.Titanfall2ExePath] =
                     {
-                        PreComment = Defaults.Titanfall2ExecutablePathComment,
-                        StringValue = Defaults.Titanfall2ExecutablePath,
+                        PreComment = Defaults.Titanfall2ExePathComment,
+                        StringValue = Defaults.Titanfall2ExePath,
                     },
                 },
             };
@@ -90,6 +106,16 @@ namespace Common
                 Init();
         }
 
+        /// <summary>
+        /// A class to hold strings to avoid any typos causing me headaches later.
+        /// </summary>
+        public static class Props
+        {
+            public const string General = "General";
+            public const string InstalledThroughSteam = "InstalledThroughSteam";
+            public const string Titanfall2ExePath = "Titanfall2ExecutablePath";
+        }
+
         public static class Defaults
         {
             public const bool InstalledThroughSteam = false;
@@ -97,9 +123,9 @@ namespace Common
             public const string InstalledThroughSteamComment =
                 "Set this to True if you installed Titanfall 2 through Steam.";
 
-            public const string Titanfall2ExecutablePath = "";
+            public const string Titanfall2ExePath = "";
 
-            public const string Titanfall2ExecutablePathComment =
+            public const string Titanfall2ExePathComment =
                 "Set this to the full path to 'Titanfall2.exe'. If you installed Titanfall 2 through Steam, you can " +
                 "ignore this setting. If you installed Titanfall 2 through Origin, set this value to something like " +
                 "\"E:\\Origin Games\\Titanfall2\\Titanfall2.exe\" (without quotation marks). Obviously, you shouldn't" +
