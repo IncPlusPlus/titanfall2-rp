@@ -1,5 +1,4 @@
 ﻿# Titanfall 2 Discord Rich Presence
-# Titanfall 2 Discord Rich Presence
 
 This project aims to allow for Discord's Rich Presence feature to work with Titanfall 2. This is accomplished in a very hacky way. Specifically, known memory addresses are directly read from by this program. Yes, you read that right. I had to mess around in Cheat Engine to find the right memory addresses to read various values from. It's incredibly hacky but at least the code is relatively elegant if I say so myself.
 
