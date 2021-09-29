@@ -27,7 +27,7 @@ namespace titanfall2_rp
             return FactionMethods.GetFaction(
                 Sharp.Memory.Read(Tf2Api.EngineDllBaseAddress + 0x7A7383, 1)[0]);
         }
-        
+
         /// <summary>
         /// Get the score of team 1. Whether this is your team or the enemy's doesn't always stay the same.
         /// I'm not sure why. This is something that I need some help figuring out.
