@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using Common;
+using log4net;
 using titanfall2_rp.updater;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
@@ -16,15 +18,35 @@ namespace titanfall2_rp.Windows
     /// </summary>
     public partial class App
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private NotifyIcon? _notifyIcon;
         private RichPresenceManager? _program;
         private bool _isExit;
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            Forms.Init();
+            _program = new RichPresenceManager();
+            _program.Begin();
 
-            base.OnStartup(e);
+            try
+            {
+                Forms.Init();
+            }
+            catch (Exception exception)
+            {
+                Log.Fatal("Failed at Forms.Init()", exception);
+                throw;
+            }
+
+            try
+            {
+                base.OnStartup(e);
+            }
+            catch (Exception exception)
+            {
+                Log.Fatal("Failed at base.OnStartup(e)", exception);
+                throw;
+            }
 
             _notifyIcon = new NotifyIcon();
             _notifyIcon.MouseDoubleClick += NotifyIconOnDoubleClick;
@@ -33,10 +55,15 @@ namespace titanfall2_rp.Windows
             _notifyIcon.Visible = true;
             _notifyIcon.Text = "Titanfall 2 Discord Rich Presence";
 
-            CreateContextMenu();
-
-            _program = new RichPresenceManager();
-            _program.Begin();
+            try
+            {
+                CreateContextMenu();
+            }
+            catch (Exception exception)
+            {
+                Log.Fatal("Failed at CreateContextMenu()", exception);
+                throw;
+            }
         }
 
         private void NotifyIconOnDoubleClick(object? sender, MouseEventArgs e)

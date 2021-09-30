@@ -15,6 +15,7 @@
         <!--https://docs.microsoft.com/en-us/answers/questions/296816/self-contained-single-file-does-not-produce-a-sing.html-->
         <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
         <Nullable>enable</Nullable>
+        <UseNETCoreGenerator>true</UseNETCoreGenerator>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -59,6 +60,12 @@
     <ItemGroup>
       <ProjectReference Include="..\Common\Common.csproj" />
       <ProjectReference Include="..\titanfall2-rp\titanfall2-rp.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--https://docs.microsoft.com/en-us/dotnet/core/deploying/trim-self-contained#prevent-assemblies-from-being-trimmed-->
+        <!--Without this, illink gets rid of it and causes WPF to crash as soon as Forms.Init() gets called-->
+        <TrimmerRootAssembly Include="System.Runtime" />
     </ItemGroup>
 
     <ItemGroup>
