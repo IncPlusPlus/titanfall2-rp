@@ -25,6 +25,9 @@ namespace titanfall2_rp.Windows
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            _program = new RichPresenceManager();
+            _program.Begin();
+
             try
             {
                 Forms.Init();
@@ -61,9 +64,6 @@ namespace titanfall2_rp.Windows
                 Log.Fatal("Failed at CreateContextMenu()", exception);
                 throw;
             }
-            
-            _program = new RichPresenceManager();
-            _program.Begin();
         }
 
         private void NotifyIconOnDoubleClick(object? sender, MouseEventArgs e)
