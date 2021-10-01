@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using log4net;
 using Process.NET;
 using titanfall2_rp.enums;
@@ -117,6 +119,21 @@ namespace titanfall2_rp
                 3 => "master",
                 _ => "UNKNOWN DIFFICULTY"
             };
+        }
+
+        public string GetUserId()
+        {
+            _ensureInit();
+            var stryderNucleusOauthString = _sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250);
+            var queryStringIndex = stryderNucleusOauthString.IndexOf("?", StringComparison.Ordinal);
+            if (queryStringIndex < 0)
+            {
+                throw new ApplicationException("Expected to find a query string in the Stryder nucleus oauth string but didn't find one.");
+            }
+            // Edge case for if there's a question mark but nothing else following it.
+            var querystring = (queryStringIndex < stryderNucleusOauthString.Length - 1) ? stryderNucleusOauthString[(queryStringIndex + 1)..] : string.Empty;
+            NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(querystring);
+            return queryStringCollection["userId"] ?? "";
         }
 
 

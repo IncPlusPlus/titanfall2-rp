@@ -27,9 +27,11 @@ namespace titanfall2_rp
 
         public RichPresenceManager()
         {
+            Titanfall2Api titanfall2Api = new();
+            SegmentManager.SegmentManager.Initialize(titanfall2Api);
             _discordRpcClient = new DiscordRpcClient("877931149740089374");
             _userRequestedExit = new AutoResetEvent(false);
-            _presenceUpdatingThread = new Thread(new PresenceUpdateThread(_discordRpcClient, new Titanfall2Api(), _userRequestedExit).Run)
+            _presenceUpdatingThread = new Thread(new PresenceUpdateThread(_discordRpcClient, titanfall2Api, _userRequestedExit).Run)
             {
                 Name = "Discord RP Updating Thread"
             };
