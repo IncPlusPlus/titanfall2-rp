@@ -29,8 +29,8 @@ namespace titanfall2_rp
             {
                 LargeImageKey = tf2Api.GetMultiplayerMapName(),
                 LargeImageText = tf2Api.GetFriendlyMapName(),
-                SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().GetAssetName(),
-                SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().ToFriendlyString(),
+                SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : mpStats.GetCurrentFaction().GetAssetName(),
+                SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : mpStats.GetCurrentFaction().ToFriendlyString(),
             };
             return (gameDetails, gameState, timestamps, assets);
         }
