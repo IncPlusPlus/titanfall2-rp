@@ -6,7 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "titanfall2-rp", "titanfall2-rp\titanfall2-rp.csproj", "{29F3749C-51FA-4F31-BBB7-085C84DD9598}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6120645E-BD9D-489D-86D0-8777F1B71E95} = {6120645E-BD9D-489D-86D0-8777F1B71E95}
-		{A5372964-50ED-4AB6-9E0D-8E83A6F6172A} = {A5372964-50ED-4AB6-9E0D-8E83A6F6172A}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZipExtractor", "ZipExtractor\ZipExtractor.csproj", "{6120645E-BD9D-489D-86D0-8777F1B71E95}"
@@ -15,7 +14,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows", "Windows\Windows.csproj", "{44F809EE-805A-4954-A30A-AB33E922B6EE}"
 	ProjectSection(ProjectDependencies) = postProject
-		{A5372964-50ED-4AB6-9E0D-8E83A6F6172A} = {A5372964-50ED-4AB6-9E0D-8E83A6F6172A}
 		{29F3749C-51FA-4F31-BBB7-085C84DD9598} = {29F3749C-51FA-4F31-BBB7-085C84DD9598}
 		{E9CB13B8-347D-426D-8535-1B1D6228AC81} = {E9CB13B8-347D-426D-8535-1B1D6228AC81}
 	EndProjectSection
@@ -23,11 +21,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wine", "Wine\Wine.csproj", "{30280B7B-AB80-46B1-B0B5-8E17D92F6092}"
 	ProjectSection(ProjectDependencies) = postProject
 		{29F3749C-51FA-4F31-BBB7-085C84DD9598} = {29F3749C-51FA-4F31-BBB7-085C84DD9598}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Segment", "Segment\Segment.csproj", "{A5372964-50ED-4AB6-9E0D-8E83A6F6172A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E9CB13B8-347D-426D-8535-1B1D6228AC81} = {E9CB13B8-347D-426D-8535-1B1D6228AC81}
 	EndProjectSection
 EndProject
 Global
@@ -56,10 +49,6 @@ Global
 		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5372964-50ED-4AB6-9E0D-8E83A6F6172A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5372964-50ED-4AB6-9E0D-8E83A6F6172A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5372964-50ED-4AB6-9E0D-8E83A6F6172A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5372964-50ED-4AB6-9E0D-8E83A6F6172A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
