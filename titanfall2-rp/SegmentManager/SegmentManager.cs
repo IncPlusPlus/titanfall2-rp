@@ -52,10 +52,10 @@ namespace titanfall2_rp.SegmentManager
                         break;
                     case TrackableEvent.Gameplay:
                         break;
-                    case TrackableEvent.FailureWhenFiringEvent:
+                    case TrackableEvent.GameplayInfoFailure:
                         break;
                     // ReSharper disable once RedundantCaseLabel (we don't want the user to use these events)
-                    case TrackableEvent.GameplayInfoFailure or TrackableEvent.DoubleFailure:
+                    case TrackableEvent.FailureWhenFiringEvent or TrackableEvent.DoubleFailure:
                     default:
                         throw new ArgumentOutOfRangeException(nameof(@event), @event, null);
                 }
