@@ -3,10 +3,12 @@ using System.Collections.Specialized;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using log4net;
 using Process.NET;
 using titanfall2_rp.enums;
+using titanfall2_rp.SegmentManager;
 using static titanfall2_rp.ProcessApi;
 
 namespace titanfall2_rp
@@ -78,14 +80,14 @@ namespace titanfall2_rp
         {
             _ensureInit();
             var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
-            return m.Success ? m.Groups[2].Value : "UNKNOWN MAP NAME";
+            return m.Success ? m.Groups[2].Value : "UNKNOWN MAP NAME"; //TODO: REPORT THIS
         }
 
         public string GetGameModeName()
         {
             _ensureInit();
             var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
-            return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE";
+            return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE"; //TODO: REPORT THIS
         }
 
         public GameMode GetGameMode()
@@ -124,6 +126,14 @@ namespace titanfall2_rp
         public string GetUserId()
         {
             _ensureInit();
+            var tryCount = 5;
+            while (!_sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250).Contains("?") && tryCount > 0)
+            {
+                Log.DebugFormat("Couldn't find the user ID. Waiting 1 second and trying again. ({0} tries left)", tryCount);
+                //If the value isn't there yet. Try waiting 5 seconds to grab it. This might be necessary for game startup
+                Thread.Sleep(1000);
+                tryCount--;
+            }
             var stryderNucleusOauthString = _sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250);
             var queryStringIndex = stryderNucleusOauthString.IndexOf("?", StringComparison.Ordinal);
             if (queryStringIndex < 0)
@@ -134,6 +144,18 @@ namespace titanfall2_rp
             var querystring = (queryStringIndex < stryderNucleusOauthString.Length - 1) ? stryderNucleusOauthString[(queryStringIndex + 1)..] : string.Empty;
             NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(querystring);
             return queryStringCollection["userId"] ?? "";
+        }
+
+        /// <summary>
+        /// Reads the user's Origin name through engine.dll. The primary offset used is engine.dll+13F8E310.
+        /// There appears to be another consistently working offset. That being engine.dll+1397A180. There's also one
+        /// more offset, engine.dll+130DA1CF, which has the string format 
+        /// </summary>
+        /// <returns>the user's name on Origin</returns>
+        public string GetOriginName()
+        {
+            _ensureInit();
+            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13F8E310, Encoding.UTF8, 64);
         }
 
 
@@ -149,6 +171,12 @@ namespace titanfall2_rp
 
                 Log.Info("Found a running instance of Titanfall 2.");
                 _populateFields(ProcessNetApi.GetProcess());
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameOpened);
+                _sharp!.Native.Exited += (sender, args) =>
+                {
+                    Log.Info("Titanfall 2 has closed.");
+                    SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameClosed);
+                };
             }
         }
 

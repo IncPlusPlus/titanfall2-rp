@@ -7,6 +7,7 @@ using DiscordRPC.Logging;
 using DiscordRPC.Message;
 using log4net;
 using titanfall2_rp.misc;
+using titanfall2_rp.SegmentManager;
 using titanfall2_rp.updater;
 
 namespace titanfall2_rp
@@ -72,6 +73,7 @@ namespace titanfall2_rp
             {
                 Log.DebugFormat("Received Update! {0}", e.Presence);
                 OnPresenceUpdate?.Invoke(this, e);
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.Gameplay, presence:e);
             };
 
             // Connect to the RPC

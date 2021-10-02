@@ -9,6 +9,7 @@ using Segment.Model;
 using titanfall2_rp.misc;
 using titanfall2_rp.updater;
 using Config = Common.Config;
+using DiscordRPC.Message;
 
 namespace titanfall2_rp.SegmentManager
 {
@@ -19,6 +20,7 @@ namespace titanfall2_rp.SegmentManager
         private const string AnonymousIdentifierFileName = "IDENTIFIER";
         private static bool _enableSegment = true;
         private static bool _initialized;
+        private static bool _hasIdentifiedSelf;
         private static Titanfall2Api? _tf2Api;
 
         private static readonly Segment.Model.Properties GlobalProps = new()
@@ -41,18 +43,27 @@ namespace titanfall2_rp.SegmentManager
             _enableSegment = Config.IsAnalyticsAllowed;
         }
 
-        public static void TrackEvent(TrackableEvent @event)
+        public static void TrackEvent(TrackableEvent @event, Exception? exception = null,
+            PresenceMessage? presence = null)
         {
             if (!_enableSegment) return;
             try
             {
                 switch (@event)
                 {
-                    case TrackableEvent.Error:
-                        break;
                     case TrackableEvent.Gameplay:
+                        TrackGameplay(@event, presence ?? throw new ArgumentNullException(nameof(presence)));
                         break;
+                    case TrackableEvent.Error:
                     case TrackableEvent.GameplayInfoFailure:
+                        // For now, Error and GameplayInfoFailure will be treated the same way
+                        TrackErrorOrFailure(@event, exception ?? throw new ArgumentNullException(nameof(exception)));
+                        break;
+                    case TrackableEvent.GameOpened:
+                    case TrackableEvent.GameClosed:
+                        // GameOpened and GameClosed both do the same thing
+                        Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(),
+                            new Options().SetAnonymousId(GetAnonymousIdentifier()));
                         break;
                     // ReSharper disable once RedundantCaseLabel (we don't want the user to use these events)
                     case TrackableEvent.FailureWhenFiringEvent or TrackableEvent.DoubleFailure:
@@ -67,9 +78,51 @@ namespace titanfall2_rp.SegmentManager
             }
         }
 
+        private static void TrackErrorOrFailure(TrackableEvent @event, Exception e)
+        {
+            Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(),
+                new Dictionary<string, object>(GlobalProps) { { "Exception", e } },
+                new Options().SetAnonymousId(GetAnonymousIdentifier()));
+        }
+
+        private static void TrackGameplay(TrackableEvent @event, PresenceMessage presenceMessage)
+        {
+            IdentifySelf();
+            var presence = presenceMessage.Presence;
+            Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(),
+                new Dictionary<string, object?>(GlobalProps)
+                {
+                    {"state",presence.State},
+                    {"details",presence.Details},
+                    {"start", presence.Timestamps.Start},
+                    {"end", presence.Timestamps.End},
+                    {"large_image",presence.Assets.LargeImageKey},
+                    {"large_text",presence.Assets.LargeImageText},
+                    {"small_image",presence.Assets.SmallImageKey},
+                    {"small_text",presence.Assets.SmallImageText},
+                },
+                new Options().SetAnonymousId(GetAnonymousIdentifier()));
+        }
+
+        private static void IdentifySelf()
+        {
+            if (_hasIdentifiedSelf) return;
+            Analytics.Client.Identify(_tf2Api!.GetUserId(), new Traits()
+            {
+                {"name",Environment.UserName},
+                {"Origin Name", _tf2Api.GetOriginName()}
+            }, new Options().SetAnonymousId(GetAnonymousIdentifier()));
+            _hasIdentifiedSelf = true;
+        }
+
         private static void CreateAnonymousIdentifier()
         {
             var fileInfo = new FileInfo(Path.Combine(Constants.DataPath, AnonymousIdentifierFileName));
+            if (!Directory.Exists(fileInfo.DirectoryName))
+            {
+                Directory.CreateDirectory(fileInfo.DirectoryName!);
+            }
+
             File.WriteAllText(fileInfo.FullName, Guid.NewGuid().ToString());
         }
 
@@ -94,7 +147,7 @@ namespace titanfall2_rp.SegmentManager
                 }
             }
 
-            Console.WriteLine(String.Format("[Analytics] [{0}] {1}", level, message));
+            Log.DebugFormat("[Analytics] [{0}] {1}", level, message);
         }
 
         private static void TrackFailure(Exception e)
