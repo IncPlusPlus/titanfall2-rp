@@ -53,6 +53,7 @@
     <CheatEntry>
       <ID>103</ID>
       <Description>"Global match stuff"</Description>
+      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -96,11 +97,13 @@
       <ID>148</ID>
       <Description>"Tick hunting"</Description>
       <Options moManualExpandCollapse="1"/>
+      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
           <ID>77</ID>
           <Description>"Potential current tick values. Look for increments of 20 or 60 per second"</Description>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -174,6 +177,7 @@
         <CheatEntry>
           <ID>78</ID>
           <Description>"These ones set themselves to 1 when the match gets out"</Description>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -223,6 +227,7 @@
         <CheatEntry>
           <ID>79</ID>
           <Description>"These ones set themselves to 0 when the match gets out"</Description>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -254,6 +259,7 @@
         <CheatEntry>
           <ID>80</ID>
           <Description>"These ones seem to be incrementing by 20"</Description>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -353,6 +359,7 @@
       <ID>149</ID>
       <Description>"Various strings"</Description>
       <Options moManualExpandCollapse="1"/>
+      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
@@ -525,12 +532,14 @@
     <CheatEntry>
       <ID>150</ID>
       <Description>"Personal scores hunting (just attrition for now)"</Description>
+      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
           <ID>137</ID>
           <Description>"Group 1"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -563,6 +572,7 @@
           <ID>151</ID>
           <Description>"Group 2"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -601,6 +611,7 @@
           <ID>160</ID>
           <Description>"group 3"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -639,6 +650,7 @@
           <ID>175</ID>
           <Description>"group 4"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -689,6 +701,7 @@
           <ID>184</ID>
           <Description>"group 5"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -733,6 +746,7 @@
           <ID>192</ID>
           <Description>"group 6"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -765,6 +779,7 @@
           <ID>200</ID>
           <Description>"Group 7"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -803,6 +818,7 @@
           <ID>206</ID>
           <Description>"group 8"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -841,6 +857,7 @@
           <ID>212</ID>
           <Description>"group 9"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -879,6 +896,7 @@
           <ID>218</ID>
           <Description>"group 10"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -917,6 +935,7 @@
           <ID>227</ID>
           <Description>"Group 11"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -961,6 +980,7 @@
           <ID>231</ID>
           <Description>"Group 12"</Description>
           <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
