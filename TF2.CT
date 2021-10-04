@@ -537,7 +537,7 @@
       <CheatEntries>
         <CheatEntry>
           <ID>231</ID>
-          <Description>"Group 12"</Description>
+          <Description>"Group 1"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -553,7 +553,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>184</ID>
-          <Description>"Group 5"</Description>
+          <Description>"Group 2"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -598,7 +598,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>137</ID>
-          <Description>"Group 1"</Description>
+          <Description>"Group 3"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -631,7 +631,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>192</ID>
-          <Description>"group 6"</Description>
+          <Description>"Group 4"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -664,7 +664,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>227</ID>
-          <Description>"Group 11"</Description>
+          <Description>"Group 5"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -709,7 +709,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>151</ID>
-          <Description>"Group 2"</Description>
+          <Description>"Group 6"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -748,7 +748,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>206</ID>
-          <Description>"group 8"</Description>
+          <Description>"Group 7"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -787,7 +787,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>218</ID>
-          <Description>"group 10"</Description>
+          <Description>"Group 8"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -826,7 +826,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>200</ID>
-          <Description>"Group 7"</Description>
+          <Description>"Group 9"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -865,7 +865,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>175</ID>
-          <Description>"group 4"</Description>
+          <Description>"Group 10"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -916,7 +916,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>212</ID>
-          <Description>"group 9"</Description>
+          <Description>"Group 11"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
@@ -955,7 +955,7 @@
         </CheatEntry>
         <CheatEntry>
           <ID>160</ID>
-          <Description>"group 3"</Description>
+          <Description>"Group 12"</Description>
           <Options moManualExpandCollapse="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
