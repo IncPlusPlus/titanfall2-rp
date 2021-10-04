@@ -546,12 +546,6 @@
               <Address>engine.dll+1123D38C</Address>
             </CheatEntry>
             <CheatEntry>
-              <ID>140</ID>
-              <Description>"pilot kills"</Description>
-              <VariableType>4 Bytes</VariableType>
-              <Address>engine.dll+1123D17C</Address>
-            </CheatEntry>
-            <CheatEntry>
               <ID>141</ID>
               <Description>"pilot kills"</Description>
               <VariableType>4 Bytes</VariableType>
@@ -597,7 +591,7 @@
             </CheatEntry>
             <CheatEntry>
               <ID>187</ID>
-              <Description>"titan kills"</Description>
+              <Description>"titan kills (entirely wrong ;-; )"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>client.dll+293DC50</Address>
             </CheatEntry>
@@ -850,6 +844,18 @@
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
+              <ID>228</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+111F1098</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>229</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF8C</Address>
+            </CheatEntry>
+            <CheatEntry>
               <ID>207</ID>
               <Description>"pilot kills"</Description>
               <VariableType>4 Bytes</VariableType>
@@ -867,29 +873,17 @@
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123D538</Address>
             </CheatEntry>
-            <CheatEntry>
-              <ID>210</ID>
-              <Description>"score"</Description>
-              <VariableType>4 Bytes</VariableType>
-              <Address>engine.dll+112F6684</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>211</ID>
-              <Description>"score"</Description>
-              <VariableType>4 Bytes</VariableType>
-              <Address>engine.dll+112F668C</Address>
-            </CheatEntry>
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
           <ID>218</ID>
-          <Description>"10"</Description>
+          <Description>"group 10"</Description>
           <Options moManualExpandCollapse="1"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>213</ID>
-              <Description>"mp health"</Description>
+              <Description>"mp health (goes high when dead)"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+111EC7F0</Address>
             </CheatEntry>
@@ -916,6 +910,65 @@
               <Description>"minion kills"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123D3A0</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>227</ID>
+          <Description>"Group 11"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>219</ID>
+              <Description>"mp health (this one goes high when dead)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+111E7F48</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>220</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF74</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>221</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D394</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>222</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D520</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>225</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D184</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>226</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D28C</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>231</ID>
+          <Description>"Group 12"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>230</ID>
+              <Description>"minion kills"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D384</Address>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
