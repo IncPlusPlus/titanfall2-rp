@@ -794,9 +794,10 @@
           <CheatEntries>
             <CheatEntry>
               <ID>213</ID>
-              <Description>"mp health (goes high when dead)"</Description>
+              <Description>"score (calculated. double-check)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
-              <Address>engine.dll+111EC7F0</Address>
+              <Address>engine.dll+1123D52C</Address>
             </CheatEntry>
             <CheatEntry>
               <ID>214</ID>
