@@ -543,11 +543,32 @@
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
+              <ID>233</ID>
+              <Description>"mp health"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF64</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>235</ID>
+              <Description>"pilot kills"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D27C</Address>
+            </CheatEntry>
+            <CheatEntry>
               <ID>230</ID>
               <Description>"minion kills"</Description>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123D384</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>234</ID>
+              <Description>"score"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D510</Address>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
@@ -560,7 +581,7 @@
           <CheatEntries>
             <CheatEntry>
               <ID>178</ID>
-              <Description>"mp health"</Description>
+              <Description>"mp health (high when dead)"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+111E36A0</Address>
             </CheatEntry>
@@ -572,7 +593,7 @@
             </CheatEntry>
             <CheatEntry>
               <ID>180</ID>
-              <Description>"pilot kills"</Description>
+              <Description>"pilot kills (wacky)"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123D178</Address>
             </CheatEntry>
@@ -637,16 +658,17 @@
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
-              <ID>188</ID>
-              <Description>"mp health"</Description>
-              <VariableType>4 Bytes</VariableType>
-              <Address>engine.dll+111E6710</Address>
-            </CheatEntry>
-            <CheatEntry>
               <ID>189</ID>
               <Description>"mp health"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123CF70</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>188</ID>
+              <Description>"pilot kills"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D288</Address>
             </CheatEntry>
             <CheatEntry>
               <ID>190</ID>
@@ -692,12 +714,6 @@
               <Description>"score"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123D520</Address>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>225</ID>
-              <Description>"pilot kills"</Description>
-              <VariableType>4 Bytes</VariableType>
-              <Address>engine.dll+1123D184</Address>
             </CheatEntry>
             <CheatEntry>
               <ID>226</ID>
@@ -873,7 +889,7 @@
           <CheatEntries>
             <CheatEntry>
               <ID>167</ID>
-              <Description>"mp health"</Description>
+              <Description>"mp health (high when dead)"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+111EF860</Address>
             </CheatEntry>
@@ -885,7 +901,7 @@
             </CheatEntry>
             <CheatEntry>
               <ID>169</ID>
-              <Description>"pilot kills"</Description>
+              <Description>"pilot kills (wacky?)"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+1123D198</Address>
             </CheatEntry>
@@ -924,7 +940,7 @@
           <CheatEntries>
             <CheatEntry>
               <ID>228</ID>
-              <Description>"mp health"</Description>
+              <Description>"mp health (high when dead)"</Description>
               <VariableType>4 Bytes</VariableType>
               <Address>engine.dll+111F1098</Address>
             </CheatEntry>
