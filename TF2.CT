@@ -995,6 +995,12 @@
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
+    <CheatEntry>
+      <ID>232</ID>
+      <Description>"ID on server (zero-indexed)"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>engine.dll+7A6630</Address>
+    </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
 </CheatTable>
