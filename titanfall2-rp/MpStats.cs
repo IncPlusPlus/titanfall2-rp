@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Reflection;
+using System.Text;
+using log4net;
 using Process.NET;
 using titanfall2_rp.enums;
 using titanfall2_rp.MpGameStats;
@@ -10,6 +13,7 @@ namespace titanfall2_rp
     /// </summary>
     public abstract class MpStats
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private protected const string HelpMeBruh =
             "Getting this value is not supported. " +
             "If you want this to be possible, you'll need to contribute this yourself or tell me how the heck to get it.";
@@ -35,12 +39,40 @@ namespace titanfall2_rp
         }
 
         /// <summary>
-        /// TODO bruh!
+        /// Gets the health of the specified player. This is a multiplayer-only API.
         /// </summary>
-        /// <returns>the user's health (in multi-player)</returns>
-        public int GetPlayerHealth()
+        /// <param name="playerId">the ID of a given player. To find your own ID, call <see cref="GetMyIdOnServer"/></param>
+        /// <returns>the specified player's health</returns>
+        public int GetPlayerHealth(int playerId)
         {
-            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x1123CF64 + (GetMyIdOnServer() * 0x4));
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Health +
+                                          (playerId * MpOffsets.HealthPlayerIdOffset));
+        }
+
+        /// <summary>
+        /// Get the name of a specific player
+        /// </summary>
+        /// <param name="playerId">the ID of a given player. To find your own ID, call <see cref="GetMyIdOnServer"/></param>
+        /// <returns>the specified player's name or "???" if it could not be found</returns>
+        public string GetPlayerName(int playerId)
+        {
+            var offsets = MpOffsets.NamePointerOffsets;
+            // The last of the offsets gets incremented by NamePlayerIdIncrement depending on what the ID is
+            offsets[^1] += playerId * MpOffsets.NamePlayerIdIncrement;
+            try
+            {
+                return Sharp.Memory.Read(
+                    ProcessApi.ResolvePointerAddress(
+                        Sharp,
+                        Tf2Api.EngineDllBaseAddress + MpOffsets.Name,
+                        offsets),
+                    Encoding.UTF8, 100);
+            }
+            catch (Exception e)
+            {
+                Log.Warn($"Failed to get the name of player with ID '{playerId}'", e);
+                return "???";
+            }
         }
 
         public Faction GetCurrentFaction()
@@ -128,25 +160,40 @@ namespace titanfall2_rp
         /// Points to the player's health if their ID is 0. To be used with engine.dll. If their ID isn't 0, this needs
         /// to be offset by <see cref="HealthPlayerIdOffset"/> * their ID.
         /// </summary>
-        private const int Health = 0x1123CF64;
+        internal const int Health = 0x1123CF64;
+
         /// <summary>
         /// <see cref="Health"/>
         /// </summary>
-        private const int HealthPlayerIdOffset = 0x4;
+        internal const int HealthPlayerIdOffset = 0x4;
 
         /// <summary>
         /// To be used with engine.dll.
         /// </summary>
-        private const int Name = 0x13fa6eb8; //TODO Figure out how multiple offsets work
+        internal const int Name = 0x13fa6eb8;
 
-        private const int NamePlayerIdOffset = 0x58;
-
-        static class Attrition
+        /// <summary>
+        /// The <see cref="Name"/> address is really the address to a pointer. Applying these offsets to that pointer
+        /// points to the address with the actual desired value.
+        /// </summary>
+        internal static int[] NamePointerOffsets
         {
-            private const int Kills = 0x1123D27C;
-            private const int MinionKills = 0x1123D384;
-            private const int Score = 0x1123D510;
-            private const int AttritionStatsPlayerIdOffset = 0x4;
+            // Use a property instead of a field to prevent the array from being modified by my dumb ass
+            get { return new[] { 0x18, 0x50, 0x38, 0x38 }; }
+        }
+
+        /// <summary>
+        /// This value (multiplied by the player's ID) is added to the last of the <see cref="NamePointerOffsets"/>
+        /// when finding a player's name.
+        /// </summary>
+        internal const int NamePlayerIdIncrement = 0x58;
+
+        public static class Attrition
+        {
+            internal const int Kills = 0x1123D27C;
+            internal const int MinionKills = 0x1123D384;
+            internal const int Score = 0x1123D510;
+            internal const int AttritionStatsPlayerIdOffset = 0x4;
         }
     }
 }
