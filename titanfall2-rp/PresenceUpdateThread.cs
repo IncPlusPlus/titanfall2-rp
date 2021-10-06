@@ -44,7 +44,7 @@ namespace titanfall2_rp
             presenceUpdateTimer = new System.Timers.Timer(RichPresenceManager.StatusRefreshTimeInMs);
             // Hook up the Elapsed event for the timer. 
             presenceUpdateTimer.Elapsed += OnTimedEvent;
-            presenceUpdateTimer.AutoReset = true;
+            presenceUpdateTimer.AutoReset = false;
             presenceUpdateTimer.Enabled = true;
         }
 
@@ -80,6 +80,12 @@ namespace titanfall2_rp
                              RichPresenceManager.StatusRefreshTimeInSeconds + " seconds and trying again.", exception);
                     // No need to change the timer interval before trying again
                 }
+            }
+            finally
+            {
+                // Only allow the timer to start again after OnTimedEvent has completed executing
+                // https://stackoverflow.com/a/56442085/1687436
+                presenceUpdateTimer!.Enabled = true;
             }
         }
 
