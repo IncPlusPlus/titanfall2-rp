@@ -11,7 +11,7 @@ namespace titanfall2_rp
     public class PresenceUpdateThread
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static System.Timers.Timer? presenceUpdateTimer;
+        private static System.Timers.Timer? _presenceUpdateTimer;
         private const int ProcessOpenWaitTimeInMinutes = 1;
         private readonly DiscordRpcClient _discordRpcClient;
         private readonly Titanfall2Api _tf2Api;
@@ -34,18 +34,18 @@ namespace titanfall2_rp
             Log.Info("User has requested that the program exits. Stopping presence updates.");
 
             // Stop anc clean up the timer
-            presenceUpdateTimer!.Stop();
-            presenceUpdateTimer.Dispose();
+            _presenceUpdateTimer!.Stop();
+            _presenceUpdateTimer.Dispose();
         }
 
         private void SetTimer()
         {
             // Create a timer with a two second interval.
-            presenceUpdateTimer = new System.Timers.Timer(RichPresenceManager.StatusRefreshTimeInMs);
+            _presenceUpdateTimer = new System.Timers.Timer(RichPresenceManager.StatusRefreshTimeInMs);
             // Hook up the Elapsed event for the timer. 
-            presenceUpdateTimer.Elapsed += OnTimedEvent;
-            presenceUpdateTimer.AutoReset = false;
-            presenceUpdateTimer.Enabled = true;
+            _presenceUpdateTimer.Elapsed += OnTimedEvent;
+            _presenceUpdateTimer.AutoReset = false;
+            _presenceUpdateTimer.Enabled = true;
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
@@ -55,11 +55,11 @@ namespace titanfall2_rp
             {
                 SetCurrentPresence(_discordRpcClient, _tf2Api);
                 // See https://stackoverflow.com/a/1650120/1687436 for determining equality between double and int
-                if (Math.Abs(presenceUpdateTimer!.Interval - RichPresenceManager.StatusRefreshTimeInMs) > 0.0000001)
+                if (Math.Abs(_presenceUpdateTimer!.Interval - RichPresenceManager.StatusRefreshTimeInMs) > 0.0000001)
                 {
                     // We must've changed the interval previously.
                     // It should only be a one-time operation so let's set it back to the correct value. 
-                    presenceUpdateTimer.Interval = RichPresenceManager.StatusRefreshTimeInMs;
+                    _presenceUpdateTimer.Interval = RichPresenceManager.StatusRefreshTimeInMs;
                 }
             }
             catch (Exception exception)
@@ -69,7 +69,7 @@ namespace titanfall2_rp
                     Log.WarnFormat("Titanfall 2 process not found. Waiting {0} minute(s) and trying again.",
                         ProcessOpenWaitTimeInMinutes);
                     // Set the timer to wait longer
-                    presenceUpdateTimer!.Interval = ProcessOpenWaitTimeInMinutes * 60 * 1000;
+                    _presenceUpdateTimer!.Interval = ProcessOpenWaitTimeInMinutes * 60 * 1000;
                     // Clearing the current presence. This should be fine to call every minute or so.
                     // The purpose of this is to clear the status if the game closes.
                     _discordRpcClient.ClearPresence();
@@ -85,7 +85,7 @@ namespace titanfall2_rp
             {
                 // Only allow the timer to start again after OnTimedEvent has completed executing
                 // https://stackoverflow.com/a/56442085/1687436
-                presenceUpdateTimer!.Enabled = true;
+                _presenceUpdateTimer!.Enabled = true;
             }
         }
 
