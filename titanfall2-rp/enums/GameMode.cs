@@ -136,7 +136,7 @@ namespace titanfall2_rp.enums
         ps,
 
         /// <summary>
-        /// Life Fire
+        /// Live Fire
         /// </summary>
         speedball,
 
@@ -209,7 +209,7 @@ namespace titanfall2_rp.enums
                 GameMode.ctf => "Capture the Flag",
                 GameMode.lts => "Last Titan Standing",
                 GameMode.ps => "Pilots vs. Pilots",
-                GameMode.speedball => "Life Fire",
+                GameMode.speedball => "Live Fire",
                 GameMode.mfd => "Marked For Death",
                 GameMode.ttdm => "Titan Brawl",
                 GameMode.fd_easy => "Frontier Defense (Easy)",

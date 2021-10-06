@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using Process.NET;
 using static titanfall2_rp.ghapi;
 
 namespace titanfall2_rp
@@ -22,7 +25,20 @@ namespace titanfall2_rp
             return addr;
         }
 
-        // https://stackoverflow.com/a/61842098/1687436
+        /// <summary>
+        /// Follows the provided chain of offsets to get the precise address that is being pointed to.
+        /// </summary>
+        /// <param name="sharp"></param>
+        /// <param name="baseAddress">the base address of the pointer</param>
+        /// <param name="offsets">the offset chain that points to the desired address</param>
+        /// <returns>the address that the pointer was pointing to; 0x0 if the pointer couldn't be resolved</returns>
+        public static IntPtr ResolvePointerAddress(ProcessSharp sharp, IntPtr baseAddress, IEnumerable<int> offsets)
+        {
+            var buffer = sharp.Memory.Read<IntPtr>(baseAddress);
+            return offsets.Aggregate(buffer, (current, i) => sharp.Memory.Read<IntPtr>(current + i));
+        }
+
+        // https://stackoverflow.com/a/61830014/1687436
         public static IntPtr FindDMAAddy(IntPtr hProc, IntPtr ptr, int[] offsets)
         {
             var buffer = new byte[IntPtr.Size];

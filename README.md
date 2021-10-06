@@ -22,7 +22,7 @@ Here's what this application is capable of
   - Customization/settings (planned)
   - Ability to start minimized (planned)
   - Ability to minimize to system tray (planned)
-  - Automatic updates check ([Windows only](https://github.com/IncPlusPlus/titanfall2-rp/pull/108#issuecomment-921284407)) 
+  - Automatic updates
 
 ## Screenshots
 
@@ -51,7 +51,7 @@ Currently this is officially supported only on Windows. However, I've been infor
 4. Have fun!
 
 ## Supported Game Modes
-While this project _is_ stable, it isn't **_nearly_** complete yet. Multiplayer game data isn't easy to track down in memory. For this reason, this project has a limited set of game modes that it supports. You can still play the unsupported game modes. It won't cause any problems. However, only the supported game modes will show your score and other info on Discord. For the list of supported games, see [#45](https://github.com/IncPlusPlus/titanfall2-rp/issues/45).
+While this project _is_ stable, it isn't quite complete yet. Multiplayer game data isn't easy to track down in memory. For this reason, this project has a limited amount of data it can retrieve about a given game mode. This is really more of a side note and doesn't affect everyday use. For the list of supported game modes, see [#45](https://github.com/IncPlusPlus/titanfall2-rp/issues/45).
 
 ## Known Issues
 See [the bugs area](https://github.com/IncPlusPlus/titanfall2-rp/issues?q=is%3Aopen+is%3Aissue+label%3Abug) for all the known issues at this time.
@@ -63,3 +63,20 @@ Titanfall 2 appears to have no client-side anti-cheat, nor any game integrity sc
 ### **_HOWEVER_**
 
 I am not responsible for any action taken against you, automatically or manually, by Respawn Entertainment, Electronic Arts, or any anti-cheat that this tool might set off. While I am reasonably sure that Titanfall 2 has no, if not minimal VAC protection, I have not made certain of this. YOU TAKE FULL RESPONSIBILITY OF ANY REPERCUSSIONS THAT YOU MAY INCUR BY USING THIS TOOL.
+
+# Building/Running
+
+This section is just for developers. If you only want to _use_ this program, see the [installation](#installation) section.
+
+To build this project, run `dotnet publish`.
+
+To only run this project, run the exe file from `[PROJECT_ROOT_DIR]\Windows\bin\Debug\net5.0-windows\win10-x64\publish` (where PROJECT_ROOT_DIR is the directory where you cloned this project) which was created when you ran `dotnet publish`.
+
+If you change anything in the ZipExtractor project, the changes will only be reflected after running `dotnet publish ZipExtractor` because of where the main `titanfall2-rp` project expects it to be (for use as an embedded resource).
+
+## Building on Linux
+Building on Linux allows you to build only the Wine project. This is because you can't build WPF and WinForms projects on .NET 5.0 on Linux (as far as I'm aware).
+
+To create a fully-fledged executable for running in Wine, run `dotnet publish ZipExtractor && dotnet publish Wine`. Your exe will be located at `[PROJECT_ROOT_DIR]\Wine\bin\Debug\net5.0\win10-x64\publish\titanfall2-rp-Wine.exe`.
+
+If you are only trying to _run_ the Wine project (i.e. inside of your IDE), you need to run `dotnet publish ZipExtractor; dotnet build Wine`.

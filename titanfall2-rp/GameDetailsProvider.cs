@@ -20,65 +20,18 @@ namespace titanfall2_rp
 
         public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api, DateTime gameOpenTimestamp)
         {
-            var currentGameMode = tf2Api.GetGameMode();
+            var mpStats = tf2Api.GetMultiPlayerGameStats();
             string gameDetails = tf2Api.GetGameMode().ToFriendlyString();
-            string gameState = "";
+            string gameState = $"{mpStats.GetTeam1Score()}:{mpStats.GetTeam2Score()}";
             var timestamps = new Timestamps(gameOpenTimestamp);
+            var playerInTitan = tf2Api.IsPlayerInTitan();
             var assets = new Assets
             {
                 LargeImageKey = tf2Api.GetMultiplayerMapName(),
                 LargeImageText = tf2Api.GetFriendlyMapName(),
-                SmallImageKey = tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().GetAssetName(),
-                SmallImageText = tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().ToFriendlyString(),
+                SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().GetAssetName(),
+                SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : tf2Api.GetMultiPlayerGameStats().GetCurrentFaction().ToFriendlyString(),
             };
-            switch (currentGameMode)
-            {
-                case GameMode.coliseum:
-                    break;
-                case GameMode.aitdm:
-                    var attritionStats = tf2Api.GetMultiPlayerGameStats().GetAttrition();
-                    gameState = attritionStats.GetTeam1Score() + ":" + attritionStats.GetTeam2Score();
-                    break;
-                case GameMode.tdm:
-                    break;
-                case GameMode.cp:
-                    var ampedHardpointStats = tf2Api.GetMultiPlayerGameStats().GetAmpedHardpoint();
-                    gameState = ampedHardpointStats.GetTeam1Score() + ":" + ampedHardpointStats.GetTeam2Score();
-                    break;
-                case GameMode.at:
-                    var bountyHuntStats = tf2Api.GetMultiPlayerGameStats().GetBountyHunt();
-                    gameState = bountyHuntStats.GetTeam1Score() + ":" + bountyHuntStats.GetTeam2Score();
-                    break;
-                case GameMode.ctf:
-                    var ctfStats = tf2Api.GetMultiPlayerGameStats().GetCaptureTheFlag();
-                    gameState = ctfStats.GetTeam1Score() + ":" + ctfStats.GetTeam2Score();
-                    break;
-                case GameMode.lts:
-                    break;
-                case GameMode.ps:
-                    break;
-                case GameMode.speedball:
-                    break;
-                case GameMode.mfd:
-                    break;
-                case GameMode.ttdm:
-                    var titanBrawlStats = tf2Api.GetMultiPlayerGameStats().GetTitanBrawl();
-                    gameState = titanBrawlStats.GetTeam1Score() + ":" + titanBrawlStats.GetTeam2Score();
-                    break;
-                case GameMode.fd_easy:
-                    break;
-                case GameMode.fd_normal:
-                    break;
-                case GameMode.fd_hard:
-                    break;
-                case GameMode.fd_insane:
-                    break;
-                case GameMode.solo:
-                    break;
-                default:
-                    throw new ArgumentException("Unknown game mode '" + currentGameMode + "'.");
-            }
-
             return (gameDetails, gameState, timestamps, assets);
         }
 

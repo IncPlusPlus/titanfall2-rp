@@ -81,16 +81,22 @@ jobs:
         run: dotnet publish
 
       - name: Show exe version info
-        run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.exe -j
+        run: dotnet versioninfo Windows/bin/Debug/net5.0-windows/win10-x64/publish/titanfall2-rp.exe -j
 
-      - name: Show dll version info
-        run: dotnet versioninfo titanfall2-rp/bin/Debug/net5.0/win10-x64/titanfall2-rp.dll -j
+      - name: Show wine exe version info
+        run: dotnet versioninfo Wine/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp-Wine.exe -j
 
       - name: Upload EXE as run artifact
         uses: actions/upload-artifact@v2
         with:
           name: exe
-          path: titanfall2-rp/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp.exe
+          path: Windows/bin/Debug/net5.0-windows/win10-x64/publish/titanfall2-rp.exe
+
+      - name: Upload Wine EXE as run artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: exe-wine
+          path: Wine/bin/Debug/net5.0/win10-x64/publish/titanfall2-rp-Wine.exe
 
   release:
     name: Add artifact to GH Release
@@ -108,19 +114,33 @@ jobs:
         with:
           name: exe
 
+      - name: Get Wine EXE from artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: exe-wine
+
       - name: Replace the template string in the updater xml file
         run: sed -e "s/\${VERSION}/$RELEASE_VERSION/" ./assets/auto-update-template.xml | tee updater-helper-file.xml
+
+      - name: Replace the template string in the updater xml file (for Wine)
+        run: sed -e "s/\${VERSION}/$RELEASE_VERSION/" ./assets/auto-update-wine-template.xml | tee updater-helper-file-wine.xml
         
       - name: Make a zip
         run: zip titanfall2-rp.zip titanfall2-rp.exe
+        
+      - name: Make a zip for wine
+        run: zip titanfall2-rp-wine.zip titanfall2-rp-Wine.exe
 
-      - name: Add EXE to release
+      - name: Add all artifacts to release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: false
           files: |
             titanfall2-rp.exe
+            titanfall2-rp-Wine.exe
             titanfall2-rp.zip
+            titanfall2-rp-wine.zip
             updater-helper-file.xml
+            updater-helper-file-wine.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,6 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "titanfall2-rp", "titanfall2-rp\titanfall2-rp.csproj", "{29F3749C-51FA-4F31-BBB7-085C84DD9598}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "titanfall2-rp", "titanfall2-rp\titanfall2-rp.csproj", "{29F3749C-51FA-4F31-BBB7-085C84DD9598}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6120645E-BD9D-489D-86D0-8777F1B71E95} = {6120645E-BD9D-489D-86D0-8777F1B71E95}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZipExtractor", "ZipExtractor\ZipExtractor.csproj", "{6120645E-BD9D-489D-86D0-8777F1B71E95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{E9CB13B8-347D-426D-8535-1B1D6228AC81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Windows", "Windows\Windows.csproj", "{44F809EE-805A-4954-A30A-AB33E922B6EE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{29F3749C-51FA-4F31-BBB7-085C84DD9598} = {29F3749C-51FA-4F31-BBB7-085C84DD9598}
+		{E9CB13B8-347D-426D-8535-1B1D6228AC81} = {E9CB13B8-347D-426D-8535-1B1D6228AC81}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wine", "Wine\Wine.csproj", "{30280B7B-AB80-46B1-B0B5-8E17D92F6092}"
+	ProjectSection(ProjectDependencies) = postProject
+		{29F3749C-51FA-4F31-BBB7-085C84DD9598} = {29F3749C-51FA-4F31-BBB7-085C84DD9598}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +33,27 @@ Global
 		{29F3749C-51FA-4F31-BBB7-085C84DD9598}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29F3749C-51FA-4F31-BBB7-085C84DD9598}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29F3749C-51FA-4F31-BBB7-085C84DD9598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6120645E-BD9D-489D-86D0-8777F1B71E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6120645E-BD9D-489D-86D0-8777F1B71E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6120645E-BD9D-489D-86D0-8777F1B71E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6120645E-BD9D-489D-86D0-8777F1B71E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9CB13B8-347D-426D-8535-1B1D6228AC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9CB13B8-347D-426D-8535-1B1D6228AC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9CB13B8-347D-426D-8535-1B1D6228AC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9CB13B8-347D-426D-8535-1B1D6228AC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44F809EE-805A-4954-A30A-AB33E922B6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44F809EE-805A-4954-A30A-AB33E922B6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44F809EE-805A-4954-A30A-AB33E922B6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44F809EE-805A-4954-A30A-AB33E922B6EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30280B7B-AB80-46B1-B0B5-8E17D92F6092}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9D57CB1B-1114-44B2-98FE-25634A0BE169}
 	EndGlobalSection
 EndGlobal

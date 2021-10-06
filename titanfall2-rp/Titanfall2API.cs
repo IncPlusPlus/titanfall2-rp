@@ -11,38 +11,93 @@ namespace titanfall2_rp
 {
     // This is probably not thread safe. Multiple threads could potentially attempt to initialize this class.
     // However, this is unlikely given that the presence update time is multiple seconds.
-    public partial class Titanfall2Api
+    public class Titanfall2Api
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static readonly Regex GameModeAndMapRegex = new Regex("Playing (.*) on (.*)");
         private ProcessSharp? _sharp;
-        private IntPtr _engineDllBaseAddress;
-        private IntPtr _clientDllBaseAddress;
-        private IntPtr _serverDllBaseAddress;
-        private MpGameStats? _multiplayerGameStats;
+        public IntPtr EngineDllBaseAddress { get; private set; }
+        public IntPtr ClientDllBaseAddress { get; private set; }
+        public IntPtr ServerDllBaseAddress { get; private set; }
 
-        public MpGameStats GetMultiPlayerGameStats()
+        public MpStats GetMultiPlayerGameStats()
         {
             _ensureInit();
-            return this._multiplayerGameStats!;
+            return MpStats.Of(this, _sharp!);
         }
 
+        /// <summary>
+        /// This gets the user's health. This only works in single-player. For multi-player, use
+        /// <see cref="MpStats.GetPlayerHealth"/>.
+        /// </summary>
+        /// <returns></returns>
         public int GetPlayerHealth()
         {
             _ensureInit();
-            return _sharp!.Memory.Read<int>(_engineDllBaseAddress + 0x1122A8DC);
+            return _sharp!.Memory.Read<int>(EngineDllBaseAddress + 0x1122A8DC);
+        }
+
+        /// <summary>
+        /// Here's the list of addresses that all reflected the pilot being inside a titan:
+        /// engine.dll+111E18DC
+        /// engine.dll+111E18E0
+        /// engine.dll+111E1CB8
+        /// engine.dll+111E1D10
+        /// engine.dll+111E1D34
+        /// engine.dll+111E1DAC
+        /// engine.dll+111E1DB8
+        /// engine.dll+111E1DC4
+        /// engine.dll+1128D850
+        /// engine.dll+112910F4
+        /// client.dll+21720D7
+        /// client.dll+22BFEC9
+        /// client.dll+22BFED5
+        /// client.dll+22BFEE5
+        /// client.dll+22BFF01
+        /// client.dll+22BFF0D
+        /// client.dll+22BFF1D
+        /// client.dll+22BFF39
+        /// client.dll+22BFF45
+        /// client.dll+22BFF55
+        /// client.dll+22C75E5
+        /// client.dll+22C7605
+        /// client.dll+22C7780
+        /// client.dll+22C78A0
+        /// client.dll+23F5B48
+        /// client.dll+23F5B68
+        /// client.dll+23F5B88
+        /// client.dll+23F5BA8
+        /// client.dll+23F5BC8
+        /// client.dll+23F5BE8
+        /// client.dll+23F5C08
+        /// client.dll+23F5C28
+        /// client.dll+23F5C48
+        /// materialsystem_dx11.dll+1A98090
+        /// </summary>
+        /// <returns>true if the pilot is in a titan; else false</returns>
+        /// <remarks>This shit ain't stable, chief</remarks>
+        public bool IsPlayerInTitan()
+        {
+            _ensureInit();
+            return _sharp!.Memory.Read<int>(EngineDllBaseAddress + 0x111E18DC) != 0;
+        }
+
+        public Titan GetTitan()
+        {
+            _ensureInit();
+            return TitanMethods.GetTitan(_sharp!.Memory.Read(EngineDllBaseAddress + 0x7A7429, 1)[0]);
         }
 
         public int GetPlayerVelocity()
         {
             _ensureInit();
-            return _sharp!.Memory.Read<int>(_clientDllBaseAddress + 0x2A9F704);
+            return _sharp!.Memory.Read<int>(ClientDllBaseAddress + 0x2A9F704);
         }
 
         public string GetGameModeAndMapName()
         {
             _ensureInit();
-            return _sharp!.Memory.Read(_engineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
+            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
         }
 
         public string GetFriendlyMapName()
@@ -63,26 +118,26 @@ namespace titanfall2_rp
         public GameMode GetGameMode()
         {
             _ensureInit();
-            string gameModeCodeName = _sharp!.Memory.Read(_engineDllBaseAddress + 0x13984088, Encoding.UTF8, 15);
+            string gameModeCodeName = _sharp!.Memory.Read(EngineDllBaseAddress + 0x13984088, Encoding.UTF8, 15);
             return GameModeMethods.GetGameMode(gameModeCodeName);
         }
 
         public string GetMultiplayerMapName()
         {
             _ensureInit();
-            return _sharp!.Memory.Read(_clientDllBaseAddress + 0x23E0FA0, Encoding.UTF8, 50);
+            return _sharp!.Memory.Read(ClientDllBaseAddress + 0x23E0FA0, Encoding.UTF8, 50);
         }
 
         public string GetSinglePlayerMapName()
         {
             _ensureInit();
-            return _sharp!.Memory.Read(_clientDllBaseAddress + 0xB34522, Encoding.UTF8, 50);
+            return _sharp!.Memory.Read(ClientDllBaseAddress + 0xB34522, Encoding.UTF8, 50);
         }
 
         public string GetSinglePlayerDifficulty()
         {
             _ensureInit();
-            byte difficulty = _sharp!.Memory.Read(_serverDllBaseAddress + 0xC0963C, 1)[0];
+            byte difficulty = _sharp!.Memory.Read(ServerDllBaseAddress + 0xC0963C, 1)[0];
             return difficulty switch
             {
                 0 => "easy",
@@ -110,11 +165,10 @@ namespace titanfall2_rp
 
         private void _populateFields(ProcessSharp sharp)
         {
-            this._sharp = sharp;
-            this._engineDllBaseAddress = GetModuleBaseAddress(sharp.Native, "engine.dll");
-            this._clientDllBaseAddress = GetModuleBaseAddress(sharp.Native, "client.dll");
-            this._serverDllBaseAddress = GetModuleBaseAddress(sharp.Native, "server.dll");
-            this._multiplayerGameStats = new MpGameStats(this);
+            _sharp = sharp;
+            EngineDllBaseAddress = GetModuleBaseAddress(sharp.Native, "engine.dll");
+            ClientDllBaseAddress = GetModuleBaseAddress(sharp.Native, "client.dll");
+            ServerDllBaseAddress = GetModuleBaseAddress(sharp.Native, "server.dll");
         }
     }
 }

@@ -1,0 +1,8 @@
+﻿<Application x:Class="titanfall2_rp.Windows.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:titanfall2_rp.Windows">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
