@@ -13,6 +13,7 @@ namespace titanfall2_rp
         private protected const string HelpMeBruh =
             "Getting this value is not supported. " +
             "If you want this to be possible, you'll need to contribute this yourself or tell me how the heck to get it.";
+
         private protected readonly Titanfall2Api Tf2Api;
         private protected readonly ProcessSharp Sharp;
 
@@ -20,6 +21,26 @@ namespace titanfall2_rp
         {
             Tf2Api = titanfall2Api;
             Sharp = processSharp;
+        }
+
+        /// <summary>
+        /// When connected to multiplayer, there is always an ID that is assigned to the user which can be used
+        /// to identify them on the server. This also applies to lobbies. Any of the array-like structures for keeping
+        /// track of scores can typically be navigated by way of the user's ID. Please note that IDs start at 0.
+        /// </summary>
+        /// <returns>the user's ID on the server</returns>
+        public int GetMyIdOnServer()
+        {
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x7A6630);
+        }
+
+        /// <summary>
+        /// TODO bruh!
+        /// </summary>
+        /// <returns>the user's health (in multi-player)</returns>
+        public int GetPlayerHealth()
+        {
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x1123CF64 + (GetMyIdOnServer() * 0x4));
         }
 
         public Faction GetCurrentFaction()
@@ -85,6 +106,47 @@ namespace titanfall2_rp
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
                 _ => throw new ArgumentOutOfRangeException($"Unknown game mode '{titanfall2Api.GetGameMode()}'.")
             };
+        }
+    }
+
+    /// <summary>
+    /// Certain pieces of multiplayer data are kept in some kind of sequential structure in memory. The constants in
+    /// this class all have one thing in common, the data they can point to exists for all players. The data can be
+    /// accessed using the offset here summed with the player's ID times some other constant. The other constant is
+    /// the distance between these sequential entries.
+    ///
+    /// To put this into practice, consider getting the health of the player. To do this, you'd try to read
+    /// <see cref="Titanfall2Api.EngineDllBaseAddress"/> + <see cref="Health"/> + X
+    /// where X is <see cref="HealthPlayerIdOffset"/> * <see cref="MpStats.GetMyIdOnServer"/>. Breaking this down a
+    /// little further, the player ID starts at 0 meaning that if their ID is zero, the original health offset points
+    /// to their health. However, if their ID is 5, their offset is 5 increments by <see cref="HealthPlayerIdOffset"/>
+    /// away from the original <see cref="Health"/> offset.
+    /// </summary>
+    internal static class MpOffsets
+    {
+        /// <summary>
+        /// Points to the player's health if their ID is 0. To be used with engine.dll. If their ID isn't 0, this needs
+        /// to be offset by <see cref="HealthPlayerIdOffset"/> * their ID.
+        /// </summary>
+        private const int Health = 0x1123CF64;
+        /// <summary>
+        /// <see cref="Health"/>
+        /// </summary>
+        private const int HealthPlayerIdOffset = 0x4;
+
+        /// <summary>
+        /// To be used with engine.dll.
+        /// </summary>
+        private const int Name = 0x13fa6eb8; //TODO Figure out how multiple offsets work
+
+        private const int NamePlayerIdOffset = 0x58;
+
+        static class Attrition
+        {
+            private const int Kills = 0x1123D27C;
+            private const int MinionKills = 0x1123D384;
+            private const int Score = 0x1123D510;
+            private const int AttritionStatsPlayerIdOffset = 0x4;
         }
     }
 }
