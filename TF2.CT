@@ -51,69 +51,11 @@
       <Address>client.dll+FAF23C</Address>
     </CheatEntry>
     <CheatEntry>
-      <ID>34</ID>
-      <Description>"Any of these is my score (the offset keeps changing for my player's score)"</Description>
+      <ID>103</ID>
+      <Description>"Global match stuff"</Description>
       <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
-      <Address>0</Address>
       <CheatEntries>
-        <CheatEntry>
-          <ID>31</ID>
-          <Description>"bruh"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D53C</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>32</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1129DE80</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>33</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1129DE88</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>36</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D534</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>37</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+113B6FC4</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>38</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+113B6FCC</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>17</ID>
-      <Description>"Attrition stuff"</Description>
-      <LastState Value="" RealAddress="00000000"/>
-      <GroupHeader>1</GroupHeader>
-      <Address/>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>29</ID>
-          <Description>"My pilot kills (engine.dll+1123D2A8)"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D2A8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>30</ID>
-          <Description>"My minion kills (engine.dll+1123D3B0)"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D3B0</Address>
-        </CheatEntry>
         <CheatEntry>
           <ID>35</ID>
           <Description>"My team's score"</Description>
@@ -130,33 +72,6 @@
       </CheatEntries>
     </CheatEntry>
     <CheatEntry>
-      <ID>26</ID>
-      <Description>"Either the enemy score or one particular enemy's score"</Description>
-      <LastState Value="" RealAddress="00000000"/>
-      <GroupHeader>1</GroupHeader>
-      <Address>0</Address>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>22</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123469C</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>23</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+112346A4</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>24</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D514</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
       <ID>27</ID>
       <Description>"Full game mode and map name (engine.dll+1397AC46)"</Description>
       <ShowAsSigned>0</ShowAsSigned>
@@ -166,33 +81,6 @@
       <CodePage>0</CodePage>
       <ZeroTerminate>1</ZeroTerminate>
       <Address>engine.dll+1397AC46</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>42</ID>
-      <Description>"Bounty Hunt team score, my score, bonus"</Description>
-      <LastState Value="" RealAddress="00000000"/>
-      <GroupHeader>1</GroupHeader>
-      <Address>0</Address>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>39</ID>
-          <Description>"My team's score"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+11218CA0</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>40</ID>
-          <Description>"Bounty hunt bonus"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D48C</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>41</ID>
-          <Description>"My score"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+1123D510</Address>
-        </CheatEntry>
-      </CheatEntries>
     </CheatEntry>
     <CheatEntry>
       <ID>43</ID>
@@ -206,211 +94,205 @@
       <Address>engine.dll+130DAD47</Address>
     </CheatEntry>
     <CheatEntry>
-      <ID>47</ID>
-      <Description>"UPDATE: Neither of these were the current tick number"</Description>
+      <ID>148</ID>
+      <Description>"Tick hunting"</Description>
+      <Options moManualExpandCollapse="1"/>
+      <LastState Value="" RealAddress="00000000"/>
       <GroupHeader>1</GroupHeader>
       <CheatEntries>
         <CheatEntry>
-          <ID>45</ID>
-          <Description>"This MIGHT just be the tick number"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+10DA8064</Address>
+          <ID>77</ID>
+          <Description>"Potential current tick values. Look for increments of 20 or 60 per second"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>56</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+27B83A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>57</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7659F8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>58</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7659FC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>59</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+765A18</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>60</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+765A20</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>61</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+765A24</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>63</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+765A94</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>64</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7A5A78</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>65</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7A5C38</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>66</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7A5C6C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>67</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7A656C</Address>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
         <CheatEntry>
-          <ID>46</ID>
-          <Description>"This also might be the current tick number"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+12A11E40</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>77</ID>
-      <Description>"Potential current tick values. Look for increments of 20 or 60 per second"</Description>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>56</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+27B83A4</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>57</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7659F8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>58</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7659FC</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>59</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+765A18</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>60</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+765A20</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>61</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+765A24</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>63</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+765A94</Address>
+          <ID>78</ID>
+          <Description>"These ones set themselves to 1 when the match gets out"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>52</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+1EDE300</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>53</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+1EDE308</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>54</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+1EDE310</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>68</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7B9B68</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>69</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BA1B8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>70</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BA468</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>71</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BA788</Address>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
         <CheatEntry>
-          <ID>64</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7A5A78</Address>
+          <ID>79</ID>
+          <Description>"These ones set themselves to 0 when the match gets out"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>72</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BAC68</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>73</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BADC8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>74</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BAE58</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>75</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7BAF38</Address>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
         <CheatEntry>
-          <ID>65</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7A5C38</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>66</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7A5C6C</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>67</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7A656C</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>78</ID>
-      <Description>"These ones set themselves to 1 when the match gets out"</Description>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>52</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+1EDE300</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>53</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+1EDE308</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>54</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+1EDE310</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>68</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7B9B68</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>69</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BA1B8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>70</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BA468</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>71</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BA788</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>79</ID>
-      <Description>"These ones set themselves to 0 when the match gets out"</Description>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>72</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BAC68</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>73</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BADC8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>74</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BAE58</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>75</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7BAF38</Address>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>80</ID>
-      <Description>"These ones seem to be incrementing by 20"</Description>
-      <GroupHeader>1</GroupHeader>
-      <CheatEntries>
-        <CheatEntry>
-          <ID>50</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+AF46D4</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>51</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+B0EDD8</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>55</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>client.dll+27B8024</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>62</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+765A34</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>76</ID>
-          <Description>"No description"</Description>
-          <VariableType>4 Bytes</VariableType>
-          <Address>engine.dll+7C4A98</Address>
+          <ID>80</ID>
+          <Description>"These ones seem to be incrementing by 20"</Description>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>50</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+AF46D4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>51</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+B0EDD8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>55</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+27B8024</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>62</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+765A34</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>76</ID>
+              <Description>"No description"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+7C4A98</Address>
+            </CheatEntry>
+          </CheatEntries>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
@@ -450,138 +332,6 @@
       <Address>engine.dll+7A7383</Address>
     </CheatEntry>
     <CheatEntry>
-      <ID>88</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+7B5FA6</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>89</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+130E962C</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>90</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+13F14224</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>91</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+13F8E738</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>92</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+14C7BB20</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>93</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+14C7BBA0</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>94</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+7F7C18</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>95</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+7F7C28</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>96</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+7F7C38</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>97</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+7F7FA1</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>98</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>350</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+139119EC</Address>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>99</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>350</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>engine.dll+139782C2</Address>
-    </CheatEntry>
-    <CheatEntry>
       <ID>100</ID>
       <Description>"No description"</Description>
       <ShowAsSigned>0</ShowAsSigned>
@@ -593,25 +343,1152 @@
       <Address>steamclient64.dll+137AFD0</Address>
     </CheatEntry>
     <CheatEntry>
-      <ID>101</ID>
-      <Description>"No description"</Description>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>String</VariableType>
-      <Length>50</Length>
-      <Unicode>0</Unicode>
-      <CodePage>0</CodePage>
-      <ZeroTerminate>1</ZeroTerminate>
-      <Address>231956F206C</Address>
-    </CheatEntry>
-    <CheatEntry>
       <ID>102</ID>
       <Description>"No description"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>4 Bytes</VariableType>
+      <Address>client.dll+22C75E5</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>147</ID>
+      <Description>"Turns from 0 to 1 when currently searching for a match"</Description>
+      <VariableType>Byte</VariableType>
+      <Address>engine.dll+8AA1BC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>149</ID>
+      <Description>"Various strings"</Description>
+      <Options moManualExpandCollapse="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>88</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7B5FA6</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>89</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+130E962C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>90</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+13F14224</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>91</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+13F8E738</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>92</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+14C7BB20</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>93</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+14C7BBA0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>94</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7F7C18</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>95</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7F7C28</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>96</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7F7C38</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>97</ID>
+          <Description>"No description"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>50</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7F7FA1</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>98</ID>
+          <Description>"Stryder nucleus-oauth request (includes userId)"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>350</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+139119EC</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>99</ID>
+          <Description>"Stryder nucleus-oauth request (includes userId) (this one is messed up at the beginning for some reason)"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>350</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+139782C2</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>129</ID>
+          <Description>"This string turns into pc_origin after launching multiplayer"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>100</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+1315AC80</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>145</ID>
+          <Description>"Link to origin store page"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>250</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+1397A344</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>146</ID>
+          <Description>"Server token"</Description>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>250</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+13979C80</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>150</ID>
+      <Description>"Personal scores hunting (just attrition for now)"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>231</ID>
+          <Description>"Group 1"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>233</ID>
+              <Description>"mp health"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF64</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>235</ID>
+              <Description>"pilot kills"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D27C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>230</ID>
+              <Description>"minion kills"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D384</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>234</ID>
+              <Description>"score (this is titan damage in titan brawl)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D510</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>184</ID>
+          <Description>"Group 2"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>178</ID>
+              <Description>"mp health (high when dead)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+111E36A0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>179</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF68</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>180</ID>
+              <Description>"pilot kills (wacky)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D178</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>181</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D280</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>182</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D388</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>183</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D514</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>137</ID>
+          <Description>"Group 3"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>138</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF6C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>139</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D38C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>141</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D284</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>142</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D518</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>192</ID>
+          <Description>"Group 4"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>189</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF70</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>188</ID>
+              <Description>"pilot kills"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D288</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>190</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D390</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>191</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D51C</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>227</ID>
+          <Description>"Group 5"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>219</ID>
+              <Description>"mp health (this one goes high when dead)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+111E7F48</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>220</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF74</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>221</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D394</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>222</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D520</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>226</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D28C</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>151</ID>
+          <Description>"Group 6"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>154</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF78</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>155</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D398</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>157</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D290</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>158</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D524</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>187</ID>
+              <Description>"titan kills (entirely wrong ;-; )"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+293DC50</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>206</ID>
+          <Description>"Group 7"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>201</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF84</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>202</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D18C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>203</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D294</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>204</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D39C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>205</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D528</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>218</ID>
+          <Description>"Group 8"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>213</ID>
+              <Description>"score (calculated. double-check)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D52C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>214</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF80</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>215</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D190</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>216</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D298</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>217</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D3A0</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>200</ID>
+          <Description>"Group 9"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>193</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF84</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>194</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D194</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>195</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D29C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>196</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D3A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>197</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D530</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>175</ID>
+          <Description>"Group 10"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>167</ID>
+              <Description>"mp health (high when dead)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+111EF860</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>168</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF88</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>169</ID>
+              <Description>"pilot kills (wacky?)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D198</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>170</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D2A0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>171</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D3A8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>172</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D534</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>176</ID>
+              <Description>"titan kills?"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>client.dll+C34394</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>212</ID>
+          <Description>"Group 11"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>228</ID>
+              <Description>"mp health (high when dead)"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+111F1098</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>229</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF8C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>207</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D2A4</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>208</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D3AC</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>209</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D538</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>160</ID>
+          <Description>"Group 12"</Description>
+          <Options moManualExpandCollapse="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>159</ID>
+              <Description>"mp health"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123CF90</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>161</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D2A8</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>162</ID>
+              <Description>"pilot kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D1A0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>163</ID>
+              <Description>"minion kills"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D3B0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>166</ID>
+              <Description>"score"</Description>
+              <VariableType>4 Bytes</VariableType>
+              <Address>engine.dll+1123D53C</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>278</ID>
+      <Description>"titan brawl deaths for group 6"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>engine.dll+1123D20C</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>232</ID>
+      <Description>"ID on server (zero-indexed)"</Description>
+      <VariableType>4 Bytes</VariableType>
+      <Address>engine.dll+7A6630</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>257</ID>
+      <Description>"corresponds to group 1's username (all that follow are increments of +0x58)"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
       <VariableType>String</VariableType>
-      <Length>12</Length>
+      <Length>150</Length>
       <Unicode>0</Unicode>
       <CodePage>0</CodePage>
       <ZeroTerminate>1</ZeroTerminate>
-      <Address>231B1F4DF0C</Address>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>38</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>256</ID>
+      <Description>"corresponds to group 2's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>90</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>255</ID>
+      <Description>"corresponds to group 3's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>e8</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>252</ID>
+      <Description>"corresponds to group 4's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>140</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>254</ID>
+      <Description>"corresponds to group 5's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>198</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>240</ID>
+      <Description>"corresponds to group 6's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>1f0</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>239</ID>
+      <Description>"corresponds to group 6's username (2)"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+007b9ad8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>1f0</Offset>
+        <Offset>18</Offset>
+        <Offset>50</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>258</ID>
+      <Description>"corresponds to group 7's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>248</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>259</ID>
+      <Description>"corresponds to group 8's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>2a0</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>260</ID>
+      <Description>"corresponds to group 9's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>2f8</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>261</ID>
+      <Description>"corresponds to group 10's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>350</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>262</ID>
+      <Description>"corresponds to group 11's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>3a8</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>263</ID>
+      <Description>"corresponds to group 12's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>400</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>264</ID>
+      <Description>"corresponds to group 13's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>458</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>267</ID>
+      <Description>"corresponds to group 14's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>4b0</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>268</ID>
+      <Description>"corresponds to group 15's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>508</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>269</ID>
+      <Description>"corresponds to group 16's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>560</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>270</ID>
+      <Description>"corresponds to group 17's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>5b8</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>271</ID>
+      <Description>"corresponds to group 18's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>610</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>272</ID>
+      <Description>"corresponds to group 19's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>668</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>273</ID>
+      <Description>"corresponds to group 20's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>6c0</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>274</ID>
+      <Description>"corresponds to group 21's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>718</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>275</ID>
+      <Description>"corresponds to group 22's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>770</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>276</ID>
+      <Description>"corresponds to group 23's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>7c8</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>277</ID>
+      <Description>"corresponds to group 24's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>820</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>279</ID>
+      <Description>"corresponds to group 25's username"</Description>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+13fa6eb8</Address>
+      <Offsets>
+        <Offset>0</Offset>
+        <Offset>878</Offset>
+        <Offset>38</Offset>
+        <Offset>50</Offset>
+        <Offset>18</Offset>
+      </Offsets>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>

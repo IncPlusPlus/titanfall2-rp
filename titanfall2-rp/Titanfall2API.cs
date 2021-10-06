@@ -26,6 +26,11 @@ namespace titanfall2_rp
             return MpStats.Of(this, _sharp!);
         }
 
+        /// <summary>
+        /// This gets the user's health. This only works in single-player. For multi-player, use
+        /// <see cref="MpStats.GetPlayerHealth"/>.
+        /// </summary>
+        /// <returns></returns>
         public int GetPlayerHealth()
         {
             _ensureInit();

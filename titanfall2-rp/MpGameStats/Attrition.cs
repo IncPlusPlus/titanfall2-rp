@@ -9,39 +9,48 @@ namespace titanfall2_rp.MpGameStats
         { }
 
         /// <summary>
-        /// Get the score of the current user.
+        /// Get the score of a user.
         /// </summary>
+        /// <param name="playerId">the id of the player, leave blank to use the current player</param>
         /// <returns>the user's score</returns>
-        public int GetMyScore()
+        public int GetScore(int playerId = -1)
         {
-            throw new NotImplementedException(HelpMeBruh);
+            var id = playerId < 0 ? GetMyIdOnServer() : playerId;
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Attrition.Score +
+                                          (id * MpOffsets.Attrition.AttritionStatsPlayerIdOffset));
         }
 
         /// <summary>
-        /// Get the pilot kills of the current user.
+        /// Get the pilot kills of a user.
         /// </summary>
+        /// <param name="playerId">the id of the player, leave blank to use the current player</param>
         /// <returns>the number of pilots the user has killed</returns>
-        public int GetMyPilotKills()
+        public int GetPilotKills(int playerId = -1)
         {
-            throw new NotImplementedException(HelpMeBruh);
+            var id = playerId < 0 ? GetMyIdOnServer() : playerId;
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Attrition.Kills +
+                                          (id * MpOffsets.Attrition.AttritionStatsPlayerIdOffset));
         }
 
         /// <summary>
-        /// Get the titan kills of the current user.
+        /// Get the titan kills of a user.
         /// </summary>
         /// <returns>the number of titans the user has killed</returns>
-        public int GetMyTitanKills()
+        public int GetTitanKills()
         {
             throw new NotImplementedException(HelpMeBruh);
         }
 
         /// <summary>
-        /// Get the minion kills of the current user.
+        /// Get the minion kills of a user.
         /// </summary>
+        /// <param name="playerId">the id of the player, leave blank to use the current player</param>
         /// <returns>the number of minions the user has killed</returns>
-        public int GetMyMinionKills()
+        public int GetMinionKills(int playerId)
         {
-            throw new NotImplementedException(HelpMeBruh);
+            var id = playerId < 0 ? GetMyIdOnServer() : playerId;
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Attrition.MinionKills +
+                                          (id * MpOffsets.Attrition.AttritionStatsPlayerIdOffset));
         }
     }
 }
