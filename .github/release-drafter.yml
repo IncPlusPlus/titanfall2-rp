@@ -1,5 +1,5 @@
-name-template: Version $NEXT_PATCH_VERSION
-tag-template: v$NEXT_PATCH_VERSION
+name-template: Version $RESOLVED_VERSION
+tag-template: v$RESOLVED_VERSION
 branches:
   - main
 exclude-labels:
@@ -27,9 +27,19 @@ categories:
     label: 'dependencies'
   - title: '🧰 Maintenance'
     label: 'chore'
-
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
 template: |
   $CHANGES
   ***
-  For full changes, see the [comparison between $PREVIOUS_TAG and v$NEXT_PATCH_VERSION](https://github.com/IncPlusPlus/titanfall2-rp/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
+  For full changes, see the [comparison between $PREVIOUS_TAG and v$RESOLVED_VERSION](https://github.com/IncPlusPlus/titanfall2-rp/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION)
