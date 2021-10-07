@@ -1,5 +1,4 @@
 feature: [ 'feature/*', 'feat/*' ]
 bug: [ 'bug/*', 'fix/*', 'bugfix/*' ]
 chore: [ 'chore/*', 'maintenance/*' ]
-hotfix: hotfix/*
 🛠 Improvement: improvement/*
