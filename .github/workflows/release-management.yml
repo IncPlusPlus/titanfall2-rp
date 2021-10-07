@@ -17,5 +17,8 @@ jobs:
       # Drafts your next Release notes as Pull Requests are merged into "main"
       - name: Release Drafter
         uses: release-drafter/release-drafter@v5.15.0
+        with:
+          # https://github.com/release-drafter/release-drafter/issues/917#issuecomment-907906352
+          disable-releaser: github.ref != 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
