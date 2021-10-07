@@ -38,48 +38,15 @@ namespace titanfall2_rp
         }
 
         /// <summary>
-        /// Here's the list of addresses that all reflected the pilot being inside a titan:
-        /// engine.dll+111E18DC
-        /// engine.dll+111E18E0
-        /// engine.dll+111E1CB8
-        /// engine.dll+111E1D10
-        /// engine.dll+111E1D34
-        /// engine.dll+111E1DAC
-        /// engine.dll+111E1DB8
-        /// engine.dll+111E1DC4
-        /// engine.dll+1128D850
-        /// engine.dll+112910F4
-        /// client.dll+21720D7
-        /// client.dll+22BFEC9
-        /// client.dll+22BFED5
-        /// client.dll+22BFEE5
-        /// client.dll+22BFF01
-        /// client.dll+22BFF0D
-        /// client.dll+22BFF1D
-        /// client.dll+22BFF39
-        /// client.dll+22BFF45
-        /// client.dll+22BFF55
-        /// client.dll+22C75E5
-        /// client.dll+22C7605
-        /// client.dll+22C7780
-        /// client.dll+22C78A0
-        /// client.dll+23F5B48
-        /// client.dll+23F5B68
-        /// client.dll+23F5B88
-        /// client.dll+23F5BA8
-        /// client.dll+23F5BC8
-        /// client.dll+23F5BE8
-        /// client.dll+23F5C08
-        /// client.dll+23F5C28
-        /// client.dll+23F5C48
-        /// materialsystem_dx11.dll+1A98090
+        /// This function currently supports multiplayer only.
         /// </summary>
         /// <returns>true if the pilot is in a titan; else false</returns>
-        /// <remarks>This shit ain't stable, chief</remarks>
+        /// <remarks>This function requires more testing but should be okay. It guesses whether the user is in a titan
+        /// based on whether their health is over 100 (the default for a pilot).</remarks>
         public bool IsPlayerInTitan()
         {
             _ensureInit();
-            return _sharp!.Memory.Read<int>(EngineDllBaseAddress + 0x111E18DC) != 0;
+            return GetMultiPlayerGameStats().GetPlayerHealth(GetMultiPlayerGameStats().GetMyIdOnServer()) > 100;
         }
 
         public Titan GetTitan()
