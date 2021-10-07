@@ -106,6 +106,10 @@ namespace titanfall2_rp.Windows
             {
                 if (!ProcessUtil.ShowFile(Config.ConfigFileName)) NotifyUserOfError();
             };
+            _notifyIcon.ContextMenuStrip.Items.Add("Reload the settings file").Click += (_, _) =>
+            {
+                Config.ReloadFromFile();
+            };
             _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click +=
                 (_, _) => UpdateHelper.Updater.Update();
             _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();

@@ -79,6 +79,11 @@ namespace Common
             }
         }
 
+        public static void ReloadFromFile()
+        {
+            Init();
+        }
+
         private static void ConfigureDefaults()
         {
             _config = new Configuration
