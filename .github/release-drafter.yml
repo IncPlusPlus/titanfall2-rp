@@ -1,7 +1,5 @@
 name-template: Version $RESOLVED_VERSION
 tag-template: v$RESOLVED_VERSION
-branches:
-  - main
 exclude-labels:
   - 'skip-changelog'
 categories:
