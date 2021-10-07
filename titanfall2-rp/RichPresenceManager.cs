@@ -73,7 +73,7 @@ namespace titanfall2_rp
             {
                 Log.DebugFormat("Received Update! {0}", e.Presence);
                 OnPresenceUpdate?.Invoke(this, e);
-                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.Gameplay, presence:e);
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.Gameplay, presence: e);
             };
 
             // Connect to the RPC
