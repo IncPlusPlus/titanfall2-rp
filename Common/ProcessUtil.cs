@@ -13,36 +13,51 @@ namespace Common
         /// Launches Titanfall 2 using the information it can get from the Config file
         /// </summary>
         /// <returns>true if successful, false if the operation failed</returns>
-        public static bool LaunchTitanfall2()
+        /// <remarks>This is a Windows-only function</remarks>
+        public static void LaunchTitanfall2()
         {
             Log.Info("Attempting to launch Titanfall 2.");
             if (Config.IsInstalledThroughSteam)
             {
                 Log.Debug("Launching Titanfall 2 via Steam.");
-                return LaunchExeOrProtocol("steam://rungameid/1237970");
+                LaunchExeOrProtocol("steam://rungameid/1237970");
             }
             else
             {
-                var exePath = Config.Titanfall2ExecutablePath;
-                if (exePath.Length == 0)
+                try
                 {
-                    Log.Error("Tried to launch Titanfall 2 but the executable path was never set in the settings!");
-                    return false;
+                    var exePath = Config.Titanfall2ExecutablePath;
+                    if (exePath.Length == 0)
+                    {
+                        throw new ArgumentException(
+                            "Tried to launch Titanfall 2 but the executable path was never set in the settings!");
+                    }
+
+                    if (!new FileInfo(exePath).Exists)
+                    {
+                        throw new FileNotFoundException(
+                            $"Tried to launch Titanfall exe at '{exePath}' but it doesn't exist at the path specified!",
+                            exePath);
+                    }
+
+                    LaunchExeOrProtocol(exePath);
                 }
-                else if (!new FileInfo(exePath).Exists)
+                catch (Exception e)
                 {
-                    Log.ErrorFormat(
-                        "Tried to launch Titanfall exe at '{0}' but it doesn't exist at the path specified!", exePath);
-                    return false;
-                }
-                else
-                {
-                    return LaunchExeOrProtocol(exePath);
+                    // Make sure this gets logged before tossing the error up the stack
+                    Log.Error("Failed to launch TF|2", e);
+                    throw;
                 }
             }
         }
 
-        public static bool LaunchExeOrProtocol(string fullExePathOrUri, string arguments = "")
+        /// <summary>
+        /// Executes a .exe file or launches a protocol:// path.
+        /// </summary>
+        /// <param name="fullExePathOrUri">either a steam:// URI or a path to an EXE file</param>
+        /// <param name="arguments">any arguments to be provided to the executable</param>
+        /// <remarks>This is a Windows-only function</remarks>
+        public static void LaunchExeOrProtocol(string fullExePathOrUri, string arguments = "")
         {
             Log.DebugFormat("Launching '{0}'...", fullExePathOrUri);
             var startInfo = new System.Diagnostics.ProcessStartInfo
@@ -58,37 +73,44 @@ namespace Common
             {
                 process.Start();
                 Log.DebugFormat("Successfully launched '{0}'.", fullExePathOrUri);
-                return true;
             }
             catch (Exception e)
             {
                 Log.Error($"Failed to launch exe or protocol specified by '{fullExePathOrUri}'.", e);
-                return false;
+                throw;
             }
         }
 
-        public static bool ShowFile(string filePath)
+        /// <summary>
+        /// Shows a file in explorer. Obviously this will only work on Windows.
+        /// </summary>
+        /// <param name="filePath">the path to the file</param>
+        public static void ShowFile(string filePath)
         {
-            var fileInfo = new FileInfo(filePath);
-            if (fileInfo.Exists)
-            {
-                return LaunchExeOrProtocol("explorer.exe", $"/select,\"{fileInfo.FullName}\"");
-            }
-
-            Log.ErrorFormat("Tried to show file '{0}' but it doesn't exist!", fileInfo.FullName);
-            return false;
+            EditOrShowFile(filePath, false);
         }
 
-        public static bool EditFile(string filePath)
+        /// <summary>
+        /// Opens a file in notepad.exe. Obviously, this will only work on Windows.
+        /// </summary>
+        /// <param name="filePath">the path to the file</param>
+        public static void EditFile(string filePath)
         {
+            EditOrShowFile(filePath, true);
+        }
+
+        private static void EditOrShowFile(string filePath, bool edit)
+        {
+            var verb = edit ? "edit" : "show";
             var fileInfo = new FileInfo(filePath);
-            if (fileInfo.Exists)
+            if (!fileInfo.Exists)
             {
-                return LaunchExeOrProtocol("notepad.exe", $"\"{fileInfo.FullName}\"");
+                Log.ErrorFormat("Tried to open file '{0}' but it doesn't exist!", fileInfo.FullName);
+                throw new FileNotFoundException($"Tried to {verb} file '{fileInfo.FullName}' but it doesn't exist!",
+                    fileInfo.Name);
             }
 
-            Log.ErrorFormat("Tried to open file '{0}' but it doesn't exist!", fileInfo.FullName);
-            return false;
+            LaunchExeOrProtocol("notepad.exe", $"{(edit ? "" : "/select,")}\"{fileInfo.FullName}\"");
         }
     }
 }
