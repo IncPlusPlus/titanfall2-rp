@@ -79,47 +79,55 @@ namespace titanfall2_rp.Windows
 
             _notifyIcon.ContextMenuStrip.ShowImageMargin = false;
 
-            // TODO: Implement these
-
-            // TODO: This should open Titanfall 2 depending on whether the location of the game is known (and if the user uses steam. This will be set in the config)
             _notifyIcon.ContextMenuStrip.Items.Add("Open Titanfall 2").Click += (_, _) =>
             {
-                if (!ProcessUtil.LaunchTitanfall2()) NotifyUserOfError();
+                NotifyUserOfError(ProcessUtil.LaunchTitanfall2);
             };
             _notifyIcon.ContextMenuStrip.Items.Add("Open the log").Click += (_, _) =>
             {
-                if (!ProcessUtil.EditFile("titanfall2-rp.log")) NotifyUserOfError();
+                NotifyUserOfError(() => ProcessUtil.EditFile("titanfall2-rp.log"));
             };
             _notifyIcon.ContextMenuStrip.Items.Add("Show the log location").Click += (_, _) =>
             {
-                if (!ProcessUtil.ShowFile("titanfall2-rp.log")) NotifyUserOfError();
+                NotifyUserOfError(() => ProcessUtil.ShowFile("titanfall2-rp.log"));
             };
             _notifyIcon.ContextMenuStrip.Items.Add("Show the log config location").Click += (_, _) =>
             {
-                if (!ProcessUtil.ShowFile("log4net.config")) NotifyUserOfError();
+                NotifyUserOfError(() => ProcessUtil.ShowFile("log4net.config"));
             };
             _notifyIcon.ContextMenuStrip.Items.Add("Open settings").Click += (_, _) =>
             {
-                if (!ProcessUtil.EditFile(Config.ConfigFileName)) NotifyUserOfError();
+                NotifyUserOfError(() => ProcessUtil.EditFile(Config.ConfigFileName));
             };
             _notifyIcon.ContextMenuStrip.Items.Add("Show settings file location").Click += (_, _) =>
             {
-                if (!ProcessUtil.ShowFile(Config.ConfigFileName)) NotifyUserOfError();
+                NotifyUserOfError(() => ProcessUtil.ShowFile(Config.ConfigFileName));
             };
             _notifyIcon.ContextMenuStrip.Items.Add("Reload the settings file").Click += (_, _) =>
             {
-                Config.ReloadFromFile();
+                NotifyUserOfError(Config.ReloadFromFile);
             };
-            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click +=
-                (_, _) => UpdateHelper.Updater.Update();
-            _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
+            _notifyIcon.ContextMenuStrip.Items.Add("Check for Updates").Click += (_, _) =>
+            {
+                NotifyUserOfError(() => UpdateHelper.Updater.Update());
+            };
+            _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (_, _) => ExitApplication();
         }
 
-        private static void NotifyUserOfError()
+        private static void NotifyUserOfError(Action action)
         {
-            MessageBox.Show(
-                "An error occurred! Check the log for details.", "Titanfall 2 Discord Rich Presence",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(
+                    $"An error occurred! See below for details (this info will also be logged). " +
+                    $"You can also press CTRL + C to copy this error to the clipboard.\n\n\n" +
+                    $"Message: {e.Message}\n\n\nFull exception:\n{e}", "Titanfall 2 Discord Rich Presence",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private static void AlertFeatureNotImplemented()
