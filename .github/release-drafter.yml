@@ -33,24 +33,14 @@ version-resolver:
   minor:
     labels:
       - 'minor'
+      - 'feature'
   patch:
     labels:
       - 'patch'
+      - 'bug'
+      - 'chore'
+      - '🛠 Improvement'
   default: patch
-autolabeler:
-  - label: 'patch'
-    branch:
-      - '/chore\/.+/'
-      - '/maintenance\/.+/'
-      - '/fix\/.+/'
-      - '/bug\/.+/'
-  - label: 'minor'
-    branch:
-      - '/feature\/.+/'
-      - '/improvement\/.+/'
-  - label: 'major'
-    branch:
-      - '/breaking\/.+/'
 template: |
   $CHANGES
   ***
