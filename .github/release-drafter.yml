@@ -33,9 +33,13 @@ version-resolver:
   minor:
     labels:
       - 'minor'
+      - 'feature'
   patch:
     labels:
       - 'patch'
+      - 'bug'
+      - 'chore'
+      - '🛠 Improvement'
   default: patch
 template: |
   $CHANGES
