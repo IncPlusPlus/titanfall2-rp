@@ -4,6 +4,7 @@ using System.Threading;
 using System.Timers;
 using DiscordRPC;
 using log4net;
+using titanfall2_rp.SegmentManager;
 using titanfall2_rp.updater;
 
 namespace titanfall2_rp
@@ -78,6 +79,7 @@ namespace titanfall2_rp
                 {
                     Log.Warn("Failed to perform Titanfall 2 rich presence update. Waiting " +
                              RichPresenceManager.StatusRefreshTimeInSeconds + " seconds and trying again.", exception);
+                    SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure, exception);
                     // No need to change the timer interval before trying again
                 }
             }

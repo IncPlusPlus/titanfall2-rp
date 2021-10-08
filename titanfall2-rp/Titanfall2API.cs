@@ -42,7 +42,7 @@ namespace titanfall2_rp
         }
 
         /// <summary>
-        /// This function currently supports multiplayer only.
+        /// This function currently supports multiplayer only and hasn't been tested in single-player.
         /// </summary>
         /// <returns>true if the pilot is in a titan; else false</returns>
         /// <remarks>This function requires more testing but should be okay. It guesses whether the user is in a titan
@@ -79,15 +79,21 @@ namespace titanfall2_rp
         public string GetFriendlyMapName()
         {
             _ensureInit();
-            var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
-            return m.Success ? m.Groups[2].Value : "UNKNOWN MAP NAME"; //TODO: REPORT THIS
+            var gameModeAndMapName = GetGameModeAndMapName();
+            var m = GameModeAndMapRegex.Match(gameModeAndMapName);
+            return m.Success
+                ? m.Groups[2].Value
+                : throw new ApplicationException($"Failed to recognize map name from string '{gameModeAndMapName}'.");
         }
 
         public string GetGameModeName()
         {
             _ensureInit();
-            var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
-            return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE"; //TODO: REPORT THIS
+            var gameModeAndMapName = GetGameModeAndMapName();
+            var m = GameModeAndMapRegex.Match(gameModeAndMapName);
+            return m.Success
+                ? m.Groups[1].Value
+                : throw new ApplicationException($"Failed to recognize game mode from string '{gameModeAndMapName}'.");
         }
 
         public GameMode GetGameMode()
@@ -127,21 +133,28 @@ namespace titanfall2_rp
         {
             _ensureInit();
             var tryCount = 5;
-            while (!_sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250).Contains("?") && tryCount > 0)
+            while (!_sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250).Contains("?") &&
+                   tryCount > 0)
             {
-                Log.DebugFormat("Couldn't find the user ID. Waiting 1 second and trying again. ({0} tries left)", tryCount);
+                Log.DebugFormat("Couldn't find the user ID. Waiting 1 second and trying again. ({0} tries left)",
+                    tryCount);
                 //If the value isn't there yet. Try waiting 5 seconds to grab it. This might be necessary for game startup
                 Thread.Sleep(1000);
                 tryCount--;
             }
+
             var stryderNucleusOauthString = _sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250);
             var queryStringIndex = stryderNucleusOauthString.IndexOf("?", StringComparison.Ordinal);
             if (queryStringIndex < 0)
             {
-                throw new ApplicationException("Expected to find a query string in the Stryder nucleus oauth string but didn't find one.");
+                throw new ApplicationException(
+                    "Expected to find a query string in the Stryder nucleus oauth string but didn't find one.");
             }
+
             // Edge case for if there's a question mark but nothing else following it.
-            var querystring = (queryStringIndex < stryderNucleusOauthString.Length - 1) ? stryderNucleusOauthString[(queryStringIndex + 1)..] : string.Empty;
+            var querystring = (queryStringIndex < stryderNucleusOauthString.Length - 1)
+                ? stryderNucleusOauthString[(queryStringIndex + 1)..]
+                : string.Empty;
             NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(querystring);
             return queryStringCollection["userId"] ?? "";
         }
