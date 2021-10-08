@@ -100,6 +100,7 @@ namespace titanfall2_rp.SegmentManager
                     {"large_text",presence.Assets.LargeImageText},
                     {"small_image",presence.Assets.SmallImageKey},
                     {"small_text",presence.Assets.SmallImageText},
+                    {"gamemode_and_map_name",_tf2Api?.GetGameModeAndMapName()}
                 },
                 new Options().SetAnonymousId(GetAnonymousIdentifier()));
         }
