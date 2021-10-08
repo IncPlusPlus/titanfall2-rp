@@ -63,6 +63,7 @@ namespace titanfall2_rp.updater
             {
                 Log.Error(checkUpdatesSuccess ? "Failed to perform update." : "Failed to check for updates.", e);
             }
+            Log.Info("Update check complete!");
         }
 
         /// <summary>
