@@ -14,6 +14,7 @@ namespace titanfall2_rp
     public abstract class MpStats
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
+
         private protected const string HelpMeBruh =
             "Getting this value is not supported. " +
             "If you want this to be possible, you'll need to contribute this yourself or tell me how the heck to get it.";
@@ -71,6 +72,58 @@ namespace titanfall2_rp
             catch (Exception e)
             {
                 Log.Warn($"Failed to get the name of player with ID '{playerId}'", e);
+                return "???";
+            }
+        }
+
+        /// <summary>
+        /// Get the clan tag of a specific player
+        /// </summary>
+        /// <param name="playerId">the ID of a given player. To find your own ID, call <see cref="GetMyIdOnServer"/></param>
+        /// <returns>the clan tag of the specified player</returns>
+        public string GetPlayerClanTag(int playerId)
+        {
+            var offsets = MpOffsets.NamePointerOffsets;
+            // The last of the offsets gets incremented by NamePlayerIdIncrement depending on what the ID is
+            offsets[^1] += playerId * MpOffsets.NamePlayerIdIncrement;
+            try
+            {
+                return Sharp.Memory.Read(
+                    ProcessApi.ResolvePointerAddress(
+                        Sharp,
+                        Tf2Api.EngineDllBaseAddress + MpOffsets.Name,
+                        offsets) + 0x100,
+                    Encoding.UTF8, 100);
+            }
+            catch (Exception e)
+            {
+                Log.Warn($"Failed to get the clan tag of player with ID '{playerId}'", e);
+                return "???";
+            }
+        }
+
+        /// <summary>
+        /// Get the clan name of a specific player
+        /// </summary>
+        /// <param name="playerId">the ID of a given player. To find your own ID, call <see cref="GetMyIdOnServer"/></param>
+        /// <returns>the clan name of the specified player</returns>
+        public string GetPlayerClanName(int playerId)
+        {
+            var offsets = MpOffsets.NamePointerOffsets;
+            // The last of the offsets gets incremented by NamePlayerIdIncrement depending on what the ID is
+            offsets[^1] += playerId * MpOffsets.NamePlayerIdIncrement;
+            try
+            {
+                return Sharp.Memory.Read(
+                    ProcessApi.ResolvePointerAddress(
+                        Sharp,
+                        Tf2Api.EngineDllBaseAddress + MpOffsets.Name,
+                        offsets) + 0x110,
+                    Encoding.UTF8, 100);
+            }
+            catch (Exception e)
+            {
+                Log.Warn($"Failed to get the clan name of player with ID '{playerId}'", e);
                 return "???";
             }
         }
