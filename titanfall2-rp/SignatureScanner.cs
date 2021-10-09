@@ -1,4 +1,5 @@
 ﻿using System;
+using Process.NET;
 
 namespace titanfall2_rp
 {
@@ -35,6 +36,7 @@ internal class SignatureScanner
         private int m_vSize;
 
         private readonly Titanfall2Api _tf2Api;
+        private readonly ProcessSharp _sharp;
 
         #endregion
         #region "SignatureScanner Class Construction"
@@ -47,9 +49,10 @@ internal class SignatureScanner
         /// <param name="proc">The process to dump the memory from.</param>
         /// <param name="addr">The started address to begin the dump.</param>
         /// <param name="size">The size of the dump.</param>
-        public SignatureScanner(Titanfall2Api tf2Api)
+        public SignatureScanner(Titanfall2Api tf2Api, ProcessSharp sharp)
         {
-            this.m_vProcess = tf2Api._sharp!.Native;
+            this.m_vProcess = sharp.Native;
+            this._sharp = sharp;
             this.m_vAddress = IntPtr.Zero;
             this.m_vSize = 0xFFFF;
             this._tf2Api = tf2Api;
@@ -80,7 +83,7 @@ internal class SignatureScanner
                 // Create the region space to dump into.
                 this.m_vDumpedRegion = new byte[this.m_vSize];
 
-                m_vDumpedRegion = _tf2Api._sharp!.Memory.Read(this.m_vAddress, this.m_vSize);
+                m_vDumpedRegion = _sharp.Memory.Read(this.m_vAddress, this.m_vSize);
 
                 return true;
             }

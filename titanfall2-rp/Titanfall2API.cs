@@ -67,7 +67,7 @@ namespace titanfall2_rp
         {
             _ensureInit();
 
-            var convarManager = new ConvarManager(new SignatureManager(this).GetConvarPtr(), this);
+            var convarManager = new ConvarManager(new SignatureManager(this, _sharp).GetConvarPtr(), this, _sharp);
             convarManager.Find("mp_gamemode");
             
             return _sharp!.Memory.Read(EngineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
@@ -142,8 +142,8 @@ namespace titanfall2_rp
             EngineDllBaseAddress = GetModuleBaseAddress(sharp.Native, "engine.dll");
             ClientDllBaseAddress = GetModuleBaseAddress(sharp.Native, "client.dll");
             ServerDllBaseAddress = GetModuleBaseAddress(sharp.Native, "server.dll");
-            this._convarManager = new ConvarManager(0,this);
-            this._signatureManager = new SignatureManager(this);
+            _convarManager = new ConvarManager(0,this, _sharp);
+            _signatureManager = new SignatureManager(this, _sharp);
         }
     }
 }

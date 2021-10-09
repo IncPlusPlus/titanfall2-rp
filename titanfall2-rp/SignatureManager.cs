@@ -2,27 +2,30 @@
 using System.Diagnostics;
 using System.Text;
 using Microsoft.VisualBasic.CompilerServices;
+using Process.NET;
 
 namespace titanfall2_rp
 {
     internal class SignatureManager
     {
         private readonly Titanfall2Api _tf2Api;
+        private readonly ProcessSharp _sharp;
 
-        public SignatureManager(Titanfall2Api titanfall2Api)
+        public SignatureManager(Titanfall2Api titanfall2Api, ProcessSharp sharp)
         {
             this._tf2Api = titanfall2Api;
+            this._sharp = sharp;
         }
 
         // private static MemoryScanner Memory => ExternalCounterstrike.Memory;
-        // private MemoryScanner memory = _tf2Api._sharp;
+        // private MemoryScanner memory = _sharp;
 
         public int GetViewAngle()
         {
             byte[] pattern = new byte[] { 139, 21, 0, 0, 0, 0, 139, 77, 8, 139, 130, 0, 0, 0, 0, 137, 1, 139, 130, 0, 0, 0, 0, 137, 65, 4 };
             string mask = MaskFromPattern(pattern);
-            int address = FindAddress(pattern, 11, mask, ProcessApi.GetProcessModule(_tf2Api._sharp!.Native, "engine.dll"));
-            int result = _tf2Api._sharp!.Memory.Read<int>((IntPtr)address);
+            int address = FindAddress(pattern, 11, mask, ProcessApi.GetProcessModule(_sharp.Native, "engine.dll"));
+            int result = _sharp.Memory.Read<int>((IntPtr)address);
             return result;
         }
 
@@ -40,21 +43,21 @@ namespace titanfall2_rp
         //untested and most likely not working yet
         public int GetConCommand()
         {
-            ProcessModule lib = ProcessApi.GetProcessModule(_tf2Api._sharp!.Native, "engine.dll");
+            ProcessModule lib = ProcessApi.GetProcessModule(_sharp.Native, "engine.dll");
             byte[] pattern = { 0x40,0x53,0x48,0x83,0xEC,0x00,0x48,0x8B,0xD9,0x45,0x33,0xD2 };
             string mask = MaskFromPattern(pattern);
             int address = FindAddress(pattern, 0, mask, lib);
-            return _tf2Api._sharp.Memory.Read<int>((IntPtr)address);
+            return _sharp.Memory.Read<int>((IntPtr)address);
         }
 
         // Not working yet because I don't know the pattern, mask, or offset of what I'm looking for
         public int GetConvarPtr()
         {
-            ProcessModule lib = ProcessApi.GetProcessModule(_tf2Api._sharp!.Native, "vstdlib.dll");
+            ProcessModule lib = ProcessApi.GetProcessModule(_sharp.Native, "vstdlib.dll");
             byte[] pattern = new byte[] { 232, 0, 0, 0, 0, 184, 0, 0, 0, 0 };
             string mask = MaskFromPattern(pattern);
             int address = FindAddress(pattern, 6, mask, lib);
-            return _tf2Api._sharp.Memory.Read<int>((IntPtr)address);
+            return _sharp.Memory.Read<int>((IntPtr)address);
         }
 
         // public static int GetWorldToViewMatrix()
@@ -79,9 +82,9 @@ namespace titanfall2_rp
             string mask = MaskFromPattern(pattern);
             int address, val1;
 
-            address = FindAddress(pattern, 7, mask, ProcessApi.GetProcessModule(_tf2Api._sharp!.Native, "engine.dll"));
-            val1 = _tf2Api._sharp.Memory.Read<int>((IntPtr)address);
-            return _tf2Api._sharp.Memory.Read<int>((IntPtr)val1);
+            address = FindAddress(pattern, 7, mask, ProcessApi.GetProcessModule(_sharp.Native, "engine.dll"));
+            val1 = _sharp.Memory.Read<int>((IntPtr)address);
+            return _sharp.Memory.Read<int>((IntPtr)val1);
         }
 
         // public static int GetLocalIndex()
@@ -166,7 +169,7 @@ namespace titanfall2_rp
 
         private int FindAddress(byte[] pattern, int offset, string mask, ProcessModule module)
         {
-            var sigScanner = new SignatureScanner(_tf2Api);
+            var sigScanner = new SignatureScanner(_tf2Api,_sharp);
             int address = 0;
             var baseAddress = module.BaseAddress.ToInt64();
             var moduleSize = module.ModuleMemorySize;
