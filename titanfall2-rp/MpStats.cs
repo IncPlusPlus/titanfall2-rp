@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 using log4net;
@@ -134,6 +135,16 @@ namespace titanfall2_rp
                 Sharp.Memory.Read(Tf2Api.EngineDllBaseAddress + 0x7A7383, 1)[0]);
         }
 
+        public int GetMyTeamScore()
+        {
+            return GetTeamScore(GetMyTeam(), true);
+        }
+
+        public int GetEnemyTeamScore()
+        {
+            return GetTeamScore(GetMyTeam(), false);
+        }
+
         /// <summary>
         /// Get the score of team 1. Whether this is your team or the enemy's doesn't always stay the same.
         /// I'm not sure why. This is something that I need some help figuring out.
@@ -191,6 +202,67 @@ namespace titanfall2_rp
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
                 _ => throw new ArgumentOutOfRangeException($"Unknown game mode '{titanfall2Api.GetGameMode()}'.")
             };
+        }
+
+        /// <summary>
+        /// Get the score for a specific team. The team number argument isn't what you'd typically expect. Instead,
+        /// the number is what you get from <see cref="m_iTeamNum"/>.
+        /// </summary>
+        /// <param name="teamNumber">The user's team number. This is the INTERNAL team number that the game uses. Not just 1 or 2.</param>
+        /// <param name="myTeam">if true, get the specified team's score. If false, get the score of the team that is opposing the specified team</param>
+        /// <returns>the score for the specified team</returns>
+        private int GetTeamScore(int teamNumber, bool myTeam)
+        {
+            if (myTeam)
+            {
+                return teamNumber switch
+                {
+                    2 => GetTeam1Score(),
+                    3 => GetTeam2Score(),
+                    _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, null)
+                };
+            }
+
+            // Get the score of the opposite of the specified team
+            return teamNumber switch
+            {
+                2 => GetTeam2Score(),
+                3 => GetTeam1Score(),
+                _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, null)
+            };
+        }
+
+        /// <summary>
+        /// The user's internal team number. This tends to be 2 or 3.
+        /// </summary>
+        /// <returns>the internal representation of the current user's team</returns>
+        private int GetMyTeam()
+        {
+            return Sharp.Memory.Read<int>(Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase +
+                                          EntityOffsets.LocalPlayer.m_iTeamNum);
+        }
+    }
+
+    /// <summary>
+    /// These offsets represent the base addresses and various offsets for
+    /// </summary>
+    internal static class EntityOffsets
+    {
+        /// <summary>
+        /// This is the offset for LocalPlayer. It is the sum of this value + the base address of client.dll
+        /// </summary>
+        internal const int LocalPlayerBase = 0x28FA260;
+
+        /// <summary>
+        /// Offsets that use <see cref="EntityOffsets.LocalPlayerBase"/> as their base
+        /// </summary>
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        public static class LocalPlayer
+        {
+            /// <summary>
+            /// Generally, the value of this is either 2 or 3.
+            /// </summary>
+            public const int m_iTeamNum = 0x3a4;
         }
     }
 
