@@ -206,29 +206,20 @@ namespace titanfall2_rp
 
         /// <summary>
         /// Get the score for a specific team. The team number argument isn't what you'd typically expect. Instead,
-        /// the number is what you get from <see cref="m_iTeamNum"/>.
+        /// the number is what you get from <see cref="EntityOffsets.LocalPlayer.m_iTeamNum"/>.
         /// </summary>
         /// <param name="teamNumber">The user's team number. This is the INTERNAL team number that the game uses. Not just 1 or 2.</param>
         /// <param name="myTeam">if true, get the specified team's score. If false, get the score of the team that is opposing the specified team</param>
         /// <returns>the score for the specified team</returns>
         private int GetTeamScore(int teamNumber, bool myTeam)
         {
-            if (myTeam)
+            return (teamNumber, myTeam) switch
             {
-                return teamNumber switch
-                {
-                    2 => GetTeam1Score(),
-                    3 => GetTeam2Score(),
-                    _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, null)
-                };
-            }
-
-            // Get the score of the opposite of the specified team
-            return teamNumber switch
-            {
-                2 => GetTeam2Score(),
-                3 => GetTeam1Score(),
-                _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, null)
+                (2, true) => GetTeam1Score(),
+                (3, true) => GetTeam2Score(),
+                (2, false) => GetTeam2Score(),
+                (3, false) => GetTeam1Score(),
+                _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, "Unrecognized team number")
             };
         }
 
