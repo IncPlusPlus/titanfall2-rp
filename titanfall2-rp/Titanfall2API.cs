@@ -46,7 +46,7 @@ namespace titanfall2_rp
         public bool IsPlayerInTitan()
         {
             _ensureInit();
-            return GetMultiPlayerGameStats().GetPlayerHealth(GetMultiPlayerGameStats().GetMyIdOnServer()) > 100;
+            return _sharp!.Memory.Read<int>(ClientDllBaseAddress + EntityOffsets.LocalPlayerBase + EntityOffsets.LocalPlayer.m_iMaxHealth) > 100;
         }
 
         public Titan GetTitan()
