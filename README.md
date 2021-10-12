@@ -53,7 +53,9 @@ Currently this is officially supported only on Windows. However, I've been infor
 ## Supported Game Modes
 While this project _is_ stable, it isn't quite complete yet. Multiplayer game data isn't easy to track down in memory. For this reason, this project has a limited amount of data it can retrieve about a given game mode. This is really more of a side note and doesn't affect everyday use. For the list of supported game modes, see [#45](https://github.com/IncPlusPlus/titanfall2-rp/issues/45).
 
-## Known Issues
+## Known Issues / Limitations
+- The time that's displayed in Discord is the time you've had the game open. I haven't been able to figure out how to get the match start or end time. If you discover the offsets for either of these, please make a PR or just let me know with by mentioning it in a new issue.
+
 See [the bugs area](https://github.com/IncPlusPlus/titanfall2-rp/issues?q=is%3Aopen+is%3Aissue+label%3Abug) for all the known issues at this time.
 
 ## DISCLAIMER
