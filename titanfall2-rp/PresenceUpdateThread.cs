@@ -121,17 +121,17 @@ namespace titanfall2_rp
                 gameDetails = "Main Menu";
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
+            else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
+            {
+                gameDetails = "In a lobby";
+                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
+            }
             else if (tf2Api.GetGameModeName().Contains("Campaign"))
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
                 gameState = tf2Api.GetFriendlyMapName();
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
                 assets = GameDetailsProvider.GetSinglePlayerAssets(tf2Api);
-            }
-            else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
-            {
-                gameDetails = "In a lobby";
-                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
             // Besides mp_lobby, any mp map will be prefixed with mp_. Grab the specific details then!
             else if (tf2Api.GetMultiplayerMapName().StartsWith("mp_"))
