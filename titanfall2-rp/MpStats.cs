@@ -260,9 +260,17 @@ namespace titanfall2_rp
         public static class LocalPlayer
         {
             /// <summary>
+            /// The health of the LocalPlayer
+            /// </summary>
+            public const int m_iHealth = 0x390;
+            /// <summary>
             /// Generally, the value of this is either 2 or 3.
             /// </summary>
             public const int m_iTeamNum = 0x3a4;
+            /// <summary>
+            /// The max health of the LocalPlayer
+            /// </summary>
+            public const int m_iMaxHealth = 0x04A8;
         }
     }
 
