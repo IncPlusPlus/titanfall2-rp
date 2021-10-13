@@ -32,7 +32,7 @@ namespace titanfall2_rp
         /// <param name="baseAddress">the base address of the pointer</param>
         /// <param name="offsets">the offset chain that points to the desired address</param>
         /// <returns>the address that the pointer was pointing to; 0x0 if the pointer couldn't be resolved</returns>
-        public static IntPtr ResolvePointerAddress(ProcessSharp sharp, IntPtr baseAddress, IEnumerable<int> offsets)
+        public static IntPtr ResolvePointerAddress(ProcessSharp sharp, IntPtr baseAddress, params int[] offsets)
         {
             var buffer = sharp.Memory.Read<IntPtr>(baseAddress);
             return offsets.Aggregate(buffer, (current, i) => sharp.Memory.Read<IntPtr>(current + i));

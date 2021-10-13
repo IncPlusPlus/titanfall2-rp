@@ -46,9 +46,14 @@ namespace titanfall2_rp
         public bool IsPlayerInTitan()
         {
             _ensureInit();
-            return _sharp!.Memory.Read<int>(ClientDllBaseAddress + EntityOffsets.LocalPlayerBase + EntityOffsets.LocalPlayer.m_iMaxHealth) > 100;
+            return _sharp!.Memory.Read<int>(
+                ResolvePointerAddress(_sharp!, (ClientDllBaseAddress + EntityOffsets.LocalPlayerBase)) +
+                EntityOffsets.LocalPlayer.m_iMaxHealth) > 100;
         }
 
+        /// <returns>the currently equipped titan</returns>
+        /// <remarks>Keep in mind that this isn't the titan that's currently in use.
+        /// It's only the one that's currently <b>equipped</b>. This may be improved in the future.</remarks>
         public Titan GetTitan()
         {
             _ensureInit();
@@ -79,7 +84,6 @@ namespace titanfall2_rp
             _ensureInit();
             var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
             return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE";
-
         }
 
         public GameMode GetGameMode()
@@ -125,6 +129,7 @@ namespace titanfall2_rp
                     throw new InvalidOperationException(
                         "Couldn't initialize Titanfall2Api. Make sure the process is running!");
                 }
+
                 Log.Info("Found a running instance of Titanfall 2.");
                 _populateFields(ProcessNetApi.GetProcess());
             }

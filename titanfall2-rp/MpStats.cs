@@ -229,7 +229,8 @@ namespace titanfall2_rp
         /// <returns>the internal representation of the current user's team</returns>
         private int GetMyTeam()
         {
-            return Sharp.Memory.Read<int>(Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase +
+            return Sharp.Memory.Read<int>(ProcessApi.ResolvePointerAddress(Sharp,
+                                              (Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase)) +
                                           EntityOffsets.LocalPlayer.m_iTeamNum);
         }
     }
@@ -240,12 +241,14 @@ namespace titanfall2_rp
     internal static class EntityOffsets
     {
         /// <summary>
-        /// This is the offset for LocalPlayer. It is the sum of this value + the base address of client.dll
+        /// This is the offset to find the pointer for LocalPlayer. The sum of this value + the base address of
+        /// client.dll results in the address that stores a pointer to LocalPlayer.
         /// </summary>
         internal const int LocalPlayerBase = 0x28FA260;
 
         /// <summary>
-        /// Offsets that use <see cref="EntityOffsets.LocalPlayerBase"/> as their base
+        /// Offsets that use LocalPlayer as their base. These use the actual address of LocalPlayer. This is not to be
+        /// confused with <see cref="EntityOffsets.LocalPlayerBase"/> which directs to the pointer FOR LocalPlayer.
         /// </summary>
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static class LocalPlayer
@@ -254,10 +257,12 @@ namespace titanfall2_rp
             /// The health of the LocalPlayer
             /// </summary>
             public const int m_iHealth = 0x390;
+
             /// <summary>
-            /// Generally, the value of this is either 2 or 3.
+            /// LocalPlayer+m_iTeamNum is the address of a pointer. Generally, the value it points to is either 2 or 3.
             /// </summary>
             public const int m_iTeamNum = 0x3a4;
+
             /// <summary>
             /// The max health of the LocalPlayer
             /// </summary>
