@@ -110,7 +110,7 @@ namespace Common
                     fileInfo.Name);
             }
 
-            LaunchExeOrProtocol("notepad.exe", $"{(edit ? "" : "/select,")}\"{fileInfo.FullName}\"");
+            LaunchExeOrProtocol(edit ? "notepad.exe" : "explorer.exe", $"{(edit ? "" : "/select,")}\"{fileInfo.FullName}\"");
         }
     }
 }
