@@ -25,12 +25,14 @@ namespace titanfall2_rp.SegmentManager
 
         private static readonly Segment.Model.Properties GlobalProps = new()
         {
-            { "App Version", UpdateHelper.AppVersion.ToString() },
+            { "app_ver", UpdateHelper.AppVersion.ToString() },
             { "$os", EnvironmentUtils.GetBasicOsName() },
-            { "OS Description", System.Runtime.InteropServices.RuntimeInformation.OSDescription },
-            { "Release Edition", EnvironmentUtils.GetReleaseEdition() },
-            { "Computer Name", Environment.MachineName },
-            { "User Name", Environment.UserName }
+            // Mixpanel doesn't recognize the regular Segment anonymous ID for some events
+            { "$anon_id", GetAnonymousIdentifier() },
+            { "os_desc", System.Runtime.InteropServices.RuntimeInformation.OSDescription },
+            { "release_edition", EnvironmentUtils.GetReleaseEdition() },
+            { "env_computer_name", Environment.MachineName },
+            { "env_username", Environment.UserName }
         };
 
         public static void Initialize(Titanfall2Api titanfall2Api)
@@ -62,8 +64,7 @@ namespace titanfall2_rp.SegmentManager
                     case TrackableEvent.GameOpened:
                     case TrackableEvent.GameClosed:
                         // GameOpened and GameClosed both do the same thing
-                        Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(),
-                            new Options().SetAnonymousId(GetAnonymousIdentifier()));
+                        TrackGameOpenedOrClosed(@event);
                         break;
                     // ReSharper disable once RedundantCaseLabel (we don't want the user to use these events)
                     case TrackableEvent.FailureWhenFiringEvent or TrackableEvent.DoubleFailure:
@@ -76,6 +77,13 @@ namespace titanfall2_rp.SegmentManager
                 Log.Error($"Failed when trying to track event '{@event.ToString()}'. Firing failure event...", e);
                 TrackFailure(e);
             }
+        }
+
+        private static void TrackGameOpenedOrClosed(TrackableEvent @event)
+        {
+            if (@event == TrackableEvent.GameOpened) IdentifySelf();
+            Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(), GlobalProps,
+                new Options().SetAnonymousId(GetAnonymousIdentifier()));
         }
 
         private static void TrackErrorOrFailure(TrackableEvent @event, Exception e)
@@ -92,18 +100,17 @@ namespace titanfall2_rp.SegmentManager
             Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(),
                 new Dictionary<string, object?>(GlobalProps)
                 {
-                    {"state",presence.State},
-                    {"details",presence.Details},
-                    {"start", presence.Timestamps.Start},
-                    {"end", presence.Timestamps.End},
-                    {"large_image",presence.Assets.LargeImageKey},
-                    {"large_text",presence.Assets.LargeImageText},
-                    {"small_image",presence.Assets.SmallImageKey},
-                    {"small_text",presence.Assets.SmallImageText},
-                    {"gamemode_and_map_name",_tf2Api?.GetGameModeAndMapName()},
-                    {"game_version",_tf2Api?.GetGameVersion()}
-                },
-                new Options().SetAnonymousId(GetAnonymousIdentifier()));
+                    { "rpc_state", presence.State },
+                    { "rpc_details", presence.Details },
+                    { "rpc_start", presence.Timestamps.Start },
+                    { "rpc_end", presence.Timestamps.End },
+                    { "rpc_large_image", presence.Assets.LargeImageKey },
+                    { "rpc_large_text", presence.Assets.LargeImageText },
+                    { "rpc_small_image", presence.Assets.SmallImageKey },
+                    { "rpc_small_text", presence.Assets.SmallImageText },
+                    { "gamemode_and_map_name", _tf2Api?.GetGameModeAndMapName() },
+                    { "game_version", _tf2Api?.GetGameVersion() }
+                }, new Options().SetAnonymousId(GetAnonymousIdentifier()));
         }
 
         private static void IdentifySelf()
@@ -111,9 +118,10 @@ namespace titanfall2_rp.SegmentManager
             if (_hasIdentifiedSelf) return;
             Analytics.Client.Identify(_tf2Api!.GetUserId(), new Traits()
             {
-                {"name",Environment.UserName},
-                {"Origin Name", _tf2Api.GetOriginName()}
+                { "name", Environment.UserName },
+                { "origin_name", _tf2Api.GetOriginName() }
             }, new Options().SetAnonymousId(GetAnonymousIdentifier()));
+            Analytics.Client.Flush();
             _hasIdentifiedSelf = true;
         }
 
