@@ -132,14 +132,14 @@ namespace titanfall2_rp
         public string GetUserId()
         {
             _ensureInit();
-            var tryCount = 5;
+            var tryCount = 10;
             while (!_sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250).Contains("?") &&
                    tryCount > 0)
             {
-                Log.DebugFormat("Couldn't find the user ID. Waiting 1 second and trying again. ({0} tries left)",
+                Log.DebugFormat("Couldn't find the user ID. Waiting 2 seconds and trying again. ({0} tries left)",
                     tryCount);
                 //If the value isn't there yet. Try waiting 5 seconds to grab it. This might be necessary for game startup
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 tryCount--;
             }
 
