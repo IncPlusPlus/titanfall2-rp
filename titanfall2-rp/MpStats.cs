@@ -206,29 +206,20 @@ namespace titanfall2_rp
 
         /// <summary>
         /// Get the score for a specific team. The team number argument isn't what you'd typically expect. Instead,
-        /// the number is what you get from <see cref="m_iTeamNum"/>.
+        /// the number is what you get from <see cref="EntityOffsets.LocalPlayer.m_iTeamNum"/>.
         /// </summary>
         /// <param name="teamNumber">The user's team number. This is the INTERNAL team number that the game uses. Not just 1 or 2.</param>
         /// <param name="myTeam">if true, get the specified team's score. If false, get the score of the team that is opposing the specified team</param>
         /// <returns>the score for the specified team</returns>
         private int GetTeamScore(int teamNumber, bool myTeam)
         {
-            if (myTeam)
+            return (teamNumber, myTeam) switch
             {
-                return teamNumber switch
-                {
-                    2 => GetTeam1Score(),
-                    3 => GetTeam2Score(),
-                    _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, null)
-                };
-            }
-
-            // Get the score of the opposite of the specified team
-            return teamNumber switch
-            {
-                2 => GetTeam2Score(),
-                3 => GetTeam1Score(),
-                _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, null)
+                (2, true) => GetTeam1Score(),
+                (3, true) => GetTeam2Score(),
+                (2, false) => GetTeam2Score(),
+                (3, false) => GetTeam1Score(),
+                _ => throw new ArgumentOutOfRangeException(nameof(teamNumber), teamNumber, "Unrecognized team number")
             };
         }
 
@@ -238,7 +229,8 @@ namespace titanfall2_rp
         /// <returns>the internal representation of the current user's team</returns>
         private int GetMyTeam()
         {
-            return Sharp.Memory.Read<int>(Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase +
+            return Sharp.Memory.Read<int>(ProcessApi.ResolvePointerAddress(Sharp,
+                                              (Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase)) +
                                           EntityOffsets.LocalPlayer.m_iTeamNum);
         }
     }
@@ -249,20 +241,32 @@ namespace titanfall2_rp
     internal static class EntityOffsets
     {
         /// <summary>
-        /// This is the offset for LocalPlayer. It is the sum of this value + the base address of client.dll
+        /// This is the offset to find the pointer for LocalPlayer. The sum of this value + the base address of
+        /// client.dll results in the address that stores a pointer to LocalPlayer.
         /// </summary>
         internal const int LocalPlayerBase = 0x28FA260;
 
         /// <summary>
-        /// Offsets that use <see cref="EntityOffsets.LocalPlayerBase"/> as their base
+        /// Offsets that use LocalPlayer as their base. These use the actual address of LocalPlayer. This is not to be
+        /// confused with <see cref="EntityOffsets.LocalPlayerBase"/> which directs to the pointer FOR LocalPlayer.
         /// </summary>
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static class LocalPlayer
         {
             /// <summary>
-            /// Generally, the value of this is either 2 or 3.
+            /// The health of the LocalPlayer
+            /// </summary>
+            public const int m_iHealth = 0x390;
+
+            /// <summary>
+            /// LocalPlayer+m_iTeamNum is the address of a pointer. Generally, the value it points to is either 2 or 3.
             /// </summary>
             public const int m_iTeamNum = 0x3a4;
+
+            /// <summary>
+            /// The max health of the LocalPlayer
+            /// </summary>
+            public const int m_iMaxHealth = 0x04A8;
         }
     }
 
