@@ -171,6 +171,15 @@ namespace titanfall2_rp
             return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13F8E310, Encoding.UTF8, 64);
         }
 
+        /// <summary>
+        /// Get the game's version. This hasn't been tested in multiple versions but works as of 2.0.11.0
+        /// </summary>
+        /// <returns>the game's version</returns>
+        public string GetGameVersion()
+        {
+            _ensureInit();
+            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13F0C621, Encoding.UTF8, 20);
+        }
 
         private void _ensureInit()
         {
