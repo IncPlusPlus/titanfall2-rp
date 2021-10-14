@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Web;
 using log4net;
 using Process.NET;
 using titanfall2_rp.enums;
+using titanfall2_rp.SegmentManager;
 using static titanfall2_rp.ProcessApi;
 
 namespace titanfall2_rp
@@ -38,7 +42,7 @@ namespace titanfall2_rp
         }
 
         /// <summary>
-        /// This function currently supports multiplayer only.
+        /// This function currently supports multiplayer only and hasn't been tested in single-player.
         /// </summary>
         /// <returns>true if the pilot is in a titan; else false</returns>
         /// <remarks>This function requires more testing but should be okay. It guesses whether the user is in a titan
@@ -75,15 +79,21 @@ namespace titanfall2_rp
         public string GetFriendlyMapName()
         {
             _ensureInit();
-            var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
-            return m.Success ? m.Groups[2].Value : "UNKNOWN MAP NAME";
+            var gameModeAndMapName = GetGameModeAndMapName();
+            var m = GameModeAndMapRegex.Match(gameModeAndMapName);
+            return m.Success
+                ? m.Groups[2].Value
+                : throw new ApplicationException($"Failed to recognize map name from string '{gameModeAndMapName}'.");
         }
 
         public string GetGameModeName()
         {
             _ensureInit();
-            var m = GameModeAndMapRegex.Match(GetGameModeAndMapName());
-            return m.Success ? m.Groups[1].Value : "UNKNOWN GAME MODE";
+            var gameModeAndMapName = GetGameModeAndMapName();
+            var m = GameModeAndMapRegex.Match(gameModeAndMapName);
+            return m.Success
+                ? m.Groups[1].Value
+                : throw new ApplicationException($"Failed to recognize game mode from string '{gameModeAndMapName}'.");
         }
 
         public GameMode GetGameMode()
@@ -119,6 +129,57 @@ namespace titanfall2_rp
             };
         }
 
+        public string GetUserId()
+        {
+            _ensureInit();
+            var tryCount = 10;
+            while (!_sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250).Contains("?") &&
+                   tryCount > 0)
+            {
+                Log.DebugFormat("Couldn't find the user ID. Waiting 2 seconds and trying again. ({0} tries left)",
+                    tryCount);
+                //If the value isn't there yet. Try waiting 5 seconds to grab it. This might be necessary for game startup
+                Thread.Sleep(2000);
+                tryCount--;
+            }
+
+            var stryderNucleusOauthString = _sharp!.Memory.Read(EngineDllBaseAddress + 0x139119EC, Encoding.UTF8, 250);
+            var queryStringIndex = stryderNucleusOauthString.IndexOf("?", StringComparison.Ordinal);
+            if (queryStringIndex < 0)
+            {
+                throw new ApplicationException(
+                    "Expected to find a query string in the Stryder nucleus oauth string but didn't find one.");
+            }
+
+            // Edge case for if there's a question mark but nothing else following it.
+            var querystring = (queryStringIndex < stryderNucleusOauthString.Length - 1)
+                ? stryderNucleusOauthString[(queryStringIndex + 1)..]
+                : string.Empty;
+            NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(querystring);
+            return queryStringCollection["userId"] ?? "";
+        }
+
+        /// <summary>
+        /// Reads the user's Origin name through engine.dll. The primary offset used is engine.dll+13F8E310.
+        /// There appears to be another consistently working offset. That being engine.dll+1397A180. There's also one
+        /// more offset, engine.dll+130DA1CF, which has the string format 
+        /// </summary>
+        /// <returns>the user's name on Origin</returns>
+        public string GetOriginName()
+        {
+            _ensureInit();
+            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13F8E310, Encoding.UTF8, 64);
+        }
+
+        /// <summary>
+        /// Get the game's version. This hasn't been tested in multiple versions but works as of 2.0.11.0
+        /// </summary>
+        /// <returns>the game's version</returns>
+        public string GetGameVersion()
+        {
+            _ensureInit();
+            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13F0C621, Encoding.UTF8, 20);
+        }
 
         private void _ensureInit()
         {
@@ -132,6 +193,12 @@ namespace titanfall2_rp
 
                 Log.Info("Found a running instance of Titanfall 2.");
                 _populateFields(ProcessNetApi.GetProcess());
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameOpened);
+                _sharp!.Native.Exited += (sender, args) =>
+                {
+                    Log.Info("Titanfall 2 has closed.");
+                    SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameClosed);
+                };
             }
         }
 

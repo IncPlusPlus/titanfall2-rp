@@ -4,6 +4,7 @@ using System.Threading;
 using System.Timers;
 using DiscordRPC;
 using log4net;
+using titanfall2_rp.SegmentManager;
 using titanfall2_rp.updater;
 
 namespace titanfall2_rp
@@ -78,6 +79,7 @@ namespace titanfall2_rp
                 {
                     Log.Warn("Failed to perform Titanfall 2 rich presence update. Waiting " +
                              RichPresenceManager.StatusRefreshTimeInSeconds + " seconds and trying again.", exception);
+                    SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure, exception);
                     // No need to change the timer interval before trying again
                 }
             }
@@ -119,17 +121,17 @@ namespace titanfall2_rp
                 gameDetails = "Main Menu";
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
+            else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
+            {
+                gameDetails = "In a lobby";
+                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
+            }
             else if (tf2Api.GetGameModeName().Contains("Campaign"))
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
                 gameState = tf2Api.GetFriendlyMapName();
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
                 assets = GameDetailsProvider.GetSinglePlayerAssets(tf2Api);
-            }
-            else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
-            {
-                gameDetails = "In a lobby";
-                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
             // Besides mp_lobby, any mp map will be prefixed with mp_. Grab the specific details then!
             else if (tf2Api.GetMultiplayerMapName().StartsWith("mp_"))

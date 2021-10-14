@@ -46,6 +46,21 @@ namespace Common
             }
         }
 
+        public static bool IsAnalyticsAllowed
+        {
+            get
+            {
+                EnsureInit();
+                return _config[Props.Internals][Props.AllowAnalytics].GetValueOrDefault(Defaults.AllowAnalytics);
+            }
+            set
+            {
+                EnsureInit();
+                _config[Props.Internals][Props.AllowAnalytics].BoolValue = value;
+                Save();
+            }
+        }
+
         private static void Init()
         {
             Log.DebugFormat("Loading config file from '{0}'", ConfigFileInfo.FullName);
@@ -102,6 +117,15 @@ namespace Common
                         StringValue = Defaults.Titanfall2ExePath,
                     },
                 },
+                [Props.Internals] =
+                {
+                    PreComment = "Settings that have to do with how this program runs. Be careful here.",
+                    [Props.AllowAnalytics] =
+                    {
+                        PreComment = Defaults.AllowAnalyticsComment,
+                        BoolValue = Defaults.AllowAnalytics,
+                    },
+                },
             };
         }
 
@@ -119,6 +143,8 @@ namespace Common
             public const string General = "General";
             public const string InstalledThroughSteam = "InstalledThroughSteam";
             public const string Titanfall2ExePath = "Titanfall2ExecutablePath";
+            public const string Internals = "Internals";
+            public const string AllowAnalytics = "AllowAnalytics";
         }
 
         public static class Defaults
@@ -135,6 +161,15 @@ namespace Common
                 "ignore this setting. If you installed Titanfall 2 through Origin, set this value to something like " +
                 "\"E:\\Origin Games\\Titanfall2\\Titanfall2.exe\" (without quotation marks). Obviously, you shouldn't" +
                 " use this exact value. You need to find wherever you put your 'Origin Games' folder.";
+
+            public const bool AllowAnalytics = true;
+
+            public const string AllowAnalyticsComment = "Set this to False to opt out of analytics. Unless you have " +
+                                                        "good reason to do so, please leave this set to True. Sends " +
+                                                        "information about the state of your game as well as basic " +
+                                                        "information about the runtime environment like the TF|2 RP " +
+                                                        "app version as well as your computer's Operating System. " +
+                                                        "This is helpful for me finding and fixing errors.";
         }
     }
 }

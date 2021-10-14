@@ -6,6 +6,7 @@ using log4net;
 using Process.NET;
 using titanfall2_rp.enums;
 using titanfall2_rp.MpGameStats;
+using titanfall2_rp.SegmentManager;
 
 namespace titanfall2_rp
 {
@@ -181,7 +182,8 @@ namespace titanfall2_rp
         /// <exception cref="ArgumentOutOfRangeException">if you screw up big time</exception>
         public static MpStats Of(Titanfall2Api titanfall2Api, ProcessSharp sharp)
         {
-            return titanfall2Api.GetGameMode() switch
+            var gameMode = titanfall2Api.GetGameMode();
+            return gameMode switch
             {
                 GameMode.coliseum => new Coliseum(titanfall2Api, sharp),
                 GameMode.aitdm => new Attrition(titanfall2Api, sharp),
@@ -200,8 +202,15 @@ namespace titanfall2_rp
                 GameMode.fd_master => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.fd_insane => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
-                _ => throw new ArgumentOutOfRangeException($"Unknown game mode '{titanfall2Api.GetGameMode()}'.")
+                _ => ReportGameModeFailure(gameMode)
             };
+        }
+
+        private static MpStats ReportGameModeFailure(GameMode gameMode)
+        {
+            var e = new ArgumentOutOfRangeException(nameof(gameMode), gameMode, $"Unknown game mode '{gameMode}'.");
+            SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure, e);
+            throw e;
         }
 
         /// <summary>

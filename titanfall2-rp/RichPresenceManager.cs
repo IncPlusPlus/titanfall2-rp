@@ -7,6 +7,7 @@ using DiscordRPC.Logging;
 using DiscordRPC.Message;
 using log4net;
 using titanfall2_rp.misc;
+using titanfall2_rp.SegmentManager;
 using titanfall2_rp.updater;
 
 namespace titanfall2_rp
@@ -27,9 +28,11 @@ namespace titanfall2_rp
 
         public RichPresenceManager()
         {
+            Titanfall2Api titanfall2Api = new();
+            SegmentManager.SegmentManager.Initialize(titanfall2Api);
             _discordRpcClient = new DiscordRpcClient("877931149740089374");
             _userRequestedExit = new AutoResetEvent(false);
-            _presenceUpdatingThread = new Thread(new PresenceUpdateThread(_discordRpcClient, new Titanfall2Api(), _userRequestedExit).Run)
+            _presenceUpdatingThread = new Thread(new PresenceUpdateThread(_discordRpcClient, titanfall2Api, _userRequestedExit).Run)
             {
                 Name = "Discord RP Updating Thread"
             };
@@ -70,6 +73,7 @@ namespace titanfall2_rp
             {
                 Log.DebugFormat("Received Update! {0}", e.Presence);
                 OnPresenceUpdate?.Invoke(this, e);
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.Gameplay, presence: e);
             };
 
             // Connect to the RPC
