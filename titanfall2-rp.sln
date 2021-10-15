@@ -24,7 +24,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wine", "Wine\Wine.csproj", 
 		{29F3749C-51FA-4F31-BBB7-085C84DD9598} = {29F3749C-51FA-4F31-BBB7-085C84DD9598}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversalMem", "UniversalMem\UniversalMem.csproj", "{01DA5A62-687D-4343-847D-F1906B6E497A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversalMem", "UniversalMem\UniversalMem.csproj", "{01DA5A62-687D-4343-847D-F1906B6E497A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E9CB13B8-347D-426D-8535-1B1D6228AC81} = {E9CB13B8-347D-426D-8535-1B1D6228AC81}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
