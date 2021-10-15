@@ -11,16 +11,6 @@ namespace UniversalMem
             Memory = new LinuxIMemoryImpl(null);
         }
 
-        public LinuxUniversalMemImpl(string processName, MemoryType type) : base(processName, type)
-        {
-            Memory = new LinuxIMemoryImpl(Handle);
-        }
-
-        public LinuxUniversalMemImpl(int processId, MemoryType type) : base(processId, type)
-        {
-            Memory = new LinuxIMemoryImpl(Handle);
-        }
-
         public override IMemory Memory
         {
             get; set;

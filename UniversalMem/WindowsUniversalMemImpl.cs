@@ -17,16 +17,6 @@ namespace UniversalMem
             _sharpInstance = new ProcessSharp(native, type);
         }
 
-        public WindowsUniversalMemImpl(string processName, MemoryType type) : base(processName, type)
-        {
-            _sharpInstance = new ProcessSharp(processName, type);
-        }
-
-        public WindowsUniversalMemImpl(int processId, MemoryType type) : base(processId, type)
-        {
-            _sharpInstance = new ProcessSharp(processId, type);
-        }
-
         public override event EventHandler OnDispose;
         public override event EventHandler ProcessExited;
 

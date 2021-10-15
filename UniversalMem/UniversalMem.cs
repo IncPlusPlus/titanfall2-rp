@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Process.NET;
 using Process.NET.Memory;
 using Process.NET.Modules;
 using Process.NET.Native.Types;
 using Process.NET.Threads;
-using Process.NET.Utilities;
 using Process.NET.Windows;
 
 namespace UniversalMem
@@ -15,14 +15,6 @@ namespace UniversalMem
         private static UniversalMem ProcessImplementation { get; set; }
 
         protected UniversalMem(System.Diagnostics.Process native, MemoryType type)
-        {
-        }
-
-        protected UniversalMem(string processName, MemoryType type) : this(ProcessHelper.FromName(processName), type)
-        {
-        }
-
-        protected UniversalMem(int processId, MemoryType type) : this(ProcessHelper.FromProcessId(processId), type)
         {
         }
 
@@ -47,40 +39,12 @@ namespace UniversalMem
 
         public static UniversalMem From(string processName, MemoryType type)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ProcessImplementation = new WindowsUniversalMemImpl(processName, type);
-            }
-            else if (RuntimeInformation.IsOSPlatform((OSPlatform.Linux)))
-            {
-                ProcessImplementation = new LinuxUniversalMemImpl(processName, type);
-            }
-            else
-            {
-                throw new NotImplementedException(
-                    $"UniversalMem isn't implemented on platform {RuntimeInformation.OSDescription}");
-            }
-
-            return ProcessImplementation;
+            return From(System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault() ?? throw new ArgumentNullException(nameof(processName)),type);
         }
 
         public static UniversalMem From(int processId, MemoryType type)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ProcessImplementation = new WindowsUniversalMemImpl(processId, type);
-            }
-            else if (RuntimeInformation.IsOSPlatform((OSPlatform.Linux)))
-            {
-                ProcessImplementation = new LinuxUniversalMemImpl(processId, type);
-            }
-            else
-            {
-                throw new NotImplementedException(
-                    $"UniversalMem isn't implemented on platform {RuntimeInformation.OSDescription}");
-            }
-
-            return ProcessImplementation;
+            return From(System.Diagnostics.Process.GetProcessById(processId),type);
         }
 
         public abstract event EventHandler OnDispose;
