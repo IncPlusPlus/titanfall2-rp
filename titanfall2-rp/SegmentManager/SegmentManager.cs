@@ -74,7 +74,7 @@ namespace titanfall2_rp.SegmentManager
             }
             catch (Exception e)
             {
-                Log.Error($"Failed when trying to track event '{@event.ToString()}'. Firing failure event...", e);
+                Log.Debug($"Failed when trying to track event '{@event.ToString()}'. Firing failure event...", e);
                 TrackFailure(e);
             }
         }
@@ -178,7 +178,7 @@ namespace titanfall2_rp.SegmentManager
             }
             catch (Exception secondaryException)
             {
-                Log.Error(
+                Log.Debug(
                     $"Failed to track the {TrackableEvent.FailureWhenFiringEvent} event. There will be one more attempt to send the failure notice. This time, without any identifiers nor API calls",
                     secondaryException);
                 try
