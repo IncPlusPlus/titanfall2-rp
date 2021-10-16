@@ -47,7 +47,7 @@ namespace titanfall2_rp.Windows
             catch (Exception exception)
             {
                 Log.Fatal("Failed to start. Encountered an exception in OnStartup", exception);
-                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure,exception);
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure, exception);
 
                 if (_formsInitCalled)
                 {
