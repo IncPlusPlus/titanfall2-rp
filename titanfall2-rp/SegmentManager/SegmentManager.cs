@@ -82,13 +82,21 @@ namespace titanfall2_rp.SegmentManager
         private static void TrackGameOpenedOrClosed(TrackableEvent @event)
         {
             if (@event == TrackableEvent.GameOpened) IdentifySelf();
-            Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(), GlobalProps,
+            // We just want to make sure that the uid has been grabbed by IdentifySelf before any events get sent.
+            // This is because new events screw up Mixpanel's ID system if all that's sent first is the anon id.
+            // We allow the uid to be null in this call because they should've already identified themselves. On top of
+            // that, if this is a GameClosed event, we won't be able to fetch the uid in the first place.
+            Analytics.Client.Track(_hasIdentifiedSelf ? null : _tf2Api?.GetUserId(), @event.ToString(), GlobalProps,
                 new Options().SetAnonymousId(GetAnonymousIdentifier()));
         }
 
         private static void TrackErrorOrFailure(TrackableEvent @event, Exception e)
         {
-            Analytics.Client.Track(_tf2Api?.GetUserId(), @event.ToString(),
+            // We just want to make sure that the uid has been grabbed by IdentifySelf before any events get sent.
+            // This is because new events screw up Mixpanel's ID system if all that's sent first is the anon id.
+            // A lot of the time, GetUserId() is what's causing these issues. We can just hope the user has identified 
+            // themselves with a uid prior to this. If not, it's not the end of the world.
+            Analytics.Client.Track(_hasIdentifiedSelf ? null : _tf2Api?.GetUserId(), @event.ToString(),
                 new Dictionary<string, object>(GlobalProps) { { "Exception", e } },
                 new Options().SetAnonymousId(GetAnonymousIdentifier()));
         }
