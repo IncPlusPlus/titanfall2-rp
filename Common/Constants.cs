@@ -22,6 +22,6 @@ namespace Common
             System.Diagnostics.Debugger.IsAttached ||
             // This is the default version for this project when there is no RELEASE_VERSION env var
             Assembly.GetEntryAssembly()!.GetName().Version!.Equals(new Version(0,
-                0, 1,0));
+                0, 1, 0));
     }
 }
