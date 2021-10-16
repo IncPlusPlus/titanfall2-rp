@@ -39,12 +39,12 @@ namespace UniversalMem
 
         public static UniversalMem From(string processName, MemoryType type)
         {
-            return From(System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault() ?? throw new ArgumentNullException(nameof(processName)),type);
+            return From(System.Diagnostics.Process.GetProcessesByName(processName).FirstOrDefault() ?? throw new ArgumentNullException(nameof(processName)), type);
         }
 
         public static UniversalMem From(int processId, MemoryType type)
         {
-            return From(System.Diagnostics.Process.GetProcessById(processId),type);
+            return From(System.Diagnostics.Process.GetProcessById(processId), type);
         }
 
         public abstract event EventHandler OnDispose;
