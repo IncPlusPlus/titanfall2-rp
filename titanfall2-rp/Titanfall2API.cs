@@ -194,7 +194,7 @@ namespace titanfall2_rp
                 Log.Info("Found a running instance of Titanfall 2.");
                 _populateFields(ProcessNetApi.GetProcess());
                 SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameOpened);
-                _sharp!.Native.Exited += (sender, args) =>
+                _sharp!.ProcessExited += (sender, args) =>
                 {
                     Log.Info("Titanfall 2 has closed.");
                     SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameClosed);
