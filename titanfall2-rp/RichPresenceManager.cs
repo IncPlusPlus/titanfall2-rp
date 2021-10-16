@@ -112,10 +112,10 @@ namespace titanfall2_rp
         private static void EnsureNotRenamed()
         {
             if (Constants.IsLocalBuild) return;
-            if (Assembly.GetEntryAssembly()!.Location != GetDefaultExecutableName())
+            if (System.Diagnostics.Process.GetCurrentProcess().MainModule?.ModuleName != GetDefaultExecutableName())
             {
                 throw new ApplicationException(
-                    $"This application must not be renamed. It should be named '{GetDefaultExecutableName()}' but was named '{Assembly.GetEntryAssembly()!.Location}'.");
+                    $"This application must not be renamed. It should be named '{GetDefaultExecutableName()}' but was named '{System.Diagnostics.Process.GetCurrentProcess().MainModule?.ModuleName}'.");
             }
         }
 
