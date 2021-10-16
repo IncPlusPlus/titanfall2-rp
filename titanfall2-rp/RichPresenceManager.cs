@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using Common;
 using DiscordRPC;
@@ -57,6 +58,8 @@ namespace titanfall2_rp
                     AppContext.BaseDirectory!);
             }
 
+            EnsureNotRenamed();
+
             Log.Info("Starting Titanfall 2 Discord Rich Presence.");
 
             // Make the RPC library use a custom implemented logger (this is such a cool library feature)
@@ -99,6 +102,36 @@ namespace titanfall2_rp
             // Releases the resources used for the events (only after the thread that was using this has exited)
             _userRequestedExit.Close();
             Log.Info("Closing...");
+        }
+
+        /// <summary>
+        /// Makes sure this EXE hasn't been renamed. This would cause issues with AutoUpdater.NET
+        /// </summary>
+        /// <exception cref="ApplicationException">thrown if the EXE name is different than expected</exception>
+        /// <footer><a href="https://github.com/ravibpatel/AutoUpdater.NET/issues/244">The open issue</a></footer>
+        private static void EnsureNotRenamed()
+        {
+            if (Assembly.GetEntryAssembly()!.Location != GetDefaultExecutableName())
+            {
+                throw new ApplicationException(
+                    $"This application must not be renamed. It should be named '{GetDefaultExecutableName()}' but was named '{Assembly.GetEntryAssembly()!.Location}'.");
+            }
+        }
+
+        /// <summary>
+        /// Gets what the full file name SHOULD be depending on where this is running. If it's running natively on
+        /// Windows, it should be one thing. If it's on Wine, it should be another, etc.
+        /// </summary>
+        /// <returns>what this exe file should be named</returns>
+        private static string GetDefaultExecutableName()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return EnvironmentUtils.IsRunningInWine() ? "titanfall2-rp-Wine.exe" : "titanfall2-rp.exe";
+            }
+
+            throw new ApplicationException(
+                $"Expected to be running in Windows or Wine but the OS description is '{RuntimeInformation.OSDescription}'.");
         }
     }
 }
