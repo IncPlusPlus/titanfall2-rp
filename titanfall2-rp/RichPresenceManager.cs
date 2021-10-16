@@ -111,6 +111,7 @@ namespace titanfall2_rp
         /// <footer><a href="https://github.com/ravibpatel/AutoUpdater.NET/issues/244">The open issue</a></footer>
         private static void EnsureNotRenamed()
         {
+            if (Constants.IsLocalBuild) return;
             if (Assembly.GetEntryAssembly()!.Location != GetDefaultExecutableName())
             {
                 throw new ApplicationException(
