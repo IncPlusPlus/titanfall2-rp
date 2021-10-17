@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Forms;
 using Common;
 using log4net;
+using titanfall2_rp.SegmentManager;
 using titanfall2_rp.updater;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
@@ -22,46 +23,40 @@ namespace titanfall2_rp.Windows
         private NotifyIcon? _notifyIcon;
         private RichPresenceManager? _program;
         private bool _isExit;
+        private bool _formsInitCalled;
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            _program = new RichPresenceManager();
-            _program.Begin();
-
             try
             {
+                _program = new RichPresenceManager();
+                _program.Begin();
                 Forms.Init();
-            }
-            catch (Exception exception)
-            {
-                Log.Fatal("Failed at Forms.Init()", exception);
-                throw;
-            }
-
-            try
-            {
+                _formsInitCalled = true;
                 base.OnStartup(e);
-            }
-            catch (Exception exception)
-            {
-                Log.Fatal("Failed at base.OnStartup(e)", exception);
-                throw;
-            }
 
-            _notifyIcon = new NotifyIcon();
-            _notifyIcon.MouseDoubleClick += NotifyIconOnDoubleClick;
-            _notifyIcon.MouseMove += NotifyIconOnMouseMove;
-            _notifyIcon.Icon = titanfall2_rp.Windows.Properties.Resources.TrayIcon;
-            _notifyIcon.Visible = true;
-            _notifyIcon.Text = "Titanfall 2 Discord Rich Presence";
+                _notifyIcon = new NotifyIcon();
+                _notifyIcon.MouseDoubleClick += NotifyIconOnDoubleClick;
+                _notifyIcon.MouseMove += NotifyIconOnMouseMove;
+                _notifyIcon.Icon = titanfall2_rp.Windows.Properties.Resources.TrayIcon;
+                _notifyIcon.Visible = true;
+                _notifyIcon.Text = "Titanfall 2 Discord Rich Presence";
 
-            try
-            {
                 CreateContextMenu();
             }
             catch (Exception exception)
             {
-                Log.Fatal("Failed at CreateContextMenu()", exception);
+                Log.Fatal("Failed to start. Encountered an exception in OnStartup", exception);
+                SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure, exception);
+
+                if (_formsInitCalled)
+                {
+                    MessageBox.Show(
+                        $"An fatal exception occurred! See below for details (this info will also be logged). " +
+                        $"You can also press CTRL + C to copy this error to the clipboard.\n\n\n" +
+                        $"Message: {exception.Message}\n\n\nFull exception:\n{exception}", "Titanfall 2 Discord Rich Presence",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
                 throw;
             }
         }
