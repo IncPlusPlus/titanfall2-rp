@@ -215,6 +215,7 @@ namespace titanfall2_rp.enums
                 GameMode.fd_easy => "Frontier Defense (Easy)",
                 GameMode.fd_normal => "Frontier Defense (Regular)",
                 GameMode.fd_hard => "Frontier Defense (Hard)",
+                GameMode.fd_master => "Frontier Defense (Master)",
                 GameMode.fd_insane => "Frontier Defense (Insane)",
                 GameMode.solo => "Campaign",
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
