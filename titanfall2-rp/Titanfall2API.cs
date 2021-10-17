@@ -89,11 +89,7 @@ namespace titanfall2_rp
         public string GetGameModeName()
         {
             _ensureInit();
-            var gameModeAndMapName = GetGameModeAndMapName();
-            var m = GameModeAndMapRegex.Match(gameModeAndMapName);
-            return m.Success
-                ? m.Groups[1].Value
-                : throw new ApplicationException($"Failed to recognize game mode from string '{gameModeAndMapName}'.");
+            return GetGameMode().ToFriendlyString();
         }
 
         public GameMode GetGameMode()
