@@ -130,7 +130,7 @@ namespace titanfall2_rp
             }
             else if (tf2Api.GetGameMode() == GameMode.solo)
             {
-                gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
+                gameDetails = $"{tf2Api.GetGameModeName()} ({tf2Api.GetSinglePlayerDifficulty()})";
                 gameState = tf2Api.GetSinglePlayerMapName();
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
                 assets = GameDetailsProvider.GetSinglePlayerAssets(tf2Api);
