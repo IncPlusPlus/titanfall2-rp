@@ -4,6 +4,7 @@ using System.Threading;
 using System.Timers;
 using DiscordRPC;
 using log4net;
+using titanfall2_rp.enums;
 using titanfall2_rp.SegmentManager;
 using titanfall2_rp.updater;
 
@@ -18,7 +19,8 @@ namespace titanfall2_rp
         private readonly Titanfall2Api _tf2Api;
         private readonly EventWaitHandle _userExitEvent;
 
-        public PresenceUpdateThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api, AutoResetEvent userExitEvent)
+        public PresenceUpdateThread(DiscordRpcClient discordRpcClient, Titanfall2Api tf2Api,
+            AutoResetEvent userExitEvent)
         {
             _discordRpcClient = discordRpcClient;
             _tf2Api = tf2Api;
@@ -116,7 +118,7 @@ namespace titanfall2_rp
             Timestamps? timestamps = null;
             Assets? assets = null;
 
-            if (tf2Api.GetGameModeAndMapName().Equals("Main Menu"))//TODO
+            if (tf2Api.GetMultiplayerMapName() == "")
             {
                 gameDetails = "Main Menu";
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
@@ -126,7 +128,7 @@ namespace titanfall2_rp
                 gameDetails = "In a lobby";
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
-            else if (tf2Api.GetGameModeName().Contains("Campaign"))//TODO
+            else if (tf2Api.GetGameMode() == GameMode.solo)
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
                 gameState = tf2Api.GetSinglePlayerMapName();
