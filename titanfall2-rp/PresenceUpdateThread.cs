@@ -116,7 +116,7 @@ namespace titanfall2_rp
             Timestamps? timestamps = null;
             Assets? assets = null;
 
-            if (tf2Api.GetGameModeAndMapName().Equals("Main Menu"))
+            if (tf2Api.GetGameModeAndMapName().Equals("Main Menu"))//TODO
             {
                 gameDetails = "Main Menu";
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
@@ -126,10 +126,10 @@ namespace titanfall2_rp
                 gameDetails = "In a lobby";
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
             }
-            else if (tf2Api.GetGameModeName().Contains("Campaign"))
+            else if (tf2Api.GetGameModeName().Contains("Campaign"))//TODO
             {
                 gameDetails = "Campaign (" + tf2Api.GetSinglePlayerDifficulty() + ")";
-                gameState = tf2Api.GetFriendlyMapName();
+                gameState = tf2Api.GetSinglePlayerMapName();
                 timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
                 assets = GameDetailsProvider.GetSinglePlayerAssets(tf2Api);
             }

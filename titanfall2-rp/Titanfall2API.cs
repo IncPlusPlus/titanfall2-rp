@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using log4net;
@@ -18,7 +17,6 @@ namespace titanfall2_rp
     public class Titanfall2Api
     {
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-        private static readonly Regex GameModeAndMapRegex = new Regex("Playing (.*) on (.*)");
         private ProcessSharp? _sharp;
         public IntPtr EngineDllBaseAddress { get; private set; }
         public IntPtr ClientDllBaseAddress { get; private set; }
@@ -76,16 +74,6 @@ namespace titanfall2_rp
             return _sharp!.Memory.Read(EngineDllBaseAddress + 0x1397AC46, Encoding.UTF8, 50);
         }
 
-        public string GetFriendlyMapName()
-        {
-            _ensureInit();
-            var gameModeAndMapName = GetGameModeAndMapName();
-            var m = GameModeAndMapRegex.Match(gameModeAndMapName);
-            return m.Success
-                ? m.Groups[2].Value
-                : throw new ApplicationException($"Failed to recognize map name from string '{gameModeAndMapName}'.");
-        }
-
         public string GetGameModeName()
         {
             _ensureInit();
@@ -99,6 +87,8 @@ namespace titanfall2_rp
             return GameModeMethods.GetGameMode(gameModeCodeName);
         }
 
+        /// <returns>the name of the multiplayer map being played</returns>
+        /// <remarks>this also works for SP maps and when on the main menu, the string is empty</remarks>
         public string GetMultiplayerMapName()
         {
             _ensureInit();

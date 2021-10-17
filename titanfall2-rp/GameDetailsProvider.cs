@@ -28,7 +28,7 @@ namespace titanfall2_rp
             var assets = new Assets
             {
                 LargeImageKey = tf2Api.GetMultiplayerMapName(),
-                LargeImageText = tf2Api.GetFriendlyMapName(),
+                LargeImageText = tf2Api.GetMultiplayerMapName(),
                 SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : mpStats.GetCurrentFaction().GetAssetName(),
                 SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : mpStats.GetCurrentFaction().ToFriendlyString(),
             };
