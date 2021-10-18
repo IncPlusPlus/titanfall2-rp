@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Threading;
 using System.Timers;
+using Common;
 using DiscordRPC;
 using log4net;
 using titanfall2_rp.enums;
@@ -106,7 +107,7 @@ namespace titanfall2_rp
                 Assets = assets ?? new Assets
                 {
                     LargeImageKey = "icon-900x900",
-                    LargeImageText = "titanfall2-rp " + UpdateHelper.AppVersion + " by IncPlusPlus",
+                    LargeImageText = "titanfall2-rp " + (Constants.IsLocalBuild ? "(dev version)" : UpdateHelper.AppVersion) + " by IncPlusPlus",
                 }
             });
         }
