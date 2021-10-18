@@ -51,7 +51,7 @@ namespace titanfall2_rp.enums
         public static readonly Map sp_crashsite = new(nameof(sp_crashsite), "sp_crashsite", 1);
         public static readonly Map sp_hub_timeshift = new(nameof(sp_hub_timeshift), "sp_hub_timeshift", 1);
         public static readonly Map sp_s2s = new(nameof(sp_s2s), "sp_s2s", 1);
-        public static readonly Map sp_sewers1 = new(nameof(sp_sewers1), "sp_sewers1", 1);
+        public static readonly Map sp_sewers1 = new(nameof(sp_sewers1), "Blood and Rust", 1);
         public static readonly Map sp_skyway_v1 = new(nameof(sp_skyway_v1), "sp_skyway_v1", 1);
         public static readonly Map sp_tday = new(nameof(sp_tday), "sp_tday", 1);
         public static readonly Map sp_timeshift_spoke02 = new(nameof(sp_timeshift_spoke02), "sp_timeshift_spoke02", 1);
