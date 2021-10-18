@@ -47,7 +47,7 @@ namespace titanfall2_rp.enums
         public static readonly Map sp_beacon_spoke0 = new(nameof(sp_beacon_spoke0), "sp_beacon_spoke0", 1);
         public static readonly Map sp_boomtown = new(nameof(sp_boomtown), "sp_boomtown", 1);
         public static readonly Map sp_boomtown_end = new(nameof(sp_boomtown_end), "sp_boomtown_end", 1);
-        public static readonly Map sp_boomtown_start = new(nameof(sp_boomtown_start), "sp_boomtown_start", 1);
+        public static readonly Map sp_boomtown_start = new(nameof(sp_boomtown_start), "Into the Abyss", 1);
         public static readonly Map sp_crashsite = new(nameof(sp_crashsite), "sp_crashsite", 1);
         public static readonly Map sp_hub_timeshift = new(nameof(sp_hub_timeshift), "sp_hub_timeshift", 1);
         public static readonly Map sp_s2s = new(nameof(sp_s2s), "sp_s2s", 1);
