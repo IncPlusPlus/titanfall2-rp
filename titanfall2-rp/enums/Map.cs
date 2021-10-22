@@ -42,20 +42,19 @@ namespace titanfall2_rp.enums
         public static readonly Map mp_rise = new(nameof(mp_rise), "Rise", 1);
         public static readonly Map mp_thaw = new(nameof(mp_thaw), "Thaw", 1);
         public static readonly Map mp_wargames = new(nameof(mp_wargames), "War Games", 1);
-        // TODO: All of these SP maps need their campaign names! Oh boy! Time to replay the campaign!
-        public static readonly Map sp_beacon = new(nameof(sp_beacon), "sp_beacon", 1);
-        public static readonly Map sp_beacon_spoke0 = new(nameof(sp_beacon_spoke0), "sp_beacon_spoke0", 1);
-        public static readonly Map sp_boomtown = new(nameof(sp_boomtown), "sp_boomtown", 1);
-        public static readonly Map sp_boomtown_end = new(nameof(sp_boomtown_end), "sp_boomtown_end", 1);
-        public static readonly Map sp_boomtown_start = new(nameof(sp_boomtown_start), "Into the Abyss", 1);
-        public static readonly Map sp_crashsite = new(nameof(sp_crashsite), "sp_crashsite", 1);
-        public static readonly Map sp_hub_timeshift = new(nameof(sp_hub_timeshift), "sp_hub_timeshift", 1);
-        public static readonly Map sp_s2s = new(nameof(sp_s2s), "sp_s2s", 1);
+        public static readonly Map sp_beacon = new(nameof(sp_beacon), "The Beacon (Chapter 1 or 3)", 1);
+        public static readonly Map sp_beacon_spoke0 = new(nameof(sp_beacon_spoke0), "The Beacon (Chapter 2)", 1);
+        public static readonly Map sp_boomtown = new(nameof(sp_boomtown), "Into the Abyss (Chapter 2)", 1);
+        public static readonly Map sp_boomtown_end = new(nameof(sp_boomtown_end), "Into the Abyss (Chapter 3)", 1);
+        public static readonly Map sp_boomtown_start = new(nameof(sp_boomtown_start), "Into the Abyss (Chapter 1)", 1);
+        public static readonly Map sp_crashsite = new(nameof(sp_crashsite), "BT-7274", 1);
+        public static readonly Map sp_hub_timeshift = new(nameof(sp_hub_timeshift), "Effect and Cause (Chapter 1 or 3)", 1);
+        public static readonly Map sp_s2s = new(nameof(sp_s2s), "The Ark", 1);
         public static readonly Map sp_sewers1 = new(nameof(sp_sewers1), "Blood and Rust", 1);
-        public static readonly Map sp_skyway_v1 = new(nameof(sp_skyway_v1), "sp_skyway_v1", 1);
-        public static readonly Map sp_tday = new(nameof(sp_tday), "sp_tday", 1);
-        public static readonly Map sp_timeshift_spoke02 = new(nameof(sp_timeshift_spoke02), "sp_timeshift_spoke02", 1);
-        public static readonly Map sp_training = new(nameof(sp_training), "sp_training", 1);
+        public static readonly Map sp_skyway_v1 = new(nameof(sp_skyway_v1), "The Fold Weapon", 1);
+        public static readonly Map sp_tday = new(nameof(sp_tday), "Trial by Fire", 1);
+        public static readonly Map sp_timeshift_spoke02 = new(nameof(sp_timeshift_spoke02), "Effect and Cause (Chapter 2)", 1);
+        public static readonly Map sp_training = new(nameof(sp_training), "The Pilot's Gauntlet", 1);
         // ReSharper restore IdentifierTypo
         // ReSharper restore InconsistentNaming
 
