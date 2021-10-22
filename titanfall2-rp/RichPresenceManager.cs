@@ -30,6 +30,7 @@ namespace titanfall2_rp
 
         public RichPresenceManager()
         {
+            EnsureSingleInstance();
             Titanfall2Api titanfall2Api = new();
             SegmentManager.SegmentManager.Initialize(titanfall2Api);
             _discordRpcClient = new DiscordRpcClient("877931149740089374");
@@ -60,7 +61,6 @@ namespace titanfall2_rp
             }
 
             EnsureNotRenamed();
-            EnsureSingleInstance();
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence.");
 
