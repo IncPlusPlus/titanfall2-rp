@@ -17,6 +17,7 @@ namespace titanfall2_rp
 
     public class RichPresenceManager
     {
+        static Mutex singleton = new(true, "titanfall2-rp");
         public event OnPresenceUpdateEvent? OnPresenceUpdate;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string LogFileName = "titanfall2-rp.log";
@@ -59,6 +60,7 @@ namespace titanfall2_rp
             }
 
             EnsureNotRenamed();
+            EnsureSingleInstance();
 
             Log.Info("Starting Titanfall 2 Discord Rich Presence.");
 
@@ -101,6 +103,7 @@ namespace titanfall2_rp
             _presenceUpdatingThread.Join();
             // Releases the resources used for the events (only after the thread that was using this has exited)
             _userRequestedExit.Close();
+            singleton.ReleaseMutex();
             Log.Info("Closing...");
         }
 
@@ -116,6 +119,17 @@ namespace titanfall2_rp
             {
                 throw new ApplicationException(
                     $"This application must not be renamed. It should be named '{GetDefaultExecutableName()}' but was named '{System.Diagnostics.Process.GetCurrentProcess().MainModule?.ModuleName}'.");
+            }
+        }
+
+        // https://stackoverflow.com/a/95304/1687436
+        private static void EnsureSingleInstance()
+        {
+            if (!singleton.WaitOne(TimeSpan.Zero, true))
+            {
+                //there is already another instance running!
+                throw new ApplicationException(
+                    "There was already a running instance of Titanfall 2 Discord rich presence!");
             }
         }
 
