@@ -30,6 +30,7 @@ namespace titanfall2_rp
 
         public RichPresenceManager()
         {
+            Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
             EnsureSingleInstance();
             Titanfall2Api titanfall2Api = new();
             SegmentManager.SegmentManager.Initialize(titanfall2Api);
@@ -43,7 +44,6 @@ namespace titanfall2_rp
 
         public void Begin()
         {
-            Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
