@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace titanfall2_rp.enums
 {
@@ -100,6 +101,7 @@ namespace titanfall2_rp.enums
         /// Coliseum
         /// </summary>
         coliseum,
+
         /// <summary>
         /// Attrition
         /// </summary>
@@ -188,7 +190,8 @@ namespace titanfall2_rp.enums
             var parseSuccess = Enum.TryParse(typeof(GameMode), gameModeCodeName, true, out var mode);
             if (!parseSuccess)
                 throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'.");
-            return (GameMode)(mode ?? throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'."));
+            return (GameMode)(mode ??
+                              throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'."));
         }
 
         /// <summary>
@@ -197,9 +200,8 @@ namespace titanfall2_rp.enums
         /// <param name="gameMode">any valid GameMode</param>
         /// <returns>the provided GameMode as a human-readable string</returns>
         /// <exception cref="ArgumentOutOfRangeException">if you somehow managed to screw this up</exception>
-        public static string ToFriendlyString(this GameMode gameMode)
-        {
-            return gameMode switch
+        public static string ToFriendlyString(this GameMode gameMode) =>
+            gameMode switch
             {
                 GameMode.coliseum => "Coliseum",
                 GameMode.aitdm => "Attrition",
@@ -212,14 +214,28 @@ namespace titanfall2_rp.enums
                 GameMode.speedball => "Live Fire",
                 GameMode.mfd => "Marked For Death",
                 GameMode.ttdm => "Titan Brawl",
-                GameMode.fd_easy => "Frontier Defense (Easy)",
-                GameMode.fd_normal => "Frontier Defense (Regular)",
-                GameMode.fd_hard => "Frontier Defense (Hard)",
-                GameMode.fd_master => "Frontier Defense (Master)",
-                GameMode.fd_insane => "Frontier Defense (Insane)",
+                var x when new[]
+                    {
+                        GameMode.fd_easy, GameMode.fd_normal, GameMode.fd_hard, GameMode.fd_master, GameMode.fd_insane,
+                    }
+                    .Contains(x) => "Frontier Defense",
                 GameMode.solo => "Campaign",
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
             };
-        }
+
+        public static bool IsFrontierDefense(this GameMode gameMode) => gameMode.ToString().StartsWith("fd_");
+
+        public static string GetFrontierDefenseDifficultyString(this GameMode gameMode) =>
+            // ReSharper disable once SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
+            gameMode switch
+            {
+                GameMode.fd_easy => "Easy",
+                GameMode.fd_normal => "Regular",
+                GameMode.fd_hard => "Hard",
+                GameMode.fd_master => "Master",
+                GameMode.fd_insane => "Insane",
+                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode,
+                    "Tried to call GetFrontierDefenseDifficultyString on a game mode that wasn't frontier defense!")
+            };
     }
 }
