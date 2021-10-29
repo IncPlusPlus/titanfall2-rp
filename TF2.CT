@@ -505,6 +505,18 @@
           <Address>engine.dll+139782C2</Address>
         </CheatEntry>
         <CheatEntry>
+          <ID>1763</ID>
+          <Description>"LSX AuthCode / 'server token'"</Description>
+          <LastState RealAddress="7FF967939C80"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>60</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+13979C80</Address>
+        </CheatEntry>
+        <CheatEntry>
           <ID>129</ID>
           <Description>"This string turns into pc_origin after launching multiplayer"</Description>
           <ShowAsSigned>0</ShowAsSigned>
@@ -525,17 +537,6 @@
           <CodePage>0</CodePage>
           <ZeroTerminate>1</ZeroTerminate>
           <Address>engine.dll+1397A344</Address>
-        </CheatEntry>
-        <CheatEntry>
-          <ID>146</ID>
-          <Description>"Server token"</Description>
-          <ShowAsSigned>0</ShowAsSigned>
-          <VariableType>String</VariableType>
-          <Length>250</Length>
-          <Unicode>0</Unicode>
-          <CodePage>0</CodePage>
-          <ZeroTerminate>1</ZeroTerminate>
-          <Address>engine.dll+13979C80</Address>
         </CheatEntry>
       </CheatEntries>
     </CheatEntry>
@@ -1576,6 +1577,237 @@
       <Offsets>
         <Offset>04A8</Offset>
       </Offsets>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>496</ID>
+      <Description>"partyData.room (effectively the party ID) (called SessionId in the CurrentUserPresenceEvent)"</Description>
+      <LastState RealAddress="7FF9670BC9F4"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>50</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+130FC9F4</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>497</ID>
+      <Description>"join secret?"</Description>
+      <LastState RealAddress="7FF9670BCAB8"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+130FCab8</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1755</ID>
+      <Description>"Things that mention nucleusId"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1752</ID>
+          <Description>"This one is here as soon as the game starts"</Description>
+          <LastState RealAddress="7FF967F4E688"/>
+          <VariableType>String</VariableType>
+          <Length>152</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+13F8E688</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1526</ID>
+          <Description>"No description"</Description>
+          <LastState RealAddress="7FF95477428A"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>String</VariableType>
+          <Length>152</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7B428A</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1527</ID>
+          <Description>"No description"</Description>
+          <LastState RealAddress="7FF95477431E"/>
+          <VariableType>String</VariableType>
+          <Length>152</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7B431E</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1528</ID>
+          <Description>"No description"</Description>
+          <LastState RealAddress="7FF954774616"/>
+          <VariableType>String</VariableType>
+          <Length>152</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7B4616</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1529</ID>
+          <Description>"No description"</Description>
+          <LastState RealAddress="7FF95477491F"/>
+          <VariableType>String</VariableType>
+          <Length>152</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+7B491F</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1753</ID>
+          <Description>"No description"</Description>
+          <LastState RealAddress="7FF967F4E708"/>
+          <VariableType>String</VariableType>
+          <Length>152</Length>
+          <Unicode>0</Unicode>
+          <CodePage>0</CodePage>
+          <ZeroTerminate>1</ZeroTerminate>
+          <Address>engine.dll+13F8E708</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1756</ID>
+          <Description>"This one goes to some really high number when in a private lobby"</Description>
+          <LastState Value="0" RealAddress="7FF9651B3EB8"/>
+          <VariableType>8 Bytes</VariableType>
+          <Address>engine.dll+111F3EB8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1757</ID>
+          <Description>"No description"</Description>
+          <LastState Value="0" RealAddress="7FF9670C2C80"/>
+          <VariableType>8 Bytes</VariableType>
+          <Address>engine.dll+13102C80</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1758</ID>
+          <Description>"This one sticks around a lot even when the others are gone"</Description>
+          <LastState Value="2825030953" RealAddress="7FF967938268"/>
+          <VariableType>8 Bytes</VariableType>
+          <Address>engine.dll+13978268</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1759</ID>
+          <Description>"No description"</Description>
+          <LastState Value="0" RealAddress="7FF967ED45D0"/>
+          <VariableType>8 Bytes</VariableType>
+          <Address>engine.dll+13F145D0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1760</ID>
+          <Description>"No description"</Description>
+          <LastState Value="0" RealAddress="7FF967F4E2C8"/>
+          <VariableType>8 Bytes</VariableType>
+          <Address>engine.dll+13F8E2C8</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1769</ID>
+      <Description>"LSX Encryption Seed"</Description>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>1765</ID>
+          <Description>"No description"</Description>
+          <LastState Value="14434" RealAddress="1E63BF71EE4"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OriginSDK.dll+00103C18</Address>
+          <Offsets>
+            <Offset>5c</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1766</ID>
+          <Description>"No description"</Description>
+          <LastState Value="14434" RealAddress="1E63BF71EE4"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OriginSDK.dll+001031c0</Address>
+          <Offsets>
+            <Offset>1c4</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1767</ID>
+          <Description>"No description"</Description>
+          <LastState Value="14434" RealAddress="1E63BF71EE4"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OriginSDK.dll+001031d0</Address>
+          <Offsets>
+            <Offset>1c4</Offset>
+          </Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1768</ID>
+          <Description>"No description"</Description>
+          <LastState Value="14434" RealAddress="1E63BF71EE4"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <VariableType>2 Bytes</VariableType>
+          <Address>OriginSDK.dll+00103b98</Address>
+          <Offsets>
+            <Offset>1c4</Offset>
+          </Offsets>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1771</ID>
+      <Description>"Currently running the Gauntlet"</Description>
+      <LastState Value="1" RealAddress="1E67C5A6C00"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>server.dll+1506C00</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1772</ID>
+      <Description>"Gauntlet stats 1 (PB?)"</Description>
+      <LastState RealAddress="7FF95486DE80"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+8ADE80</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1773</ID>
+      <Description>"Gauntlet stats 2 (last run time?)"</Description>
+      <LastState RealAddress="7FF96791A904"/>
+      <ShowAsSigned>0</ShowAsSigned>
+      <VariableType>String</VariableType>
+      <Length>150</Length>
+      <Unicode>0</Unicode>
+      <CodePage>0</CodePage>
+      <ZeroTerminate>1</ZeroTerminate>
+      <Address>engine.dll+1395A904</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1774</ID>
+      <Description>"start time?"</Description>
+      <LastState Value="1139253248" RealAddress="1E67C0F96EC"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>server.dll+10596EC</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>1775</ID>
+      <Description>"end time?"</Description>
+      <LastState Value="1138435687" RealAddress="7FF963850F08"/>
+      <VariableType>4 Bytes</VariableType>
+      <Address>engine.dll+F890F08</Address>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols>
