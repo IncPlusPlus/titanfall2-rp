@@ -158,6 +158,16 @@ namespace titanfall2_rp
         }
 
         /// <summary>
+        /// Get the Origin ID of the current user. This is also referred to as the nucleus ID internally
+        /// </summary>
+        /// <returns>the nucleus ID of the current user</returns>
+        public ulong GetNucleusId()
+        {
+            _ensureInit();
+            return _sharp!.Memory.Read<ulong>(EngineDllBaseAddress + 0x13978268);
+        }
+
+        /// <summary>
         /// Get the game's version. This hasn't been tested in multiple versions but works as of 2.0.11.0
         /// </summary>
         /// <returns>the game's version</returns>
