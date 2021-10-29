@@ -127,6 +127,7 @@ namespace titanfall2_rp.SegmentManager
             Analytics.Client.Identify(_tf2Api!.GetUserId(), new Traits()
             {
                 { "name", Environment.UserName },
+                { "nucleus_id", _tf2Api.GetNucleusId() },
                 { "origin_name", _tf2Api.GetOriginName() }
             }, new Options().SetAnonymousId(GetAnonymousIdentifier()));
             Analytics.Client.Flush();
