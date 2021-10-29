@@ -13,13 +13,13 @@ namespace titanfall2_rp
             string gameState = $"Score: {mpStats.GetMyTeamScore()} - {mpStats.GetEnemyTeamScore()}";
             var timestamps = new Timestamps(gameOpenTimestamp);
             var map = Map.FromName(tf2Api.GetMultiplayerMapName());
-            var playerInTitan = tf2Api.IsPlayerInTitan();
+            var smallAsset = GetSmallImageDetails(tf2Api);
             var assets = new Assets
             {
                 LargeImageKey = map.ToString(),
                 LargeImageText = map.InEnglish(),
-                SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : mpStats.GetCurrentFaction().GetAssetName(),
-                SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : mpStats.GetCurrentFaction().ToFriendlyString(),
+                SmallImageKey = smallAsset.Item1,
+                SmallImageText = smallAsset.Item2
             };
             return (gameDetails, gameState, timestamps, assets);
         }
@@ -43,6 +43,30 @@ namespace titanfall2_rp
         private static string GetRandomImageNameForCurrentMap(Titanfall2Api tf2Api)
         {
             return Map.FromName(tf2Api.GetSinglePlayerMapName()).GetRandomPreview();
+        }
+
+        /// <summary>
+        /// Determines what the small image file name and display string should be
+        /// </summary>
+        /// <param name="tf2Api">an active API instance</param>
+        /// <returns>A tuple containing the image key followed by the image text</returns>
+        private static (string, string) GetSmallImageDetails(Titanfall2Api tf2Api)
+        {
+            var playerInTitan = tf2Api.IsPlayerInTitan();
+            if (playerInTitan)
+            {
+                var titan = tf2Api.GetTitan();
+                return (titan.GetAssetName(), titan.ToFriendlyString());
+            }
+
+            var gameMode = tf2Api.GetGameMode();
+            if (gameMode.IsFrontierDefense())
+            {
+                return (gameMode.ToString(), gameMode.GetFrontierDefenseDifficultyString());
+            }
+
+            var faction = tf2Api.GetMultiPlayerGameStats().GetCurrentFaction();
+            return (faction.GetAssetName(), faction.ToFriendlyString());
         }
     }
 }
