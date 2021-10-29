@@ -12,11 +12,12 @@ namespace titanfall2_rp
             string gameDetails = tf2Api.GetGameMode().ToFriendlyString();
             string gameState = $"Score: {mpStats.GetMyTeamScore()} - {mpStats.GetEnemyTeamScore()}";
             var timestamps = new Timestamps(gameOpenTimestamp);
+            var map = Map.FromName(tf2Api.GetMultiplayerMapName()); 
             var playerInTitan = tf2Api.IsPlayerInTitan();
             var assets = new Assets
             {
-                LargeImageKey = tf2Api.GetMultiplayerMapName(),
-                LargeImageText = Map.FromName(tf2Api.GetMultiplayerMapName()).InEnglish(),
+                LargeImageKey = map.ToString(),
+                LargeImageText = map.InEnglish(),
                 SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : mpStats.GetCurrentFaction().GetAssetName(),
                 SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : mpStats.GetCurrentFaction().ToFriendlyString(),
             };
