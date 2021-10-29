@@ -17,6 +17,7 @@ namespace titanfall2_rp
 
     public class RichPresenceManager
     {
+        private static readonly Mutex Singleton = new(true, "titanfall2-rp");
         public event OnPresenceUpdateEvent? OnPresenceUpdate;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string LogFileName = "titanfall2-rp.log";
@@ -29,6 +30,8 @@ namespace titanfall2_rp
 
         public RichPresenceManager()
         {
+            Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
+            EnsureSingleInstance();
             Titanfall2Api titanfall2Api = new();
             SegmentManager.SegmentManager.Initialize(titanfall2Api);
             _discordRpcClient = new DiscordRpcClient("877931149740089374");
@@ -41,7 +44,6 @@ namespace titanfall2_rp
 
         public void Begin()
         {
-            Log4NetConfig.ConfigureLogger(LogFileName, LoggerConfigFileName);
             // Set this thread's name. This way it indicates which thread is the main thread (although this is usually 1)
             Thread.CurrentThread.Name = "Main-" + Thread.CurrentThread.ManagedThreadId;
 
@@ -101,6 +103,7 @@ namespace titanfall2_rp
             _presenceUpdatingThread.Join();
             // Releases the resources used for the events (only after the thread that was using this has exited)
             _userRequestedExit.Close();
+            Singleton.ReleaseMutex();
             Log.Info("Closing...");
         }
 
@@ -116,6 +119,17 @@ namespace titanfall2_rp
             {
                 throw new ApplicationException(
                     $"This application must not be renamed. It should be named '{GetDefaultExecutableName()}' but was named '{System.Diagnostics.Process.GetCurrentProcess().MainModule?.ModuleName}'.");
+            }
+        }
+
+        // https://stackoverflow.com/a/95304/1687436
+        private static void EnsureSingleInstance()
+        {
+            if (!Singleton.WaitOne(TimeSpan.Zero, true))
+            {
+                //there is already another instance running!
+                throw new ApplicationException(
+                    "There was already a running instance of Titanfall 2 Discord rich presence!");
             }
         }
 

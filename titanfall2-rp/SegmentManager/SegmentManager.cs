@@ -48,7 +48,7 @@ namespace titanfall2_rp.SegmentManager
         public static void TrackEvent(TrackableEvent @event, Exception? exception = null,
             PresenceMessage? presence = null)
         {
-            if (!_enableSegment) return;
+            if (!_enableSegment || !_initialized) return;
             try
             {
                 switch (@event)
