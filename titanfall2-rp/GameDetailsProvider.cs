@@ -13,13 +13,13 @@ namespace titanfall2_rp
             string gameState = $"Score: {mpStats.GetMyTeamScore()} - {mpStats.GetEnemyTeamScore()}";
             var timestamps = new Timestamps(gameOpenTimestamp);
             var map = Map.FromName(tf2Api.GetMultiplayerMapName());
-            var smallAsset = GetSmallImageDetails(tf2Api);
+            var (smallKey, smallText) = GetSmallImageDetails(tf2Api);
             var assets = new Assets
             {
                 LargeImageKey = map.ToString(),
                 LargeImageText = map.InEnglish(),
-                SmallImageKey = smallAsset.Item1,
-                SmallImageText = smallAsset.Item2
+                SmallImageKey = smallKey,
+                SmallImageText = smallText
             };
             return (gameDetails, gameState, timestamps, assets);
         }
