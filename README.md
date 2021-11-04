@@ -42,7 +42,9 @@ Upon attempting to run `titanfall2-rp.exe`, you may be prevented from doing so b
 Click "More info" and then click "Run anyway". You will only be prompted like this once. It _may_ happen again after updating.
 
 # OS Support
-Currently this is officially supported only on Windows. However, I've been informed that it works on Linux with the use of a Discord IPC bridge. This may have been broken with the introduction of autmatic-updates but I think I mitigated that issue. Please file a bug if that's not the case. I'll provide more information about linux installation steps in the future.
+Currently this is officially supported only on Windows.
+However, there is unofficial Linux support via the use of an IPC bridge,
+the steps are outlined [here.](docs/linux/RunOnLinux.md)
 
 ## Usage
 1. Open Discord
