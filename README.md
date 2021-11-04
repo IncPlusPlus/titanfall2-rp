@@ -44,7 +44,7 @@ Click "More info" and then click "Run anyway". You will only be prompted like th
 # OS Support
 Currently this is officially supported only on Windows.
 However, there is unofficial Linux support via the use of an IPC bridge,
-the steps are outlined [here.](docs/linux/RunOnLinux.md)
+the steps are outlined [here](docs/linux/RunOnLinux.md).
 
 ## Usage
 1. Open Discord
