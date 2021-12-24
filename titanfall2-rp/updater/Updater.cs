@@ -27,18 +27,18 @@ namespace titanfall2_rp.updater
                 {
                     _updater = new WindowsUpdater();
                 }
-
             }
             else
             {
                 _updater = new StubUpdater();
             }
+
             return _updater;
         }
 
         public void Update()
         {
-            Log.Info("Checking for update...");
+            Log.Info($"Checking for update (current version = {AppVersion})...");
             bool checkUpdatesSuccess = false;
             try
             {
@@ -63,6 +63,7 @@ namespace titanfall2_rp.updater
             {
                 Log.Error(checkUpdatesSuccess ? "Failed to perform update." : "Failed to check for updates.", e);
             }
+
             Log.Info("Update check complete!");
         }
 
