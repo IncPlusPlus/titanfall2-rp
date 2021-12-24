@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Web;
 using log4net;
 using Process.NET;
+using Process.NET.Extensions;
 using titanfall2_rp.enums;
 using titanfall2_rp.SegmentManager;
 using static titanfall2_rp.ProcessApi;
@@ -21,6 +23,7 @@ namespace titanfall2_rp
         public IntPtr EngineDllBaseAddress { get; private set; }
         public IntPtr ClientDllBaseAddress { get; private set; }
         public IntPtr ServerDllBaseAddress { get; private set; }
+        public bool IsNorthstarClient { get; private set; }
 
         public MpStats GetMultiPlayerGameStats()
         {
@@ -204,6 +207,9 @@ namespace titanfall2_rp
             EngineDllBaseAddress = GetModuleBaseAddress(sharp.Native, "engine.dll");
             ClientDllBaseAddress = GetModuleBaseAddress(sharp.Native, "client.dll");
             ServerDllBaseAddress = GetModuleBaseAddress(sharp.Native, "server.dll");
+            IsNorthstarClient = System.Diagnostics.Process.GetProcessById(sharp.Native.Id)
+                .GetModules()
+                .Any(module => module.ModuleName.Equals("Northstar.dll"));
         }
     }
 }

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Common;
+using DiscordRPC.Message;
 using log4net;
 using Segment;
 using Segment.Model;
 using titanfall2_rp.misc;
 using titanfall2_rp.updater;
 using Config = Common.Config;
-using DiscordRPC.Message;
 
 namespace titanfall2_rp.SegmentManager
 {
     public static class SegmentManager
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private const string WriteKey = "DAXSzUgf2tu57mPFgnWSggNyD3v4BEhC";
         private const string AnonymousIdentifierFileName = "IDENTIFIER";
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static bool _enableSegment = true;
         private static bool _initialized;
         private static bool _hasIdentifiedSelf;
@@ -117,7 +117,8 @@ namespace titanfall2_rp.SegmentManager
                     { "rpc_small_image", presence.Assets.SmallImageKey },
                     { "rpc_small_text", presence.Assets.SmallImageText },
                     { "gamemode_and_map_name", _tf2Api?.GetGameModeAndMapName() },
-                    { "game_version", _tf2Api?.GetGameVersion() }
+                    { "game_version", _tf2Api?.GetGameVersion() },
+                    { "northstar_client", _tf2Api?.IsNorthstarClient }
                 }, new Options().SetAnonymousId(GetAnonymousIdentifier()));
         }
 
