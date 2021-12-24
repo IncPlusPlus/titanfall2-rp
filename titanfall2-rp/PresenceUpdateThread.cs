@@ -13,9 +13,9 @@ namespace titanfall2_rp
 {
     public class PresenceUpdateThread
     {
+        private const int ProcessOpenWaitTimeInMinutes = 1;
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private static System.Timers.Timer? _presenceUpdateTimer;
-        private const int ProcessOpenWaitTimeInMinutes = 1;
         private readonly DiscordRpcClient _discordRpcClient;
         private readonly Titanfall2Api _tf2Api;
         private readonly EventWaitHandle _userExitEvent;
@@ -106,8 +106,9 @@ namespace titanfall2_rp
                 Timestamps = timestamps,
                 Assets = assets ?? new Assets
                 {
-                    LargeImageKey = "icon-900x900",
-                    LargeImageText = "titanfall2-rp " + (Constants.IsLocalBuild ? "(dev version)" : UpdateHelper.AppVersion) + " by IncPlusPlus",
+                    LargeImageKey = tf2Api.IsNorthstarClient ? "northstar-icon" : "icon-900x900",
+                    LargeImageText =
+                        $"titanfall2-rp {(Constants.IsLocalBuild ? "(dev version)" : UpdateHelper.AppVersion)} by IncPlusPlus",
                 }
             });
         }
