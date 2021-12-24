@@ -20,7 +20,9 @@ categories:
   - title: '🛠 Improvements'
     label: '🛠 Improvement'
   - title: '📖 Documentation Changes'
-    label: '📖 Docs'
+    labels: 
+      - '📖 Docs'
+      - 'documentation'
   - title: '📚 Dependencies'
     label: 'dependencies'
   - title: '🧰 Maintenance'
