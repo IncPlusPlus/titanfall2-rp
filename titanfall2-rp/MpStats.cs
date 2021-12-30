@@ -15,14 +15,14 @@ namespace titanfall2_rp
     /// </summary>
     public abstract class MpStats
     {
-        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
-
         private protected const string HelpMeBruh =
             "Getting this value is not supported. " +
             "If you want this to be possible, you'll need to contribute this yourself or tell me how the heck to get it.";
 
-        private protected readonly Titanfall2Api Tf2Api;
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
         private protected readonly ProcessSharp Sharp;
+
+        private protected readonly Titanfall2Api Tf2Api;
 
         protected MpStats(Titanfall2Api titanfall2Api, ProcessSharp processSharp)
         {
@@ -202,6 +202,7 @@ namespace titanfall2_rp
                 GameMode.fd_master => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.fd_insane => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
+                GameMode.ffa => new FreeForAll(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode)
             };
         }
@@ -311,6 +312,12 @@ namespace titanfall2_rp
         internal const int Name = 0x13fa6eb8;
 
         /// <summary>
+        /// This value (multiplied by the player's ID) is added to the last of the <see cref="NamePointerOffsets"/>
+        /// when finding a player's name.
+        /// </summary>
+        internal const int NamePlayerIdIncrement = 0x58;
+
+        /// <summary>
         /// The <see cref="Name"/> address is really the address to a pointer. Applying these offsets to that pointer
         /// points to the address with the actual desired value.
         /// </summary>
@@ -320,18 +327,18 @@ namespace titanfall2_rp
             get { return new[] { 0x18, 0x50, 0x38, 0x38 }; }
         }
 
-        /// <summary>
-        /// This value (multiplied by the player's ID) is added to the last of the <see cref="NamePointerOffsets"/>
-        /// when finding a player's name.
-        /// </summary>
-        internal const int NamePlayerIdIncrement = 0x58;
-
         public static class Attrition
         {
             internal const int Kills = 0x1123D27C;
             internal const int MinionKills = 0x1123D384;
             internal const int Score = 0x1123D510;
             internal const int AttritionStatsPlayerIdOffset = 0x4;
+        }
+
+        public static class FreeForAll
+        {
+            internal const int Score = Attrition.Score;
+            internal const int AttritionStatsPlayerIdOffset = Attrition.AttritionStatsPlayerIdOffset;
         }
     }
 }
