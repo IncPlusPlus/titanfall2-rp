@@ -26,6 +26,16 @@ namespace titanfall2_rp.MpGameStats
             return GetHighestScoreInGameIgnoringPlayer(GetMyIdOnServer());
         }
 
+        public override int GetMyTeamScore()
+        {
+            return GetTeam1Score();
+        }
+
+        public override int GetEnemyTeamScore()
+        {
+            return GetTeam2Score();
+        }
+
         /// <summary>
         /// Get the score of a user.
         /// </summary>
