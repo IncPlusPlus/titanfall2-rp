@@ -86,7 +86,9 @@ namespace titanfall2_rp
         public string GetGameModeCodeName()
         {
             _ensureInit();
-            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13984088, Encoding.UTF8, 15);
+            // Northstar has a more specific codename for stuff like turbo_lts. The other offset would only display lts.
+            return _sharp!.Memory.Read(EngineDllBaseAddress + (IsNorthstarClient ? 0x139840A8 : 0x13984088),
+                Encoding.UTF8, 15);
         }
 
         public GameMode GetGameMode()
