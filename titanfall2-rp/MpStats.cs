@@ -203,6 +203,7 @@ namespace titanfall2_rp
                 GameMode.fd_insane => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
                 GameMode.ffa => new FreeForAll(titanfall2Api, sharp),
+                GameMode.kr => new AmpedKillrace(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode)
             };
         }
