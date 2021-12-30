@@ -100,6 +100,7 @@ namespace titanfall2_rp.enums
         /// Coliseum
         /// </summary>
         coliseum,
+
         /// <summary>
         /// Attrition
         /// </summary>
@@ -179,6 +180,85 @@ namespace titanfall2_rp.enums
         /// Single Player (Campaign)
         /// </summary>
         solo,
+
+        #region Featured-Only Modes (i.e. ones that are used with Northstar)
+
+        /// <summary>
+        /// Free for All
+        /// </summary>
+        ffa,
+
+        /// <summary>
+        /// Free Agents
+        /// </summary>
+        fra,
+
+        /// <summary>
+        /// Aegis Titan Brawl
+        /// </summary>
+        attdm,
+
+        /// <summary>
+        /// Turbo Titan Brawl
+        /// </summary>
+        turbo_ttdm,
+
+        /// <summary>
+        /// Aegis Last Titan Standing
+        /// </summary>
+        alts,
+
+        /// <summary>
+        /// Turbo Last Titan Standing
+        /// </summary>
+        turbo_lts,
+
+        /// <summary>
+        /// Rocket Arena
+        /// </summary>
+        rocket_lf,
+
+        /// <summary>
+        /// The Great Bamboozle
+        /// </summary>
+        holopilot_lf,
+
+        /// <summary>
+        /// Gun Game
+        /// </summary>
+        gg,
+
+        /// <summary>
+        /// Titan Tag
+        /// </summary>
+        tt,
+
+        /// <summary>
+        /// Infection
+        /// </summary>
+        inf,
+
+        /// <summary>
+        /// Amped Killrace
+        /// </summary>
+        kr,
+
+        /// <summary>
+        /// Fastball
+        /// </summary>
+        fastball,
+
+        /// <summary>
+        /// Hide and Seek
+        /// </summary>
+        hs,
+
+        /// <summary>
+        /// Competitive CTF
+        /// </summary>
+        ctf_comp,
+
+        #endregion
     }
 
     internal static class GameModeMethods
@@ -188,7 +268,8 @@ namespace titanfall2_rp.enums
             var parseSuccess = Enum.TryParse(typeof(GameMode), gameModeCodeName, true, out var mode);
             if (!parseSuccess)
                 throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'.");
-            return (GameMode)(mode ?? throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'."));
+            return (GameMode)(mode ??
+                              throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'."));
         }
 
         /// <summary>
@@ -218,6 +299,21 @@ namespace titanfall2_rp.enums
                 GameMode.fd_master => "Frontier Defense (Master)",
                 GameMode.fd_insane => "Frontier Defense (Insane)",
                 GameMode.solo => "Campaign",
+                GameMode.ffa => "Free for All",
+                GameMode.fra => "Free Agents",
+                GameMode.attdm => "Aegis Titan Brawl",
+                GameMode.turbo_ttdm => "Turbo Titan Brawl",
+                GameMode.alts => "Aegis Last Titan Standing",
+                GameMode.turbo_lts => "Turbo Last Titan Standing",
+                GameMode.rocket_lf => "Rocket Arena",
+                GameMode.holopilot_lf => "The Great Bamboozle",
+                GameMode.gg => "Gun Game",
+                GameMode.tt => "expr",
+                GameMode.inf => "Infection",
+                GameMode.kr => "Amped Killrace",
+                GameMode.fastball => "Fastball",
+                GameMode.hs => "Hide and Seek",
+                GameMode.ctf_comp => "Competitive CTF",
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
             };
         }
