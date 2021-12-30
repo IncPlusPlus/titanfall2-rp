@@ -203,6 +203,8 @@ namespace titanfall2_rp
                 GameMode.fd_insane => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
                 GameMode.ffa => new FreeForAll(titanfall2Api, sharp),
+                // TODO: Determine if there is any scoring differences between CTF and Competitive CTF
+                GameMode.ctf_comp => new CaptureTheFlag(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode)
             };
         }
