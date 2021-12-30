@@ -136,12 +136,12 @@ namespace titanfall2_rp
                 Sharp.Memory.Read(Tf2Api.EngineDllBaseAddress + 0x7A7383, 1)[0]);
         }
 
-        public int GetMyTeamScore()
+        public virtual int GetMyTeamScore()
         {
             return GetTeamScore(GetMyTeam(), true);
         }
 
-        public int GetEnemyTeamScore()
+        public virtual int GetEnemyTeamScore()
         {
             return GetTeamScore(GetMyTeam(), false);
         }
