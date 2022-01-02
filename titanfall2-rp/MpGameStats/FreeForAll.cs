@@ -9,43 +9,21 @@ namespace titanfall2_rp.MpGameStats
         }
 
         /// <summary>
-        /// The score of "team 1" is actually just the current user's score
+        /// The score of "my team" is actually just the current user's score
         /// </summary>
         /// <returns></returns>
-        public override int GetTeam1Score()
+        protected override int GetMyTeamScore()
         {
-            return GetScore(GetMyIdOnServer());
+            return GetScore();
         }
 
         /// <summary>
-        /// The score of "team 2" is actually the score of the player with the highest score
+        /// The score of the "enemy team" is actually the score of the player with the highest score
         /// </summary>
         /// <returns></returns>
-        public override int GetTeam2Score()
+        protected override int GetEnemyTeamScore()
         {
             return GetHighestScoreInGameIgnoringPlayer(GetMyIdOnServer());
-        }
-
-        public override int GetMyTeamScore()
-        {
-            return GetTeam1Score();
-        }
-
-        public override int GetEnemyTeamScore()
-        {
-            return GetTeam2Score();
-        }
-
-        /// <summary>
-        /// Get the score of a user.
-        /// </summary>
-        /// <param name="playerId">the id of the player, leave blank to use the current player</param>
-        /// <returns>the user's score</returns>
-        private int GetScore(int playerId = -1)
-        {
-            var id = playerId < 0 ? GetMyIdOnServer() : playerId;
-            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.FreeForAll.Score +
-                                          (id * MpOffsets.FreeForAll.AttritionStatsPlayerIdOffset));
         }
 
         private int GetHighestScoreInGameIgnoringPlayer(int playerIdToIgnore = -1)
