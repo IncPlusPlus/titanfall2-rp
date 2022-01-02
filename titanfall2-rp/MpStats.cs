@@ -136,12 +136,23 @@ namespace titanfall2_rp
                 Sharp.Memory.Read(Tf2Api.EngineDllBaseAddress + 0x7A7383, 1)[0]);
         }
 
-        public virtual int GetMyTeamScore()
+        /// <summary>
+        /// Retrieve a string that represents the current state of the match. For all score-based game modes, this will
+        /// show the current score. Any game modes that aren't score-based will override this method with a
+        /// more appropriate string.
+        /// </summary>
+        /// <returns>a string representing the current state of the match</returns>
+        public virtual String GetGameState()
+        {
+            return $"Score: {GetMyTeamScore()} - {GetEnemyTeamScore()}";
+        }
+
+        protected virtual int GetMyTeamScore()
         {
             return GetTeamScore(GetMyTeam(), true);
         }
 
-        public virtual int GetEnemyTeamScore()
+        protected virtual int GetEnemyTeamScore()
         {
             return GetTeamScore(GetMyTeam(), false);
         }
@@ -151,7 +162,7 @@ namespace titanfall2_rp
         /// I'm not sure why. This is something that I need some help figuring out.
         /// </summary>
         /// <returns>the score of team 1, -1 if not applicable to this game mode</returns>
-        public virtual int GetTeam1Score()
+        public int GetTeam1Score()
         {
             return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x1121814C);
         }
@@ -161,9 +172,52 @@ namespace titanfall2_rp
         /// I'm not sure why. This is something that I need some help figuring out.
         /// </summary>
         /// <returns>the score of team 2, -1 if not applicable to this game mode</returns>
-        public virtual int GetTeam2Score()
+        public int GetTeam2Score()
         {
             return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + 0x11218CA0);
+        }
+
+        /// <summary>
+        /// Get the score of a user.
+        /// </summary>
+        /// <param name="playerId">the id of the player, leave blank to use the current player</param>
+        /// <returns>the user's score</returns>
+        protected int GetScore(int playerId = -1)
+        {
+            var id = playerId < 0 ? GetMyIdOnServer() : playerId;
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Score +
+                                          (id * MpOffsets.ScoringStatsPlayerIdOffset));
+        }
+
+        /// <summary>
+        /// Get the highest score in the match, spare the specified player ID. If no player ID is specified,
+        /// then no player ID will be skipped and all players are included when finding who has the highest score.
+        /// </summary>
+        /// <param name="playerIdToIgnore">leave blank to just find the max. Otherwise, specify a player to ignore
+        /// in this search</param>
+        /// <returns>the score of the highest scoring player in the match</returns>
+        protected int GetHighestScoreInGame(int playerIdToIgnore = -1)
+        {
+            var currentHighest = int.MinValue;
+            // Loop through all the score slots
+            for (var i = 0; i < 64; i++)
+            {
+                // Skip the player whose ID we were instructed to ignore
+                if (i == playerIdToIgnore)
+                {
+                    continue;
+                }
+
+                var playerScore = GetScore(i);
+                // If the known highest score turns out to be lower than this player's score...
+                if (playerScore > currentHighest)
+                {
+                    // Set the known highest to be that new highest score
+                    currentHighest = playerScore;
+                }
+            }
+
+            return currentHighest;
         }
 
         /// <summary>
@@ -203,6 +257,7 @@ namespace titanfall2_rp
                 GameMode.fd_insane => new FrontierDefense(titanfall2Api, sharp),
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
                 GameMode.ffa => new FreeForAll(titanfall2Api, sharp),
+                GameMode.fra => new FreeAgents(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode)
             };
         }
@@ -318,6 +373,15 @@ namespace titanfall2_rp
         internal const int NamePlayerIdIncrement = 0x58;
 
         /// <summary>
+        /// <see cref="Health"/>
+        /// </summary>
+        internal const int ScoringStatsPlayerIdOffset = 0x4;
+
+        internal const int Score = 0x1123D510;
+        internal const int PilotKills = 0x1123D27C;
+        internal const int MinionKills = 0x1123D384;
+
+        /// <summary>
         /// The <see cref="Name"/> address is really the address to a pointer. Applying these offsets to that pointer
         /// points to the address with the actual desired value.
         /// </summary>
@@ -325,20 +389,6 @@ namespace titanfall2_rp
         {
             // Use a property instead of a field to prevent the array from being modified by my dumb ass
             get { return new[] { 0x18, 0x50, 0x38, 0x38 }; }
-        }
-
-        public static class Attrition
-        {
-            internal const int Kills = 0x1123D27C;
-            internal const int MinionKills = 0x1123D384;
-            internal const int Score = 0x1123D510;
-            internal const int AttritionStatsPlayerIdOffset = 0x4;
-        }
-
-        public static class FreeForAll
-        {
-            internal const int Score = Attrition.Score;
-            internal const int AttritionStatsPlayerIdOffset = Attrition.AttritionStatsPlayerIdOffset;
         }
     }
 }

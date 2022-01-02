@@ -6,11 +6,12 @@ namespace titanfall2_rp
 {
     public static class GameDetailsProvider
     {
-        public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api, DateTime gameOpenTimestamp)
+        public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api,
+            DateTime gameOpenTimestamp)
         {
             var mpStats = tf2Api.GetMultiPlayerGameStats();
-            string gameDetails = tf2Api.GetGameMode().ToFriendlyString();
-            string gameState = $"Score: {mpStats.GetMyTeamScore()} - {mpStats.GetEnemyTeamScore()}";
+            var gameDetails = tf2Api.GetGameMode().ToFriendlyString();
+            var gameState = mpStats.GetGameState();
             var timestamps = new Timestamps(gameOpenTimestamp);
             var map = Map.FromName(tf2Api.GetMultiplayerMapName());
             var playerInTitan = tf2Api.IsPlayerInTitan();
@@ -18,8 +19,12 @@ namespace titanfall2_rp
             {
                 LargeImageKey = map.ToString(),
                 LargeImageText = map.InEnglish(),
-                SmallImageKey = playerInTitan ? tf2Api.GetTitan().GetAssetName() : mpStats.GetCurrentFaction().GetAssetName(),
-                SmallImageText = playerInTitan ? tf2Api.GetTitan().ToFriendlyString() : mpStats.GetCurrentFaction().ToFriendlyString(),
+                SmallImageKey = playerInTitan
+                    ? tf2Api.GetTitan().GetAssetName()
+                    : mpStats.GetCurrentFaction().GetAssetName(),
+                SmallImageText = playerInTitan
+                    ? tf2Api.GetTitan().ToFriendlyString()
+                    : mpStats.GetCurrentFaction().ToFriendlyString(),
             };
             return (gameDetails, gameState, timestamps, assets);
         }

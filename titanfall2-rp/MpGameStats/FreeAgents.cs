@@ -2,9 +2,9 @@
 
 namespace titanfall2_rp.MpGameStats
 {
-    public class FreeForAll : MpStats
+    public class FreeAgents : MpStats
     {
-        public FreeForAll(Titanfall2Api tf2Api, ProcessSharp processSharp) : base(tf2Api, processSharp)
+        public FreeAgents(Titanfall2Api tf2Api, ProcessSharp processSharp) : base(tf2Api, processSharp)
         {
         }
 

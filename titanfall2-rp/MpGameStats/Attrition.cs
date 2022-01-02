@@ -6,18 +6,7 @@ namespace titanfall2_rp.MpGameStats
     public class Attrition : MpStats
     {
         public Attrition(Titanfall2Api tf2Api, ProcessSharp processSharp) : base(tf2Api, processSharp)
-        { }
-
-        /// <summary>
-        /// Get the score of a user.
-        /// </summary>
-        /// <param name="playerId">the id of the player, leave blank to use the current player</param>
-        /// <returns>the user's score</returns>
-        public int GetScore(int playerId = -1)
         {
-            var id = playerId < 0 ? GetMyIdOnServer() : playerId;
-            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Attrition.Score +
-                                          (id * MpOffsets.Attrition.AttritionStatsPlayerIdOffset));
         }
 
         /// <summary>
@@ -28,8 +17,8 @@ namespace titanfall2_rp.MpGameStats
         public int GetPilotKills(int playerId = -1)
         {
             var id = playerId < 0 ? GetMyIdOnServer() : playerId;
-            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Attrition.Kills +
-                                          (id * MpOffsets.Attrition.AttritionStatsPlayerIdOffset));
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.PilotKills +
+                                          (id * MpOffsets.ScoringStatsPlayerIdOffset));
         }
 
         /// <summary>
@@ -49,8 +38,8 @@ namespace titanfall2_rp.MpGameStats
         public int GetMinionKills(int playerId)
         {
             var id = playerId < 0 ? GetMyIdOnServer() : playerId;
-            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.Attrition.MinionKills +
-                                          (id * MpOffsets.Attrition.AttritionStatsPlayerIdOffset));
+            return Sharp.Memory.Read<int>(Tf2Api.EngineDllBaseAddress + MpOffsets.MinionKills +
+                                          (id * MpOffsets.ScoringStatsPlayerIdOffset));
         }
     }
 }
