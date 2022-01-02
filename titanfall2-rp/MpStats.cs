@@ -260,6 +260,7 @@ namespace titanfall2_rp
                 GameMode.fra => new FreeAgents(titanfall2Api, sharp),
                 GameMode.attdm => new TitanBrawl(titanfall2Api, sharp),
                 GameMode.turbo_ttdm => new TitanBrawl(titanfall2Api, sharp),
+                GameMode.alts => new LastTitanStanding(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode)
             };
         }
