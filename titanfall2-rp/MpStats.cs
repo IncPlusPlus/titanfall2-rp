@@ -258,6 +258,7 @@ namespace titanfall2_rp
                 GameMode.solo => throw new ArgumentException("Tried to get multiplayer details for the campaign"),
                 GameMode.ffa => new FreeForAll(titanfall2Api, sharp),
                 GameMode.fra => new FreeAgents(titanfall2Api, sharp),
+                GameMode.turbo_ttdm => new TitanBrawl(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode)
             };
         }
