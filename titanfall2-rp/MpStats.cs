@@ -190,6 +190,37 @@ namespace titanfall2_rp
         }
 
         /// <summary>
+        /// Get the highest score in the match, spare the specified player ID. If no player ID is specified,
+        /// then no player ID will be skipped and all players are included when finding who has the highest score.
+        /// </summary>
+        /// <param name="playerIdToIgnore">leave blank to just find the max. Otherwise, specify a player to ignore
+        /// in this search</param>
+        /// <returns>the score of the highest scoring player in the match</returns>
+        protected int GetHighestScoreInGame(int playerIdToIgnore = -1)
+        {
+            var currentHighest = int.MinValue;
+            // Loop through all the score slots
+            for (var i = 0; i < 64; i++)
+            {
+                // Skip the player whose ID we were instructed to ignore
+                if (i == playerIdToIgnore)
+                {
+                    continue;
+                }
+
+                var playerScore = GetScore(i);
+                // If the known highest score turns out to be lower than this player's score...
+                if (playerScore > currentHighest)
+                {
+                    // Set the known highest to be that new highest score
+                    currentHighest = playerScore;
+                }
+            }
+
+            return currentHighest;
+        }
+
+        /// <summary>
         /// Get the number of points one team needs to win the match 
         /// </summary>
         /// <returns>the number of points one team needs to win the match, -1 if not applicable (like in frontier defense)</returns>
