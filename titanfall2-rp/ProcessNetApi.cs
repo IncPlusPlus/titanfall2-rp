@@ -10,7 +10,7 @@ namespace titanfall2_rp
     public static class ProcessNetApi
     {
         private const string ProcessName = "Titanfall2";
-        private const string NorthstarProcessName = "Titanfall2-unpacked";
+        private const string NorthstarProcessName = "NorthstarLauncher";
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod()!.DeclaringType);
 
         private static ProcessSharp? _sharp;
