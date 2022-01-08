@@ -12,7 +12,7 @@ namespace titanfall2_rp
             var mpStats = tf2Api.GetMultiPlayerGameStats();
             var gameMode = tf2Api.GetGameMode();
             var gameDetails = gameMode == GameMode.UNKNOWN_GAME_MODE
-                ? $"Gamemode: {tf2Api.GetGameModeCodeName()}"
+                ? $"Game mode: {tf2Api.GetGameModeCodeName()}"
                 : gameMode.ToFriendlyString();
             var gameState = mpStats.GetGameState();
             var timestamps = new Timestamps(gameOpenTimestamp);
