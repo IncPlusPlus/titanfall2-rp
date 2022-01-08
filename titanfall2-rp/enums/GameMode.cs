@@ -97,6 +97,11 @@ namespace titanfall2_rp.enums
     public enum GameMode
     {
         /// <summary>
+        /// This enum value represents a game mode that is unrecognized
+        /// </summary>
+        UNKNOWN_GAME_MODE,
+
+        /// <summary>
         /// Coliseum
         /// </summary>
         coliseum,
@@ -267,9 +272,8 @@ namespace titanfall2_rp.enums
         {
             var parseSuccess = Enum.TryParse(typeof(GameMode), gameModeCodeName, true, out var mode);
             if (!parseSuccess)
-                throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'.");
-            return (GameMode)(mode ??
-                              throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'."));
+                return GameMode.UNKNOWN_GAME_MODE;
+            return (GameMode)((mode) ?? GameMode.UNKNOWN_GAME_MODE);
         }
 
         /// <summary>
@@ -314,7 +318,8 @@ namespace titanfall2_rp.enums
                 GameMode.fastball => "Fastball",
                 GameMode.hs => "Hide and Seek",
                 GameMode.ctf_comp => "Competitive CTF",
-                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode,
+                    "No friendly string for gamemode")
             };
         }
     }
