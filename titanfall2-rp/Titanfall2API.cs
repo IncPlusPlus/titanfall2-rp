@@ -209,7 +209,7 @@ namespace titanfall2_rp
             ServerDllBaseAddress = GetModuleBaseAddress(sharp.Native, "server.dll");
             IsNorthstarClient = System.Diagnostics.Process.GetProcessById(sharp.Native.Id)
                 .GetModules()
-                .Any(module => module.ModuleName.Equals("Northstar.dll"));
+                .Any(module => module.ModuleName?.Equals("Northstar.dll") ?? false);
         }
     }
 }
