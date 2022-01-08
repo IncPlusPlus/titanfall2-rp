@@ -262,6 +262,7 @@ namespace titanfall2_rp
                 GameMode.turbo_ttdm => new TitanBrawl(titanfall2Api, sharp),
                 GameMode.alts => new LastTitanStanding(titanfall2Api, sharp),
                 GameMode.turbo_lts => new LastTitanStanding(titanfall2Api, sharp),
+                GameMode.gg => new GunGame(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode, titanfall2Api, sharp)
             };
         }
