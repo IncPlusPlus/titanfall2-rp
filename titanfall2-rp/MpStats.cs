@@ -142,7 +142,7 @@ namespace titanfall2_rp
         /// more appropriate string.
         /// </summary>
         /// <returns>a string representing the current state of the match</returns>
-        public virtual String GetGameState()
+        public virtual string GetGameState()
         {
             return $"Score: {GetMyTeamScore()} - {GetEnemyTeamScore()}";
         }
@@ -262,15 +262,15 @@ namespace titanfall2_rp
                 GameMode.turbo_ttdm => new TitanBrawl(titanfall2Api, sharp),
                 GameMode.alts => new LastTitanStanding(titanfall2Api, sharp),
                 GameMode.turbo_lts => new LastTitanStanding(titanfall2Api, sharp),
-                _ => ReportGameModeFailure(gameMode)
+                _ => ReportGameModeFailure(gameMode, titanfall2Api, sharp)
             };
         }
 
-        private static MpStats ReportGameModeFailure(GameMode gameMode)
+        private static MpStats ReportGameModeFailure(GameMode gameMode, Titanfall2Api titanfall2Api, ProcessSharp sharp)
         {
             var e = new ArgumentOutOfRangeException(nameof(gameMode), gameMode, $"Unknown game mode '{gameMode}'.");
             SegmentManager.SegmentManager.TrackEvent(TrackableEvent.GameplayInfoFailure, e);
-            throw e;
+            return new UnknownGameMode(titanfall2Api, sharp);
         }
 
         /// <summary>
