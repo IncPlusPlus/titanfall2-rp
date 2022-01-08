@@ -83,11 +83,15 @@ namespace titanfall2_rp
             return GetGameMode().ToFriendlyString();
         }
 
-        public GameMode GetGameMode()
+        public string GetGameModeCodeName()
         {
             _ensureInit();
-            string gameModeCodeName = _sharp!.Memory.Read(EngineDllBaseAddress + 0x13984088, Encoding.UTF8, 15);
-            return GameModeMethods.GetGameMode(gameModeCodeName);
+            return _sharp!.Memory.Read(EngineDllBaseAddress + 0x13984088, Encoding.UTF8, 15);
+        }
+
+        public GameMode GetGameMode()
+        {
+            return GameModeMethods.GetGameMode(GetGameModeCodeName());
         }
 
         /// <returns>the name of the multiplayer map being played</returns>
