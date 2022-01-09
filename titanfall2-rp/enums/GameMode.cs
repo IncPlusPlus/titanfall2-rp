@@ -229,6 +229,11 @@ namespace titanfall2_rp.enums
         holopilot_lf,
 
         /// <summary>
+        /// One in the Chamber
+        /// </summary>
+        chamber,
+
+        /// <summary>
         /// Gun Game
         /// </summary>
         gg,
@@ -318,6 +323,7 @@ namespace titanfall2_rp.enums
                 GameMode.fastball => "Fastball",
                 GameMode.hs => "Hide and Seek",
                 GameMode.ctf_comp => "Competitive CTF",
+                GameMode.chamber => "One in the Chamber",
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode,
                     "No friendly string for gamemode")
             };
