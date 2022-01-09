@@ -268,6 +268,7 @@ namespace titanfall2_rp
                 GameMode.hidden => new TheHidden(titanfall2Api, sharp),
                 GameMode.gg => new GunGame(titanfall2Api, sharp),
                 GameMode.tt => new TitanTag(titanfall2Api, sharp),
+                GameMode.inf => new Infection(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode, titanfall2Api, sharp)
             };
         }
