@@ -317,7 +317,7 @@ namespace titanfall2_rp.enums
                 GameMode.rocket_lf => "Rocket Arena",
                 GameMode.holopilot_lf => "The Great Bamboozle",
                 GameMode.gg => "Gun Game",
-                GameMode.tt => "expr",
+                GameMode.tt => "Titan Tag",
                 GameMode.inf => "Infection",
                 GameMode.kr => "Amped Killrace",
                 GameMode.fastball => "Fastball",
