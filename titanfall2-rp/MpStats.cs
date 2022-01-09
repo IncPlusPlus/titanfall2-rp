@@ -265,6 +265,7 @@ namespace titanfall2_rp
                 GameMode.rocket_lf => new LiveFire(titanfall2Api, sharp),
                 GameMode.holopilot_lf => new LiveFire(titanfall2Api, sharp),
                 GameMode.chamber => new FreeForAll(titanfall2Api, sharp),
+                GameMode.hidden => new TheHidden(titanfall2Api, sharp),
                 GameMode.gg => new GunGame(titanfall2Api, sharp),
                 GameMode.tt => new TitanTag(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode, titanfall2Api, sharp)
@@ -301,7 +302,7 @@ namespace titanfall2_rp
         /// The user's internal team number. This tends to be 2 or 3.
         /// </summary>
         /// <returns>the internal representation of the current user's team</returns>
-        private int GetMyTeam()
+        protected int GetMyTeam()
         {
             return Sharp.Memory.Read<int>(ProcessApi.ResolvePointerAddress(Sharp,
                                               (Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase)) +

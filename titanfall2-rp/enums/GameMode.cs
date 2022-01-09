@@ -234,6 +234,11 @@ namespace titanfall2_rp.enums
         chamber,
 
         /// <summary>
+        /// The Hidden
+        /// </summary>
+        hidden,
+
+        /// <summary>
         /// Gun Game
         /// </summary>
         gg,
@@ -316,6 +321,7 @@ namespace titanfall2_rp.enums
                 GameMode.turbo_lts => "Turbo Last Titan Standing",
                 GameMode.rocket_lf => "Rocket Arena",
                 GameMode.holopilot_lf => "The Great Bamboozle",
+                GameMode.hidden => "The Hidden",
                 GameMode.gg => "Gun Game",
                 GameMode.tt => "Titan Tag",
                 GameMode.inf => "Infection",
@@ -325,7 +331,7 @@ namespace titanfall2_rp.enums
                 GameMode.ctf_comp => "Competitive CTF",
                 GameMode.chamber => "One in the Chamber",
                 _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode,
-                    "No friendly string for gamemode")
+                    $"No friendly string for game mode '{gameMode}'")
             };
         }
     }
