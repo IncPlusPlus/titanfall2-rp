@@ -97,6 +97,11 @@ namespace titanfall2_rp.enums
     public enum GameMode
     {
         /// <summary>
+        /// This enum value represents a game mode that is unrecognized
+        /// </summary>
+        UNKNOWN_GAME_MODE,
+
+        /// <summary>
         /// Coliseum
         /// </summary>
         coliseum,
@@ -224,6 +229,16 @@ namespace titanfall2_rp.enums
         holopilot_lf,
 
         /// <summary>
+        /// One in the Chamber
+        /// </summary>
+        chamber,
+
+        /// <summary>
+        /// The Hidden
+        /// </summary>
+        hidden,
+
+        /// <summary>
         /// Gun Game
         /// </summary>
         gg,
@@ -267,9 +282,8 @@ namespace titanfall2_rp.enums
         {
             var parseSuccess = Enum.TryParse(typeof(GameMode), gameModeCodeName, true, out var mode);
             if (!parseSuccess)
-                throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'.");
-            return (GameMode)(mode ??
-                              throw new ArgumentException("Unrecognized game mode '" + gameModeCodeName + "'."));
+                return GameMode.UNKNOWN_GAME_MODE;
+            return (GameMode)((mode) ?? GameMode.UNKNOWN_GAME_MODE);
         }
 
         /// <summary>
@@ -307,14 +321,17 @@ namespace titanfall2_rp.enums
                 GameMode.turbo_lts => "Turbo Last Titan Standing",
                 GameMode.rocket_lf => "Rocket Arena",
                 GameMode.holopilot_lf => "The Great Bamboozle",
+                GameMode.hidden => "The Hidden",
                 GameMode.gg => "Gun Game",
-                GameMode.tt => "expr",
+                GameMode.tt => "Titan Tag",
                 GameMode.inf => "Infection",
                 GameMode.kr => "Amped Killrace",
                 GameMode.fastball => "Fastball",
                 GameMode.hs => "Hide and Seek",
                 GameMode.ctf_comp => "Competitive CTF",
-                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode, null)
+                GameMode.chamber => "One in the Chamber",
+                _ => throw new ArgumentOutOfRangeException(nameof(gameMode), gameMode,
+                    $"No friendly string for game mode '{gameMode}'")
             };
         }
     }
