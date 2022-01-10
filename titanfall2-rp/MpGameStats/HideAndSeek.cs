@@ -8,15 +8,9 @@ namespace titanfall2_rp.MpGameStats
         {
         }
 
-        // TODO: Implement these
-        public override int GetMyTeamScore()
+        public override string GetGameState()
         {
-            return -1;
-        }
-
-        public override int GetEnemyTeamScore()
-        {
-            return -1;
+            return GetMyTeam() == 2 ? "Seeking..." : "Hiding...";
         }
     }
 }
