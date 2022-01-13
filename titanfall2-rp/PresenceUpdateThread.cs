@@ -128,7 +128,7 @@ namespace titanfall2_rp
             else if (tf2Api.GetMultiplayerMapName().Equals("mp_lobby"))
             {
                 gameDetails = "In a lobby";
-                timestamps = new Timestamps(ProcessNetApi.StartTimestamp);
+                timestamps = new Timestamps(tf2Api.GetMultiPlayerGameStats().GetLastServerConnectTime());
             }
             else if (tf2Api.GetGameMode() == GameMode.solo)
             {
@@ -140,7 +140,7 @@ namespace titanfall2_rp
             // Besides mp_lobby, any mp map will be prefixed with mp_. Grab the specific details then!
             else if (tf2Api.GetMultiplayerMapName().StartsWith("mp_"))
             {
-                return GameDetailsProvider.GetMultiplayerDetails(tf2Api, ProcessNetApi.StartTimestamp);
+                return GameDetailsProvider.GetMultiplayerDetails(tf2Api);
             }
             // Could be main menu, might be some other random thing. This can be cleaned up later
             else

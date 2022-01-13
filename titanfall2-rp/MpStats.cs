@@ -262,6 +262,14 @@ namespace titanfall2_rp
                 GameMode.turbo_ttdm => new TitanBrawl(titanfall2Api, sharp),
                 GameMode.alts => new LastTitanStanding(titanfall2Api, sharp),
                 GameMode.turbo_lts => new LastTitanStanding(titanfall2Api, sharp),
+                GameMode.rocket_lf => new LiveFire(titanfall2Api, sharp),
+                GameMode.holopilot_lf => new LiveFire(titanfall2Api, sharp),
+                GameMode.chamber => new FreeForAll(titanfall2Api, sharp),
+                GameMode.hidden => new TheHidden(titanfall2Api, sharp),
+                GameMode.gg => new GunGame(titanfall2Api, sharp),
+                GameMode.tt => new TitanTag(titanfall2Api, sharp),
+                GameMode.inf => new Infection(titanfall2Api, sharp),
+                GameMode.hs => new HideAndSeek(titanfall2Api, sharp),
                 _ => ReportGameModeFailure(gameMode, titanfall2Api, sharp)
             };
         }
@@ -296,11 +304,75 @@ namespace titanfall2_rp
         /// The user's internal team number. This tends to be 2 or 3.
         /// </summary>
         /// <returns>the internal representation of the current user's team</returns>
-        private int GetMyTeam()
+        protected int GetMyTeam()
         {
             return Sharp.Memory.Read<int>(ProcessApi.ResolvePointerAddress(Sharp,
                                               (Tf2Api.ClientDllBaseAddress + EntityOffsets.LocalPlayerBase)) +
                                           EntityOffsets.LocalPlayer.m_iTeamNum);
+        }
+
+        /// <summary>
+        /// The current game_server_time command output. This doesn't run the command but I think I found some reliable
+        /// offsets for the value it should return.
+        ///
+        /// Currently viable offsets:
+        ///
+        /// These ones look okay. however, I don't think they're guaranteed to be right. Sometimes they just keep on ticking even though they should reset after connecting to a server.
+        /// 
+        /// tier0.g_ClockSpeedSecondsMultiplier+1E8
+        /// client.dll+C3DB28
+        /// client.dll+216FD1C
+        /// client.dll+27B8354
+        /// client.dll+27B8378
+        /// client.dll+27B837C
+        /// client.dll+27B8380
+        /// client.dll+27B8384
+        /// client.dll+27B838C
+        /// client.dll+27B8390
+        /// client.dll+27FF740
+        /// client.dll+27FF744
+        /// client.dll+27FF748
+        /// client.dll+2A9F064
+        /// client.dll+2E55F10
+        /// client.dll+3BE12A4
+        /// engine.dll+7A5C40
+        /// engine.dll+7A5C44
+        /// engine.dll+7A5C48
+        /// engine.dll+7A5C4C
+        /// engine.dll+7A5C54
+        /// engine.dll+7A5C58
+        /// engine.dll+7A6570
+        /// engine.dll+7A65FC
+        /// engine.dll+7A6748
+        /// engine.dll+7A674C
+        /// engine.dll+7B6644
+        /// engine.dll+F84BCF8
+        /// engine.dll+F84BD80
+        /// engine.dll+F84BE08
+        /// engine.dll+FD13C00
+        /// engine.dll+FD13C2C
+        /// engine.dll+FD13C58
+        ///
+        /// 
+        /// however, these ones seem to start at the right time when connecting to a match in progress from the server browser
+        /// client.dll+27FF740
+        /// client.dll+27FF744
+        /// client.dll+27FF748
+        /// client.dll+2A9F064 (this one seems to be a little ahead)
+        /// </summary>
+        /// <returns>the number of seconds since the client connected to the current server</returns>
+        public float GetServerGameTime()
+        {
+            return Sharp.Memory.Read<float>(Tf2Api.ClientDllBaseAddress + 0x27FF740);
+        }
+
+        /// <summary>
+        /// Get the timestamp of the last time the client connected to a server
+        /// </summary>
+        /// <returns>a timestamp of the last time the client connected to a server</returns>
+        public DateTime GetLastServerConnectTime()
+        {
+            return DateTimeOffset.Now.UtcDateTime.Subtract(TimeSpan.FromSeconds(GetServerGameTime()));
         }
     }
 
