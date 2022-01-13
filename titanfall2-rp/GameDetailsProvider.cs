@@ -1,13 +1,11 @@
-﻿using System;
-using DiscordRPC;
+﻿using DiscordRPC;
 using titanfall2_rp.enums;
 
 namespace titanfall2_rp
 {
     public static class GameDetailsProvider
     {
-        public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api,
-            DateTime gameOpenTimestamp)
+        public static (string, string, Timestamps?, Assets? assets) GetMultiplayerDetails(Titanfall2Api tf2Api)
         {
             var mpStats = tf2Api.GetMultiPlayerGameStats();
             var gameMode = tf2Api.GetGameMode();
@@ -15,7 +13,7 @@ namespace titanfall2_rp
                 ? $"Game mode: {tf2Api.GetGameModeCodeName()}"
                 : gameMode.ToFriendlyString();
             var gameState = mpStats.GetGameState();
-            var timestamps = new Timestamps(gameOpenTimestamp);
+            var timestamps = new Timestamps(mpStats.GetLastServerConnectTime());
             var map = Map.FromName(tf2Api.GetMultiplayerMapName());
             var playerInTitan = tf2Api.IsPlayerInTitan();
             var assets = new Assets
