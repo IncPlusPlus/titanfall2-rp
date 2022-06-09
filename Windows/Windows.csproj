@@ -54,7 +54,7 @@
 
     <ItemGroup>
       <PackageReference Include="Xamarin.Forms" Version="4.3.0.947036" />
-      <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.3.0.947036" />
+      <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="5.0.0.2478+927-sha.9f26f70d6-azdo.6239473" />
     </ItemGroup>
 
     <ItemGroup>
