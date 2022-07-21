@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Analytics" Version="3.8.0" />
+      <PackageReference Include="Analytics" Version="3.8.1" />
       <PackageReference Include="Ardalis.SmartEnum" Version="2.0.1" />
       <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
       <PackageReference Include="DiscordRichPresence" Version="1.0.175" />
