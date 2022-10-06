@@ -8,7 +8,8 @@
         <UseWindowsForms>true</UseWindowsForms>
         <RootNamespace>titanfall2_rp.Windows</RootNamespace>
         <AssemblyName>titanfall2-rp</AssemblyName>
-        <PublishTrimmed>true</PublishTrimmed>
+        <!-- https://github.com/IncPlusPlus/titanfall2-rp/issues/218 -->
+        <PublishTrimmed>false</PublishTrimmed>
         <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
         <!--https://docs.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-3-0#single-file-executables-->
         <PublishSingleFile>true</PublishSingleFile>
