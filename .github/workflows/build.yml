@@ -32,14 +32,14 @@ jobs:
       - name: Attempt to build project
         run: dotnet build
 
-#      - name: Show exe version info
-#        run: dotnet versioninfo Windows/bin/Debug/net5.0-windows/win10-x64/titanfall2-rp.exe -j
-#
-#      - name: Show dll version info
-#        run: dotnet versioninfo Windows/bin/Debug/net5.0-windows/win10-x64/titanfall2-rp.dll -j
-#
-#      - name: Show wine exe version info
-#        run: dotnet versioninfo Wine/bin/Debug/net5.0/win10-x64/titanfall2-rp-Wine.exe -j
-#
-#      - name: Show wine dll version info
-#        run: dotnet versioninfo Wine/bin/Debug/net5.0/win10-x64/titanfall2-rp-Wine.dll -j
+      - name: Show exe version info
+        run: dotnet versioninfo Windows/bin/Debug/net5.0-windows/win10-x64/titanfall2-rp.exe -j
+
+      - name: Show dll version info
+        run: dotnet versioninfo Windows/bin/Debug/net5.0-windows/win10-x64/titanfall2-rp.dll -j
+
+      - name: Show wine exe version info
+        run: dotnet versioninfo Wine/bin/Debug/net5.0/win10-x64/titanfall2-rp-Wine.exe -j
+
+      - name: Show wine dll version info
+        run: dotnet versioninfo Wine/bin/Debug/net5.0/win10-x64/titanfall2-rp-Wine.dll -j
