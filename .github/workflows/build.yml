@@ -20,7 +20,7 @@ jobs:
         uses: xt0rted/dotnet-tool-restore@v1
 
       - name: Run dotnet format
-        run: dotnet format --check
+        run: dotnet format --verify-no-changes
 # https://github.com/xt0rted/dotnet-format/issues/174
 #      - name: Run dotnet format
 #        uses: xt0rted/dotnet-format@v1
